@@ -1,4 +1,5 @@
-# ThurnAndTaxis #
+# ThurnAndTaxis # 
+[![Build Status](https://travis-ci.org/RenoTz/ThurnAndTaxis.svg?branch=master)](https://travis-ci.org/RenoTz/ThurnAndTaxis)
 ![RO](http://www.holyromanempireassociation.com/image/117788504_scaled_128x128.png)
 
 ## Type ##
@@ -23,4 +24,4 @@ Penser à installer : [eclipse](http://www.eclipse.org/downloads/?)
 
 ### Travis CI ###
 **Le build se trouve ici :**
-https://travis-ci.org/RenoTz/ThurnAndTaxis.svg?branch=master
+https://travis-ci.org/RenoTz/ThurnAndTaxis
