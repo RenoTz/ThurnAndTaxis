@@ -12,19 +12,19 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class MainTest {
-
+    
     @InjectMocks
     private Main main;
-    
+
     @Test
     public void testAjouterDeux() {
-        
+
         // Act
         int retour = this.main.ajouterDeux(1);
-
-        // Assert
-        assertEquals(2, retour);
         
-    }
+        // Assert
+        assertEquals(3, retour);
 
+    }
+    
 }
