@@ -1,38 +1,30 @@
 package com.project.thurnandtaxis;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Unit test for simple App.
  */
-public class MainTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public MainTest( String testName )
-    {
-        super( testName );
+@RunWith(MockitoJUnitRunner.class)
+public class MainTest {
+
+    @InjectMocks
+    private Main main;
+    
+    @Test
+    public void testAjouterDeux() {
+        
+        // Act
+        int retour = this.main.ajouterDeux(1);
+
+        // Assert
+        assertEquals(2, retour);
+        
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( MainTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
 }
