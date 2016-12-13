@@ -25,4 +25,6 @@ Penser à installer : [eclipse](http://www.eclipse.org/downloads/?)
 
 ### Travis CI ###
 **Le build se trouve ici :**
-https://travis-ci.org/RenoTz/ThurnAndTaxis
+```code
+    https://travis-ci.org/RenoTz/ThurnAndTaxis
+```
