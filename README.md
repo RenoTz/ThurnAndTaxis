@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/RenoTz/ThurnAndTaxis.svg?branch=master)](https://travis-ci.org/RenoTz/ThurnAndTaxis)
-image:https://travis-ci.org/RenoTz/ThurnAndTaxis.svg?branch=master["Build Status", link="https://travis-ci.org/RenoTz/ThurnAndTaxis"]
-#https://api.travis-ci.org/repos/RenoTz/ThurnAndTaxis/cc.xml?branch=master
+
 # ThurnAndTaxis
 ![RO](http://www.holyromanempireassociation.com/image/117788504_scaled_128x128.png)
 
