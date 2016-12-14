@@ -8,27 +8,28 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public class ParserXML {
-    
-    public Document recupererFichierXML(final String nomFichier) {
-        
+
+    public Element recupererFichierXML(final String nomFichier) {
+
         final DocumentBuilder builderXML = this.creerParserXML();
-        
+
         Document document = null;
         try {
             document = builderXML.parse(new File(nomFichier));
         } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
-        
-        return document;
-    }
 
+        return document.getDocumentElement();
+    }
+    
     private DocumentBuilder creerParserXML() {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
+        
         DocumentBuilder builder = null;
         try {
             builder = factory.newDocumentBuilder();
@@ -37,5 +38,5 @@ public class ParserXML {
         }
         return builder;
     }
-    
+
 }
