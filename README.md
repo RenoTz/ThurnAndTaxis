@@ -24,7 +24,9 @@ Représentation du jeu de plateau Thurn und Taxis en Java 8 (avec Jframe)
 Penser à installer : [eclipse](http://www.eclipse.org/downloads/?)
 
 ### Travis CI ###
-**Le build se trouve ici :**
+
 ```code
-    https://travis-ci.org/RenoTz/ThurnAndTaxis
+    **Le build se trouve [ici][1]**
 ```
+
+[1]: https://travis-ci.org/RenoTz/ThurnAndTaxis
