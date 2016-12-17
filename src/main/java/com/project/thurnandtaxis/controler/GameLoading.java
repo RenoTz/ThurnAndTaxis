@@ -11,6 +11,7 @@ import com.project.thurnandtaxis.data.beans.Carriage;
 import com.project.thurnandtaxis.data.beans.GameParams;
 import com.project.thurnandtaxis.data.beans.House;
 import com.project.thurnandtaxis.data.beans.Official;
+import com.project.thurnandtaxis.data.beans.Province;
 import com.project.thurnandtaxis.data.constantes.ConstantesGameParams;
 
 public class GameLoading {
@@ -19,6 +20,7 @@ public class GameLoading {
     private List<House> listeHouses = null;
     private List<Carriage> listeCarriages = null;
     private GameParams gameParams = null;
+    private List<Province> listeProvinces = null;
 
     public GameLoading(final JSONObject jsonGameElements) throws JSONException, IOException {
         this.chargerTousLesParametresDuJeu(jsonGameElements);
@@ -32,6 +34,7 @@ public class GameLoading {
         this.listeOfficials = coordGameParams.recupererListeOfficialsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.OFFICIALS));
         this.listeHouses = coordGameParams.recupererListeHousesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.HOUSES));
         this.listeCarriages = coordGameParams.recupererListeCarriagesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.CARRIAGES));
+        this.listeProvinces = coordGameParams.recupererListeProvincesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES));
     }
 
     public List<Official> getListeOfficials() {
@@ -48,6 +51,10 @@ public class GameLoading {
 
     public GameParams getGameParams() {
         return this.gameParams;
+    }
+
+    public List<Province> getListeProvinces() {
+        return this.listeProvinces;
     }
 
 }

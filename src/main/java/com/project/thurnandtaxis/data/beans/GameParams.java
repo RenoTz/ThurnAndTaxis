@@ -5,13 +5,13 @@ import javax.swing.ImageIcon;
 public class GameParams {
 
     private String name;
-    private String cheminGameBoardImage;
     private ImageIcon gameBoardImage;
-    private String cheminBackCardImage;
     private ImageIcon backCardImage;
+    private Long nbInitialHouses;
     private Long nbCopiesCityCards;
     private Long nbMinCityCardsCloseRoute;
     private Long nbMaxCityCardsRouteClosed;
+    private Long nbCityCardsCartwrightAdvantage;
 
     public String getName() {
         return this.name;
@@ -20,29 +20,13 @@ public class GameParams {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getCheminGameBoardImage() {
-        return this.cheminGameBoardImage;
-    }
-
-    public void setCheminGameBoardImage(String cheminGameBoardImage) {
-        this.cheminGameBoardImage = cheminGameBoardImage;
-    }
-
+    
     public ImageIcon getGameBoardImage() {
         return this.gameBoardImage;
     }
 
     public void setGameBoardImage(ImageIcon gameBoardImage) {
         this.gameBoardImage = gameBoardImage;
-    }
-
-    public String getCheminBackCardImage() {
-        return this.cheminBackCardImage;
-    }
-
-    public void setCheminBackCardImage(String cheminBackCardImage) {
-        this.cheminBackCardImage = cheminBackCardImage;
     }
 
     public ImageIcon getBackCardImage() {
@@ -75,6 +59,22 @@ public class GameParams {
 
     public void setNbMaxCityCardsRouteClosed(Long nbMaxCityCardsRouteClosed) {
         this.nbMaxCityCardsRouteClosed = nbMaxCityCardsRouteClosed;
+    }
+    
+    public Long getNbCityCardsCartwrightAdvantage() {
+        return this.nbCityCardsCartwrightAdvantage;
+    }
+    
+    public void setNbCityCardsCartwrightAdvantage(Long nbCityCardsCartwrightAdvantage) {
+        this.nbCityCardsCartwrightAdvantage = nbCityCardsCartwrightAdvantage;
+    }
+    
+    public Long getNbInitialHouses() {
+        return this.nbInitialHouses;
+    }
+    
+    public void setNbInitialHouses(Long nbInitialHouses) {
+        this.nbInitialHouses = nbInitialHouses;
     }
     
 }
