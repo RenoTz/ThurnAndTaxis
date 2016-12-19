@@ -11,9 +11,11 @@ import com.project.thurnandtaxis.data.beans.GameParams;
 import com.project.thurnandtaxis.data.beans.House;
 import com.project.thurnandtaxis.data.beans.Official;
 import com.project.thurnandtaxis.data.beans.Province;
+import com.project.thurnandtaxis.data.beans.ProvinceBonus;
+import com.project.thurnandtaxis.data.beans.Tile;
 
 public class AfficheUtils {
-
+    
     public static void afficherGameParams(final GameParams gameParams) {
         System.out.println("-------------- GAME ----------------");
         System.out.println("name : " + gameParams.getName());
@@ -25,7 +27,7 @@ public class AfficheUtils {
         System.out.println("nb_min_city_cards_close_route : " + gameParams.getNbMinCityCardsCloseRoute());
         System.out.println("nb_max_city_cards_route_closed : " + gameParams.getNbMaxCityCardsRouteClosed());
     }
-
+    
     public static void afficherOfficials(final List<Official> listeOfficials) {
         System.out.println("-------------- OFFICIALS ----------------");
         for (Official official : listeOfficials) {
@@ -34,7 +36,7 @@ public class AfficheUtils {
             System.out.println(official.getPersonImage());
         }
     }
-
+    
     public static void afficherCarriages(final List<Carriage> listeCarriages) {
         System.out.println("-------------- CARRIAGES ----------------");
         for (Carriage carriage : listeCarriages) {
@@ -42,7 +44,7 @@ public class AfficheUtils {
             System.out.println("route_length : " + carriage.getRouteLength());
         }
     }
-
+    
     public static void afficherHouses(final List<House> listehouses) {
         System.out.println("-------------- HOUSES ----------------");
         for (House house : listehouses) {
@@ -50,7 +52,7 @@ public class AfficheUtils {
             System.out.println(house.getImage().getDescription());
         }
     }
-
+    
     public static void afficherProvinces(final List<Province> listeProvinces) {
         System.out.println("-------------- PROVINCES ----------------");
         for (Province province : listeProvinces) {
@@ -67,7 +69,7 @@ public class AfficheUtils {
             }
         }
     }
-
+    
     public static void afficherAdjacences(final List<Adjacence> listeAdjacences) {
         System.out.println("-------------- ADJACENCES ----------------");
         for (Adjacence adjacence : listeAdjacences) {
@@ -77,4 +79,34 @@ public class AfficheUtils {
         }
     }
     
+    public static void afficherAllProvincesBonus(ProvinceBonus allProvinceBonus) {
+        System.out.println("-------------- ALL PROVINCES BONUS ----------------");
+        System.out.println("-------------------- NAMES -------------------");
+        for (String name : allProvinceBonus.getListNames()) {
+            System.out.println("name : " + name);
+        }
+        System.out.println("-------------------- TILES ------------------------");
+        for (Tile tile : allProvinceBonus.getTiles()) {
+            System.out.println("nb_victory_points : " + tile.getNbVictoryPoints().toString());
+            System.out.println("image : " + tile.getImage().getDescription());
+            System.out.println("-------------------------------------------------");
+        }
+    }
+
+    public static void afficherProvincesBonus(List<ProvinceBonus> listeProvincesBonus) {
+        System.out.println("-------------- PROVINCES BONUS ----------------");
+        for (ProvinceBonus provinceBonus : listeProvincesBonus) {
+            System.out.println("------------------ NAMES ---------------------");
+            for (String name : provinceBonus.getListNames()) {
+                System.out.println("name : " + name);
+            }
+            System.out.println("------------------ TILES ----------------");
+            for (Tile tile : provinceBonus.getTiles()) {
+                System.out.println("nb_victory_points : " + tile.getNbVictoryPoints().toString());
+                System.out.println("image : " + tile.getImage().getDescription());
+                System.out.println("-------------------------------------------");
+            }
+        }
+    }
+
 }

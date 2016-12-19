@@ -6,19 +6,20 @@ import com.google.common.collect.Lists;
 
 public class ProvinceBonus {
     
-    private String name;
+    private List<String> listeNames;
     private List<Tile> tiles;
     
     public ProvinceBonus() {
+        this.listeNames = Lists.newArrayList();
         this.tiles = Lists.newArrayList();
     }
     
-    public String getName() {
-        return this.name;
+    public List<String> getListNames() {
+        return this.listeNames;
     }
     
-    public void setName(String name) {
-        this.name = name;
+    public void setListeNames(List<String> listeNames) {
+        this.listeNames = listeNames;
     }
     
     public List<Tile> getTiles() {

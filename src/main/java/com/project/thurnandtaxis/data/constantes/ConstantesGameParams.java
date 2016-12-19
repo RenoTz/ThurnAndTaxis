@@ -24,5 +24,7 @@ public class ConstantesGameParams {
     public static final String IMAGE = "image";
     public static final String NAME = "name";
     public static final String CITY = "city";
-
+    public static final String TILE = "tile";
+    public static final String NB_VICTORY_POINTS = "nb_victory_points";
+    
 }

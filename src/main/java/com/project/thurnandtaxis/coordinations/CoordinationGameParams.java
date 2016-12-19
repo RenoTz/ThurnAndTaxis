@@ -14,12 +14,15 @@ import org.json.JSONObject;
 
 import com.google.common.collect.Lists;
 import com.project.thurnandtaxis.data.beans.Adjacence;
+import com.project.thurnandtaxis.data.beans.Bonus;
 import com.project.thurnandtaxis.data.beans.Carriage;
 import com.project.thurnandtaxis.data.beans.City;
 import com.project.thurnandtaxis.data.beans.GameParams;
 import com.project.thurnandtaxis.data.beans.House;
 import com.project.thurnandtaxis.data.beans.Official;
 import com.project.thurnandtaxis.data.beans.Province;
+import com.project.thurnandtaxis.data.beans.ProvinceBonus;
+import com.project.thurnandtaxis.data.beans.Tile;
 import com.project.thurnandtaxis.data.constantes.ConstantesGameParams;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
 import com.project.thurnandtaxis.utils.AfficheUtils;
@@ -143,15 +146,8 @@ public class CoordinationGameParams {
             province.setColor(ColorUtils.selectionnerCouleur(objJSON.getString(ConstantesGameParams.NAME)));
 
             // on récupère la liste des villes
-            JSONArray citiesJSON = null;
-            JSONObject cityJSON = null;
             try {
-                citiesJSON = (JSONArray) objJSON.get(ConstantesGameParams.CITY);
-            } catch (ClassCastException e) {
-                cityJSON = (JSONObject) objJSON.get(ConstantesGameParams.CITY);
-            }
-            if (citiesJSON != null) {
-
+                final JSONArray citiesJSON = (JSONArray) objJSON.get(ConstantesGameParams.CITY);
                 for (int j = 0; j < citiesJSON.length(); j++) {
                     final JSONObject iterCityJSON = citiesJSON.getJSONObject(j);
                     // On récupère les informations
@@ -163,7 +159,8 @@ public class CoordinationGameParams {
                     // on ajoute la ville dans la liste
                     province.getListeCity().add(city);
                 }
-            } else {
+            } catch (ClassCastException e) {
+                final JSONObject cityJSON = (JSONObject) objJSON.get(ConstantesGameParams.CITY);
                 // On récupère les informations
                 final City citySingle = new City();
                 citySingle.setName(cityJSON.getString(ConstantesGameParams.NAME));
@@ -212,5 +209,68 @@ public class CoordinationGameParams {
 
         return listeAdjacences;
     }
-    
+
+    public Bonus recupererTousLesBonus(JSONObject jsonGameElements) {
+
+        final Bonus bonus = new Bonus();
+        
+        // 1) on récupère les provinces_bonus
+        final JSONObject jsonProvincesBonusJSON = jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES_BONUS);
+        final JSONArray provinceBonusArray = (JSONArray) jsonProvincesBonusJSON.get(ConstantesGameParams.PROVINCE_BONUS);
+
+        System.out.println("-------------------------------------");
+        System.out.println("-------------- BONUS ----------------");
+        System.out.println("-------------------------------------");
+
+        for (int i = 0; i < provinceBonusArray.length(); i++) {
+            final ProvinceBonus provinceBonus = new ProvinceBonus();
+            
+            final JSONObject provinceBonusJSON = provinceBonusArray.getJSONObject(i);
+            // On récupère le nom ou la liste de nom de la (ou des) province(s)
+            try {
+                final JSONObject provinceJSON = provinceBonusJSON.getJSONObject(ConstantesGameParams.PROVINCE);
+                provinceBonus.getListNames().add(provinceJSON.getString(ConstantesGameParams.NAME));
+            } catch (JSONException e) {
+                final JSONArray provinceArray = (JSONArray) provinceBonusJSON.get(ConstantesGameParams.PROVINCE);
+                for (int j = 0; j < provinceArray.length(); j++) {
+                    final JSONObject provinceArrayJSON = provinceArray.getJSONObject(j);
+                    provinceBonus.getListNames().add(provinceArrayJSON.getString(ConstantesGameParams.NAME));
+                }
+            }
+            // On récupère la liste des tiles
+            final JSONArray tileArray = (JSONArray) provinceBonusJSON.get(ConstantesGameParams.TILE);
+            for (int k = 0; k < tileArray.length(); k++) {
+                final JSONObject tileJSON = tileArray.getJSONObject(k);
+                final Tile tile = new Tile();
+                tile.setNbVictoryPoints(tileJSON.getLong(ConstantesGameParams.NB_VICTORY_POINTS));
+                tile.setImage(new ImageIcon(ConstantesStatics.RACINE_STATICS_IMG + tileJSON.getString(ConstantesGameParams.IMAGE)));
+                provinceBonus.getTiles().add(tile);
+            }
+            // on ajoute la province bonus à la liste
+            bonus.getListeProvincesBonus().add(provinceBonus);
+            
+            AfficheUtils.afficherProvincesBonus(bonus.getListeProvincesBonus());
+            
+        }
+        // 2) on récupère les all_provinces_bonus
+        final JSONObject jsonAllProvincesBonusJSON = jsonGameElements.getJSONObject(ConstantesGameParams.ALL_PROVINCES_BONUS);
+        // On récupère la liste des tiles
+        final ProvinceBonus allProvinceBonus = new ProvinceBonus();
+        final JSONArray tileArray = (JSONArray) jsonAllProvincesBonusJSON.get(ConstantesGameParams.TILE);
+        for (int i = 0; i < tileArray.length(); i++) {
+            final JSONObject tileJSON = tileArray.getJSONObject(i);
+            final Tile tile = new Tile();
+            tile.setNbVictoryPoints(tileJSON.getLong(ConstantesGameParams.NB_VICTORY_POINTS));
+            tile.setImage(new ImageIcon(ConstantesStatics.RACINE_STATICS_IMG + tileJSON.getString(ConstantesGameParams.IMAGE)));
+            allProvinceBonus.getTiles().add(tile);
+        }
+        bonus.setAllProvincesBonus(allProvinceBonus);
+
+        AfficheUtils.afficherAllProvincesBonus(allProvinceBonus);
+        // 3) on récupère les long_route_bonus
+
+        // 4) on récupère les end_game_bonus
+        
+        return bonus;
+    }
 }

@@ -24,6 +24,7 @@ public class ServiceLoading {
         game.setListeProvinces(coordGameParams.recupererListeProvincesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES)));
         game.setListeAdjacences(coordGameParams.recupererListeAdjacencesJSON(jsonGameElements
                         .getJSONObject(ConstantesGameParams.DIRECT_ADJACENCES)));
+        game.setBonus(coordGameParams.recupererTousLesBonus(jsonGameElements.getJSONObject(ConstantesGameParams.BONUS)));
         
         return game;
     }
