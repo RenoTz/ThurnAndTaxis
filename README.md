@@ -7,7 +7,7 @@
 C'est un **Jar**
 
 ## But ##
-Représentation du jeu de plateau Thurn und Taxis en Java 8 (avec Jframe)
+Représentation du jeu de plateau Thurn und Taxis en Java 7 (avec Jframe)
 
 ## Installation ##
   Pour télécharger le projet maven:
