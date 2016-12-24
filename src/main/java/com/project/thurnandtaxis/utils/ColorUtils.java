@@ -2,8 +2,10 @@ package com.project.thurnandtaxis.utils;
 
 import java.awt.Color;
 
+import com.project.thurnandtaxis.data.enumerations.EnumColor;
+
 public class ColorUtils {
-    
+
     public static Color selectionnerCouleur(final String nameProvince) {
 
         Color color = null;
@@ -11,31 +13,31 @@ public class ColorUtils {
         switch (nameProvince) {
         
             case "Baden":
-                color = new Color(199, 21, 133); // violet red
+                color = EnumColor.VIOLET_RED.getColorRGB();
                 break;
             case "Baiern":
-                color = new Color(205, 192, 176); // AntiqueWhite3
+                color = EnumColor.ANTIQUE_WHITE_3.getColorRGB();
                 break;
             case "Bohmen":
-                color = Color.ORANGE; // orange
+                color = EnumColor.ORANGE.getColorRGB();
                 break;
             case "Hohenzollern":
-                color = new Color(34, 139, 34); // forest green
+                color = EnumColor.FOREST_GREEN.getColorRGB();
                 break;
             case "Polen":
-                color = new Color(105, 105, 105); // dim gray
+                color = EnumColor.DIM_GREY.getColorRGB();
                 break;
             case "Salzburg":
-                color = new Color(178, 34, 34); // firebrick
+                color = EnumColor.FIREBRICK.getColorRGB();
                 break;
             case "Schweiz":
-                color = new Color(135, 206, 235); // sky blue
+                color = EnumColor.SKY_BLUE.getColorRGB();
                 break;
             case "Tyrol":
-                color = new Color(0, 35, 102); // royal blue
+                color = EnumColor.ROYAL_BLUE.getColorRGB();
                 break;
             case "Wurttemberg":
-                color = new Color(127, 255, 0); // yellow green
+                color = EnumColor.YELLOW_GREEN.getColorRGB();
                 break;
             default:
                 break;

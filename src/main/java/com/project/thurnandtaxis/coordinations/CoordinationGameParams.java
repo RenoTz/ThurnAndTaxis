@@ -1,5 +1,6 @@
 package com.project.thurnandtaxis.coordinations;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
@@ -25,6 +26,7 @@ import com.project.thurnandtaxis.data.beans.ProvinceBonus;
 import com.project.thurnandtaxis.data.beans.Tile;
 import com.project.thurnandtaxis.data.constantes.ConstantesGameParams;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
+import com.project.thurnandtaxis.data.enumerations.EnumColor;
 import com.project.thurnandtaxis.utils.AfficheUtils;
 import com.project.thurnandtaxis.utils.ColorUtils;
 import com.project.thurnandtaxis.utils.ComparatorAdjacence;
@@ -143,7 +145,9 @@ public class CoordinationGameParams {
             // On récupère les informations
             final Province province = new Province();
             province.setName(objJSON.getString(ConstantesGameParams.NAME));
-            province.setColor(ColorUtils.selectionnerCouleur(objJSON.getString(ConstantesGameParams.NAME)));
+            final Color provinceColor = ColorUtils.selectionnerCouleur(objJSON.getString(ConstantesGameParams.NAME));
+            province.setColor(provinceColor);
+            final EnumColor enumColor = EnumColor.getEnumColorByColor(provinceColor);
             
             // on récupère la liste des villes
             try {
@@ -153,9 +157,7 @@ public class CoordinationGameParams {
                     // On récupère les informations
                     final City city = new City();
                     city.setName(iterCityJSON.getString(ConstantesGameParams.NAME));
-                    if (StringUtils.isNotBlank(ConstantesStatics.RACINE_STATICS_IMG + iterCityJSON.getString(ConstantesGameParams.IMAGE))) {
-                        city.setImage(new ImageIcon(ConstantesStatics.RACINE_STATICS_IMG + iterCityJSON.getString(ConstantesGameParams.IMAGE)));
-                    }
+                    city.setImage(this.recupererImageCityCardByColor(iterCityJSON, city, enumColor));
                     // on ajoute la ville dans la liste
                     province.getListeCity().add(city);
                 }
@@ -164,9 +166,7 @@ public class CoordinationGameParams {
                 // On récupère les informations
                 final City citySingle = new City();
                 citySingle.setName(cityJSON.getString(ConstantesGameParams.NAME));
-                if (StringUtils.isNotBlank(ConstantesStatics.RACINE_STATICS_IMG + cityJSON.getString(ConstantesGameParams.IMAGE))) {
-                    citySingle.setImage(new ImageIcon(ConstantesStatics.RACINE_STATICS_IMG + cityJSON.getString(ConstantesGameParams.IMAGE)));
-                }
+                citySingle.setImage(this.recupererImageCityCardByColor(cityJSON, citySingle, enumColor));
                 // on ajoute la ville dans la liste
                 province.getListeCity().add(citySingle);
             }
@@ -179,6 +179,38 @@ public class CoordinationGameParams {
         AfficheUtils.afficherProvinces(listeProvinces);
         
         return listeProvinces;
+    }
+
+    private ImageIcon recupererImageCityCardByColor(final JSONObject iterCityJSON, final City city, final EnumColor enumColor) {
+        
+        String racineCityCards = StringUtils.EMPTY;
+        
+        switch (enumColor) {
+
+            case VIOLET_RED:
+                racineCityCards = ConstantesStatics.RACINE_STATICS_IMG_CITY_CARDS_VIOLET_RED;
+                break;
+            case ANTIQUE_WHITE_3:
+                racineCityCards = ConstantesStatics.RACINE_STATICS_IMG_CITY_CARDS_VIOLET_RED;
+                break;
+            case ORANGE:
+                break;
+            case FOREST_GREEN:
+                break;
+            case DIM_GREY:
+                break;
+            case FIREBRICK:
+                break;
+            case SKY_BLUE:
+                break;
+            case ROYAL_BLUE:
+                break;
+            case YELLOW_GREEN:
+                break;
+            default:
+                break;
+        }
+        return new ImageIcon(racineCityCards + iterCityJSON.getString(ConstantesGameParams.IMAGE));
     }
 
     public List<Adjacence> recupererListeAdjacencesJSON(JSONObject jsonAdjacences) {
