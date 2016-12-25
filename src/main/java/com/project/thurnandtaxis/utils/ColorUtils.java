@@ -25,7 +25,7 @@ public class ColorUtils {
                 color = EnumColor.FOREST_GREEN.getColorRGB();
                 break;
             case "Polen":
-                color = EnumColor.DIM_GREY.getColorRGB();
+                color = EnumColor.DIM_GRAY.getColorRGB();
                 break;
             case "Salzburg":
                 color = EnumColor.FIREBRICK.getColorRGB();

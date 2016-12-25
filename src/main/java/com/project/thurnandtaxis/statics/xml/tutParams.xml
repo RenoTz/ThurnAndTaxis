@@ -246,7 +246,7 @@ elements of the game Thurn and Taxis
 			<color>dim gray</color>
 			<city>
 				<name>Lodz</name>
-				<image>card10.jpg</image> <!--@unused-->
+				<image>card10.png</image> <!--@unused-->
 				<x_coordinate>557</x_coordinate>
 				<y_coordinate>105</y_coordinate>
 			</city>
@@ -526,10 +526,10 @@ elements of the game Thurn and Taxis
 			</province_bonus>
 			<province_bonus>
 				<province>
-					<name>Hohenzollern</name>
+					<name>Wurttemberg</name>
 				</province>
 				<province>
-					<name>Wurttemberg</name>
+					<name>Hohenzollern</name>
 				</province>
 				<x_coordinate>232</x_coordinate> <!--@unused-->
 				<y_coordinate>225</y_coordinate> <!--@unused-->

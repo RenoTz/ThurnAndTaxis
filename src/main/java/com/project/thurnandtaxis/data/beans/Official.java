@@ -5,8 +5,7 @@ import javax.swing.ImageIcon;
 public class Official {
 
     private String name;
-    private ImageIcon symbolImage;
-    private ImageIcon personImage;
+    private ImageIcon image;
 
     public String getName() {
         return this.name;
@@ -16,20 +15,12 @@ public class Official {
         this.name = name;
     }
     
-    public ImageIcon getSymbolImage() {
-        return this.symbolImage;
+    public ImageIcon getImage() {
+        return this.image;
     }
 
-    public void setSymbolImage(ImageIcon symbolImage) {
-        this.symbolImage = symbolImage;
-    }
-
-    public ImageIcon getPersonImage() {
-        return this.personImage;
-    }
-
-    public void setPersonImage(ImageIcon personImage) {
-        this.personImage = personImage;
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
 
 }
