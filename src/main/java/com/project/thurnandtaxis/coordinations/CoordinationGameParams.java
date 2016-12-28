@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import javassist.NotFoundException;
-
 import javax.swing.ImageIcon;
 
 import org.apache.commons.lang3.StringUtils;
@@ -122,7 +120,7 @@ public class CoordinationGameParams {
         return listehouses;
     }
     
-    public List<Province> recupererListeProvincesJSON(JSONObject jsonProvinces) throws NotFoundException {
+    public List<Province> recupererListeProvincesJSON(JSONObject jsonProvinces) {
         
         final List<Province> listeProvinces = Lists.newArrayList();
 
@@ -192,7 +190,7 @@ public class CoordinationGameParams {
         return listeAdjacences;
     }
 
-    public Bonus recupererTousLesBonus(JSONObject jsonGameElements) throws NotFoundException {
+    public Bonus recupererTousLesBonus(JSONObject jsonGameElements) {
 
         final Bonus bonus = new Bonus();
         

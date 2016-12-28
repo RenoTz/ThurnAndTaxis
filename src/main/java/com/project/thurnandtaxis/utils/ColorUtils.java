@@ -6,6 +6,9 @@ import com.project.thurnandtaxis.data.enumerations.EnumColor;
 
 public class ColorUtils {
 
+    // Liste de couleurs utiles
+    public static final Color PERU = new Color(205, 133, 63);
+    
     public static Color selectionnerCouleur(final String nameProvince) {
 
         Color color = null;
