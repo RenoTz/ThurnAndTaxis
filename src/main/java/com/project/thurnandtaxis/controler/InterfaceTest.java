@@ -19,6 +19,7 @@ public class InterfaceTest extends JFrame {
     public InterfaceTest() {
         this.setTitle("Thurn and Taxis");
         this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JLayeredPane layeredThurnplan = new JLayeredPane();
         this.getContentPane().add(layeredThurnplan, BorderLayout.CENTER);
@@ -110,6 +111,45 @@ public class InterfaceTest extends JFrame {
         btnBonusLongRoad7.setBackground(new Color(240, 230, 140));
         btnBonusLongRoad7.setBounds(140, 635, 35, 35);
         layeredThurnplan.add(btnBonusLongRoad7, new Integer(1));
+        
+        JButton btnBonusAll = new JButton("");
+        btnBonusAll.setToolTipText("Bonus all");
+        btnBonusAll.setBackground(new Color(240, 230, 140));
+        btnBonusAll.setBounds(326, 65, 35, 35);
+        layeredThurnplan.add(btnBonusAll, new Integer(1));
+        
+        JButton btnBonusEnd = new JButton("");
+        btnBonusEnd.setToolTipText("Bonus end");
+        btnBonusEnd.setBackground(new Color(240, 230, 140));
+        btnBonusEnd.setBounds(326, 25, 35, 35);
+        layeredThurnplan.add(btnBonusEnd, new Integer(1));
+        
+        JPanel panelCardCaleche = new JPanel();
+        panelCardCaleche.setBackground(new Color(205, 133, 63));
+        layeredThurnplan.setLayer(panelCardCaleche, 1);
+        panelCardCaleche.setBounds(390, 24, 603, 75);
+        layeredThurnplan.add(panelCardCaleche);
+        panelCardCaleche.setLayout(new GridLayout(0, 5, 1, 0));
+
+        JButton btnCaleche1 = new JButton("");
+        btnCaleche1.setBackground(new Color(240, 230, 140));
+        panelCardCaleche.add(btnCaleche1);
+
+        JButton btnCaleche2 = new JButton("");
+        btnCaleche2.setBackground(new Color(240, 230, 140));
+        panelCardCaleche.add(btnCaleche2);
+
+        JButton btnCaleche3 = new JButton("");
+        btnCaleche3.setBackground(new Color(240, 230, 140));
+        panelCardCaleche.add(btnCaleche3);
+
+        JButton btnCaleche4 = new JButton("");
+        btnCaleche4.setBackground(new Color(240, 230, 140));
+        panelCardCaleche.add(btnCaleche4);
+
+        JButton btnCaleche5 = new JButton("");
+        btnCaleche5.setBackground(new Color(240, 230, 140));
+        panelCardCaleche.add(btnCaleche5);
         this.getContentPane().add(this.panelCardsHandAndRoad, BorderLayout.SOUTH);
         this.panelCardsHandAndRoad.setLayout(new GridLayout(1, 2, 0, 0));
         
