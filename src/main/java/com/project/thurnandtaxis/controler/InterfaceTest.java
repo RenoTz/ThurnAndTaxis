@@ -69,60 +69,78 @@ public class InterfaceTest extends JFrame {
         panelCardVisible.add(cardVisible6);
 
         JButton btnBonusBaden = new JButton("");
+        btnBonusBaden.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/baden/bonusbaden3.png")));
         btnBonusBaden.setBackground(new Color(244, 164, 96));
         btnBonusBaden.setToolTipText("Bonus Baden");
-        btnBonusBaden.setBounds(429, 123, 35, 35);
+        btnBonusBaden.setBounds(429, 123, 34, 34);
         layeredThurnplan.add(btnBonusBaden, new Integer(1));
         
         JButton btnBonusBohmen = new JButton("");
+        btnBonusBohmen.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/bohmen/bonusbohmen4.png")));
         btnBonusBohmen.setToolTipText("Bonus Bohmen");
         btnBonusBohmen.setBackground(new Color(244, 164, 96));
-        btnBonusBohmen.setBounds(906, 381, 35, 35);
+        btnBonusBohmen.setBounds(906, 381, 34, 34);
         layeredThurnplan.add(btnBonusBohmen, new Integer(1));
         
         JButton btnBonusBaiern = new JButton("");
+        btnBonusBaiern.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/baiern/bonusbaiern5.png")));
         btnBonusBaiern.setToolTipText("Bonus Baiern");
         btnBonusBaiern.setBackground(new Color(244, 164, 96));
-        btnBonusBaiern.setBounds(737, 388, 35, 35);
+        btnBonusBaiern.setBounds(737, 388, 34, 34);
         layeredThurnplan.add(btnBonusBaiern, new Integer(1));
         
         JButton btnBonusSchweiz = new JButton("");
+        btnBonusSchweiz.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/schweiz/bonusschweiz3.png")));
         btnBonusSchweiz.setToolTipText("Bonus Schweiz");
         btnBonusSchweiz.setBackground(new Color(244, 164, 96));
-        btnBonusSchweiz.setBounds(394, 659, 35, 35);
+        btnBonusSchweiz.setBounds(394, 659, 34, 34);
         layeredThurnplan.add(btnBonusSchweiz, new Integer(1));
         
         JButton btnBonusWruttemberg = new JButton("");
+        btnBonusWruttemberg.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/wurttemberg/bonuswurttemberg3.png")));
         btnBonusWruttemberg.setToolTipText("Bonus Wruttemberg");
         btnBonusWruttemberg.setBackground(new Color(244, 164, 96));
-        btnBonusWruttemberg.setBounds(378, 366, 35, 35);
+        btnBonusWruttemberg.setBounds(378, 366, 34, 34);
         layeredThurnplan.add(btnBonusWruttemberg, new Integer(1));
         
         JButton btnBonusLongRoad5 = new JButton("");
+        btnBonusLongRoad5.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonustileroadlong/roadlong5/bonus52.png")));
         btnBonusLongRoad5.setToolTipText("Bonus Long Road 5");
         btnBonusLongRoad5.setBackground(new Color(244, 164, 96));
-        btnBonusLongRoad5.setBounds(32, 635, 35, 35);
+        btnBonusLongRoad5.setBounds(32, 635, 40, 40);
         layeredThurnplan.add(btnBonusLongRoad5, new Integer(1));
         
         JButton btnBonusLongRoad6 = new JButton("");
+        btnBonusLongRoad6.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonustileroadlong/roadlong6/bonus63.png")));
         btnBonusLongRoad6.setToolTipText("Bonus Long Road 6");
         btnBonusLongRoad6.setBackground(new Color(244, 164, 96));
-        btnBonusLongRoad6.setBounds(85, 635, 35, 35);
+        btnBonusLongRoad6.setBounds(85, 635, 40, 40);
         layeredThurnplan.add(btnBonusLongRoad6, new Integer(1));
         
         JButton btnBonusLongRoad7 = new JButton("");
+        btnBonusLongRoad7.setIcon(new ImageIcon(InterfaceTest.class
+                        .getResource("/com/project/thurnandtaxis/statics/img/bonustileroadlong/roadlong7/bonus74.png")));
         btnBonusLongRoad7.setToolTipText("Bonus Long Road 7");
         btnBonusLongRoad7.setBackground(new Color(244, 164, 96));
-        btnBonusLongRoad7.setBounds(140, 635, 35, 35);
+        btnBonusLongRoad7.setBounds(140, 635, 40, 40);
         layeredThurnplan.add(btnBonusLongRoad7, new Integer(1));
 
         JButton btnBonusAll = new JButton("");
+        btnBonusAll.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/allprovinces/bonusall6.png")));
         btnBonusAll.setToolTipText("Bonus all");
         btnBonusAll.setBackground(new Color(244, 164, 96));
         btnBonusAll.setBounds(326, 65, 35, 35);
         layeredThurnplan.add(btnBonusAll, new Integer(1));
 
         JButton btnBonusEnd = new JButton("");
+        btnBonusEnd.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/endgamebonus/bonusend0.png")));
         btnBonusEnd.setToolTipText("Bonus end");
         btnBonusEnd.setBackground(new Color(244, 164, 96));
         btnBonusEnd.setBounds(326, 25, 35, 35);
@@ -623,17 +641,16 @@ public class InterfaceTest extends JFrame {
         btnPostalCarrier.setSelectedIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/coachman.jpg")));
 
         JButton btnCartwright = new JButton("");
+        btnCartwright.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/wainwright.jpg")));
         panelOfficials.add(btnCartwright);
         btnCartwright.setToolTipText("Cartwright");
         btnCartwright.setBackground(new Color(205, 133, 63));
-        btnCartwright.setSelectedIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/wainwright.jpg")));
 
         JButton btnDeckCard = new JButton("");
+        btnDeckCard.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/deck.jpg")));
         layeredThurnplan.setLayer(btnDeckCard, 1);
-        btnDeckCard.setBounds(1494, 705, 100, 150);
+        btnDeckCard.setBounds(1510, 735, 65, 89);
         layeredThurnplan.add(btnDeckCard);
-        btnDeckCard.setHorizontalAlignment(SwingConstants.LEADING);
-        btnDeckCard.setSelectedIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/deck.jpg")));
         btnDeckCard.setToolTipText("Deck");
 
         this.setSize(1600, 900);
