@@ -25,7 +25,7 @@ elements of the game Thurn and Taxis
 		<y_coordinate_supply_city_cards>94</y_coordinate_supply_city_cards> <!--@unused-->
 		<!-- images: board image, back card, officials, carriage, victory -->
 		<game_board_image>thurnplan.jpg</game_board_image>
-		<back_card_image>deck.jpg</back_card_image>
+		<back_card_image>deck.png</back_card_image>
 		<unused_person_image>amtspersonen.bmp</unused_person_image>
 		<carriage_image>kutsche.bmp</carriage_image>
 		<victory_image>victoryChip.png</victory_image> <!--@unused-->

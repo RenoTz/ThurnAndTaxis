@@ -5,16 +5,17 @@ import java.awt.Color;
 import com.project.thurnandtaxis.data.enumerations.EnumColor;
 
 public class ColorUtils {
-
+    
     // Liste de couleurs utiles
     public static final Color PERU = new Color(205, 133, 63);
-    
+    public static final Color SANDY_BROWN = new Color(244, 164, 96);
+
     public static Color selectionnerCouleur(final String nameProvince) {
-
-        Color color = null;
-
-        switch (nameProvince) {
         
+        Color color = null;
+        
+        switch (nameProvince) {
+
             case "Baden":
                 color = EnumColor.VIOLET_RED.getColorRGB();
                 break;
@@ -45,8 +46,8 @@ public class ColorUtils {
             default:
                 break;
         }
-
+        
         return color;
     }
-    
+
 }
