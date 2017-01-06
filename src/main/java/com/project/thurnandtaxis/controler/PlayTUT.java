@@ -20,7 +20,7 @@ public class PlayTUT {
 
         // 2. on récupère et on construit les éléments du jeu à partir du json
         final ServiceLoading loading = new ServiceLoading();
-        final Game game = loading.chargerTousLesParametresDuJeu(jsonGameElements);
+        final Game game = loading.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
 
         // 3. on construit l'interface de jeu
         final InterfaceJeu ihm = new InterfaceJeu(game);
