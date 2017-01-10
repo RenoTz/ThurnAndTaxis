@@ -11,9 +11,9 @@ import com.google.common.collect.Lists;
 import com.project.thurnandtaxis.data.beans.Game;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
-import com.project.thurnandtaxis.services.ParserJSON;
 import com.project.thurnandtaxis.services.ServiceActionButton;
 import com.project.thurnandtaxis.services.ServiceLoading;
+import com.project.thurnandtaxis.services.parser.ParserJSON;
 import com.project.thurnandtaxis.utils.CardsUtils;
 
 public class PlayTUT {
@@ -40,7 +40,10 @@ public class PlayTUT {
 
         // 4. on construit l'interface de jeu à partir des éléments du jeu
         final InterfaceJeu ihm = new InterfaceJeu(game, listPlayer);
+        
+        // 5. on ajoute les évènements sur les boutons
         final ServiceActionButton serviceActionButton = new ServiceActionButton();
+        // - bouton deckCard
         serviceActionButton.addActionButtonDeckCard(ihm.getBtnDeckCard(), listPlayer.get(0), game.getListeCityCards());
         
     }
