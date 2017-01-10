@@ -1,16 +1,20 @@
 package com.project.thurnandtaxis.services;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.project.thurnandtaxis.coordinations.CoordinationGameParams;
+import com.project.thurnandtaxis.data.beans.CityCard;
 import com.project.thurnandtaxis.data.beans.Game;
 import com.project.thurnandtaxis.data.constantes.ConstantesGameParams;
 
 public class ServiceLoading {
     
+    private static final int NB_OCCURENCES_CITY_CARDS = 3;
     final CoordinationGameParams coordGameParams;
 
     public ServiceLoading() {
@@ -36,7 +40,22 @@ public class ServiceLoading {
     }
 
     private void chargerLesElementsDuJeuSupplementaires(final Game game) {
-        game.setListeCityCards(this.coordGameParams.recupererListeCityCards(game.getListeProvinces()));
+
+        final List<CityCard> listeCityCards = this.coordGameParams.recupererListeCityCards(game.getListeProvinces());
+
+        if (CollectionUtils.isNotEmpty(listeCityCards)) {
+            for (CityCard card : listeCityCards) {
+                for (int i = 0; i < NB_OCCURENCES_CITY_CARDS; i++) {
+                    final CityCard cityCard = new CityCard();
+                    cityCard.setColorProvince(card.getColorProvince());
+                    cityCard.setImage(card.getImage());
+                    cityCard.setNameCity(card.getNameCity());
+                    cityCard.setNameProvince(card.getNameProvince());
+                    game.getListeCityCards().add(cityCard);
+                }
+            }
+        }
+
     }
     
 }

@@ -10,6 +10,7 @@ public class CityCard {
     private String nameProvince;
     private Color colorProvince;
     private ImageIcon image;
+    private boolean hidden;
     
     public String getNameCity() {
         return this.nameCity;
@@ -43,4 +44,12 @@ public class CityCard {
         this.image = image;
     }
     
+    public boolean isHidden() {
+        return this.hidden;
+    }
+    
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
 }
