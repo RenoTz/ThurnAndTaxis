@@ -15,38 +15,37 @@ import com.project.thurnandtaxis.services.parser.ParserJSON;
 import com.project.thurnandtaxis.utils.CardsUtils;
 
 public class PlayTUT {
-    
+
     public static void main(String[] args) throws JSONException, IOException {
-        
+
         // 1. on parse le fichier xml avec un convertisseur Json
         final ParserJSON parser = new ParserJSON();
         final JSONObject jsonGameElements = parser.recupererGameElementsEnJSON(ConstantesStatics.FILENAME_PARAMS);
-        
+
         // 2. on récupère et on construit les éléments du jeu à partir du json
         final ServiceLoading loading = new ServiceLoading();
         final Game game = loading.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
-        
+
         // 3. on effectue les taches de préparation du jeu
         CardsUtils.melangerLesCartes(game.getListeCityCards());
-
+        
         // 4. Création des joueurs (seulement 1 dans un premier temps -> pour le développement)
         final Player pDev = new Player();
         pDev.setColor(Color.BLUE);
         pDev.setName("Gaston");
         game.getListePlayers().add(pDev);
-
+        
         // 4. on construit l'interface de jeu à partir des éléments du jeu
-        final InterfaceJeu ihm = new InterfaceJeu(game);
-        
+        final InterfaceJeu ihm = new InterfaceJeu();
+        ihm.createInterface(game);
+
         // 5. on ajoute les évènements sur les boutons
-        final ServiceActionButton serviceActionButton = new ServiceActionButton();
+        final ServiceActionButton serviceActionButton = new ServiceActionButton(ihm.getBtnDeckCard(), ihm.getLblNbCardRemaining(),
+                        ihm.getListeCardsHand(), ihm.getListeCardsRoad());
         // - bouton deckCard
-        serviceActionButton.addActionButtonDeckCard(ihm.getBtnDeckCard(), game.getListePlayers().get(0), game.getListeCityCards());
+        serviceActionButton.addActionButtonDeckCard(game.getListePlayers().get(0), game.getListeCityCards());
         // - officials
-        serviceActionButton.addActionButtonAdministrator(ihm.getBtnAdministrator(), game.getListeCityCards(), ihm.getListeCardsVisible());
-        serviceActionButton.addActionButtonCartwright(ihm.getBtnCartwright(), game.getListeCityCards());
-        serviceActionButton.addActionButtonPostalCarrier(ihm.getBtnPostalCarrier(), game.getListeCityCards());
-        serviceActionButton.addActionButtonPostmaster(ihm.getBtnPostmaster(), game.getListeCityCards());
-        
+        serviceActionButton.addActionsButtonsOfficials(ihm.getListeButtonsOfficials(), game.getListeCityCards(), ihm.getListeCardsVisible());
+
     }
 }

@@ -10,8 +10,7 @@ public class CityCard {
     private String nameProvince;
     private Color colorProvince;
     private ImageIcon image;
-    private boolean hidden;
-
+    
     public String getNameCity() {
         return this.nameCity;
     }
@@ -44,24 +43,14 @@ public class CityCard {
         this.image = image;
     }
 
-    public boolean isHidden() {
-        return this.hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     @Override
     public CityCard clone() {
         final CityCard card = new CityCard();
         card.setColorProvince(this.getColorProvince());
-        card.setHidden(this.isHidden());
         card.setImage(this.getImage());
         card.setNameCity(this.getNameCity());
         card.setNameProvince(this.getNameProvince());
         return card;
-
     }
-    
+
 }

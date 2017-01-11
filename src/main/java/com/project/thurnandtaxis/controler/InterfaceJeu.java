@@ -19,19 +19,31 @@ import javax.swing.border.EtchedBorder;
 
 import com.google.common.collect.Lists;
 import com.project.thurnandtaxis.data.beans.Game;
+import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 
 public class InterfaceJeu extends JFrame {
 
     private static final long serialVersionUID = 3006307486047180080L;
 
+    private JLabel lblNbCardRemaining;
     private JButton btnDeckCard;
-    private List<JButton> listeCardsVisible;
     private JButton btnAdministrator;
     private JButton btnPostmaster;
     private JButton btnPostalCarrier;
     private JButton btnCartwright;
+    private List<JButton> listeCardsVisible;
+    private List<JButton> listeCardsHand;
+    private List<JButton> listeCardsRoad;
+    private List<JButton> listeButtonsOfficials;
     
-    public InterfaceJeu(final Game game) {
+    public InterfaceJeu() {
+        this.listeCardsVisible = Lists.newArrayList();
+        this.listeCardsHand = Lists.newArrayList();
+        this.listeCardsRoad = Lists.newArrayList();
+        this.listeButtonsOfficials = Lists.newArrayList();
+    }
+
+    public void createInterface(final Game game) {
         this.setTitle("Thurn and Taxis");
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,18 +58,16 @@ public class InterfaceJeu extends JFrame {
         lblThurnplan.setHorizontalAlignment(SwingConstants.CENTER);
         lblThurnplan.setIcon(game.getGameParams().getGameBoardImage());
         
-        // -------------
-        // CARDS VISIBLE
-        // -------------
-        this.listeCardsVisible = Lists.newArrayList();
-
+        // ---------------
+        // CARDS VISIBLES
+        // ---------------
         JPanel panelCardVisible = new JPanel();
         panelCardVisible.setBackground(new Color(205, 133, 63));
         layeredThurnplan.setLayer(panelCardVisible, 1);
         panelCardVisible.setBounds(20, 225, 167, 375);
         panelCardVisible.setVisible(true);
         layeredThurnplan.add(panelCardVisible, 1);
-        panelCardVisible.setLayout(new GridLayout(3, 2, 10, 10));
+        panelCardVisible.setLayout(new GridLayout(3, 2, 3, 3));
         
         JButton cardVisible1 = new JButton("");
         cardVisible1.setBackground(new Color(244, 164, 96));
@@ -204,44 +214,56 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(panelCardsHandAndRoad);
         panelCardsHandAndRoad.setLayout(new GridLayout(1, 2, 1, 20));
         
+        // -----------------------
+        // CARDS IN PLAYER'S HAND
+        // -----------------------
         JPanel panelCardHand = new JPanel();
         panelCardHand.setBackground(new Color(205, 133, 63));
         panelCardsHandAndRoad.add(panelCardHand);
         panelCardHand.setLayout(new GridLayout(1, 6, 2, 0));
 
-        // Dimension dimCard = new Dimension(10, 150);
+        final Dimension dimCard = new Dimension(10, 150);
         
-        JButton btnNewButton = new JButton("");
-        btnNewButton.setPreferredSize(new Dimension(10, 150));
-        btnNewButton.setBackground(new Color(205, 133, 63));
-        btnNewButton.setForeground(new Color(255, 215, 0));
-        panelCardHand.add(btnNewButton);
+        JButton btnCardHand1 = new JButton("");
+        btnCardHand1.setPreferredSize(dimCard);
+        btnCardHand1.setBackground(new Color(205, 133, 63));
+        btnCardHand1.setForeground(new Color(255, 215, 0));
+        panelCardHand.add(btnCardHand1);
+        this.listeCardsHand.add(btnCardHand1);
         
-        JButton btnNewButton_1 = new JButton("");
-        btnNewButton_1.setBackground(new Color(205, 133, 63));
-        btnNewButton_1.setPreferredSize(new Dimension(10, 150));
-        panelCardHand.add(btnNewButton_1);
+        JButton btnCardHand2 = new JButton("");
+        btnCardHand2.setBackground(new Color(205, 133, 63));
+        btnCardHand2.setPreferredSize(dimCard);
+        panelCardHand.add(btnCardHand2);
+        this.listeCardsHand.add(btnCardHand2);
         
-        JButton btnNewButton_2 = new JButton("");
-        btnNewButton_2.setBackground(new Color(205, 133, 63));
-        btnNewButton_2.setPreferredSize(new Dimension(10, 150));
-        panelCardHand.add(btnNewButton_2);
+        JButton btnCardHand3 = new JButton("");
+        btnCardHand3.setBackground(new Color(205, 133, 63));
+        btnCardHand3.setPreferredSize(dimCard);
+        panelCardHand.add(btnCardHand3);
+        this.listeCardsHand.add(btnCardHand3);
+
+        JButton btnCardHand4 = new JButton("");
+        btnCardHand4.setBackground(new Color(205, 133, 63));
+        btnCardHand4.setPreferredSize(dimCard);
+        panelCardHand.add(btnCardHand4);
+        this.listeCardsHand.add(btnCardHand4);
         
-        JButton btnNewButton_3 = new JButton("");
-        btnNewButton_3.setBackground(new Color(205, 133, 63));
-        btnNewButton_3.setPreferredSize(new Dimension(10, 150));
-        panelCardHand.add(btnNewButton_3);
+        JButton btnCardHand5 = new JButton("");
+        btnCardHand5.setBackground(new Color(205, 133, 63));
+        btnCardHand5.setPreferredSize(dimCard);
+        panelCardHand.add(btnCardHand5);
+        this.listeCardsHand.add(btnCardHand5);
         
-        JButton btnNewButton_4 = new JButton("");
-        btnNewButton_4.setBackground(new Color(205, 133, 63));
-        btnNewButton_4.setPreferredSize(new Dimension(10, 150));
-        panelCardHand.add(btnNewButton_4);
-        
-        JButton btnNewButton_5 = new JButton("");
-        btnNewButton_5.setBackground(new Color(205, 133, 63));
-        btnNewButton_5.setPreferredSize(new Dimension(10, 150));
-        panelCardHand.add(btnNewButton_5);
-        
+        JButton btnCardHand6 = new JButton("");
+        btnCardHand6.setBackground(new Color(205, 133, 63));
+        btnCardHand6.setPreferredSize(dimCard);
+        panelCardHand.add(btnCardHand6);
+        this.listeCardsHand.add(btnCardHand6);
+
+        // --------------------
+        // CARDS PLAYER'S ROAD
+        // --------------------
         JPanel panelCardRoad = new JPanel();
         panelCardRoad.setBackground(new Color(205, 133, 63));
         panelCardsHandAndRoad.add(panelCardRoad);
@@ -249,32 +271,32 @@ public class InterfaceJeu extends JFrame {
         
         JButton btnRoad = new JButton("");
         btnRoad.setBackground(new Color(205, 133, 63));
-        btnRoad.setPreferredSize(new Dimension(10, 150));
+        btnRoad.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad);
         
         JButton btnRoad_1 = new JButton("");
         btnRoad_1.setBackground(new Color(205, 133, 63));
-        btnRoad_1.setPreferredSize(new Dimension(10, 150));
+        btnRoad_1.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_1);
         
         JButton btnRoad_2 = new JButton("");
         btnRoad_2.setBackground(new Color(205, 133, 63));
-        btnRoad_2.setPreferredSize(new Dimension(10, 150));
+        btnRoad_2.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_2);
         
         JButton btnRoad_3 = new JButton("");
         btnRoad_3.setBackground(new Color(205, 133, 63));
-        btnRoad_3.setPreferredSize(new Dimension(10, 150));
+        btnRoad_3.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_3);
         
         JButton btnRoad_4 = new JButton("");
         btnRoad_4.setBackground(new Color(205, 133, 63));
-        btnRoad_4.setPreferredSize(new Dimension(10, 150));
+        btnRoad_4.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_4);
         
         JButton btnRoad_5 = new JButton("");
         btnRoad_5.setBackground(new Color(205, 133, 63));
-        btnRoad_5.setPreferredSize(new Dimension(10, 150));
+        btnRoad_5.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_5);
 
         JPanel panelLabelPlayer1 = new JPanel();
@@ -643,15 +665,17 @@ public class InterfaceJeu extends JFrame {
         this.btnAdministrator.setIcon(new ImageIcon(InterfaceJeu.class
                         .getResource("/com/project/thurnandtaxis/statics/img/officials/administratorTile.png")));
         panelOfficials.add(this.btnAdministrator);
-        this.btnAdministrator.setToolTipText("Administrator");
+        this.btnAdministrator.setToolTipText(EnumOfficials.ADMINISTRATOR.getName());
         this.btnAdministrator.setBackground(new Color(205, 133, 63));
+        this.listeButtonsOfficials.add(this.btnAdministrator);
         
         this.btnPostmaster = new JButton("");
         this.btnPostmaster.setIcon(new ImageIcon(InterfaceJeu.class
                         .getResource("/com/project/thurnandtaxis/statics/img/officials/postmasterTile.png")));
         panelOfficials.add(this.btnPostmaster);
-        this.btnPostmaster.setToolTipText("Postmaster");
+        this.btnPostmaster.setToolTipText(EnumOfficials.POSTMASTER.getName());
         this.btnPostmaster.setBackground(new Color(205, 133, 63));
+        this.listeButtonsOfficials.add(this.btnPostmaster);
         
         JButton btnValidate = new JButton("Validate");
         btnValidate.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
@@ -662,15 +686,17 @@ public class InterfaceJeu extends JFrame {
         this.btnPostalCarrier.setIcon(new ImageIcon(InterfaceJeu.class
                         .getResource("/com/project/thurnandtaxis/statics/img/officials/postalCarrierTile.png")));
         panelOfficials.add(this.btnPostalCarrier);
-        this.btnPostalCarrier.setToolTipText("Postal carrier");
+        this.btnPostalCarrier.setToolTipText(EnumOfficials.POSTAL_CARRIER.getName());
         this.btnPostalCarrier.setBackground(new Color(205, 133, 63));
+        this.listeButtonsOfficials.add(this.btnPostalCarrier);
         
         this.btnCartwright = new JButton("");
         this.btnCartwright.setIcon(new ImageIcon(InterfaceJeu.class
                         .getResource("/com/project/thurnandtaxis/statics/img/officials/cartwrightTile.png")));
         panelOfficials.add(this.btnCartwright);
-        this.btnCartwright.setToolTipText("Cartwright");
+        this.btnCartwright.setToolTipText(EnumOfficials.CARTWRIGHT.getName());
         this.btnCartwright.setBackground(new Color(205, 133, 63));
+        this.listeButtonsOfficials.add(this.btnCartwright);
         
         this.btnDeckCard = new JButton("");
         this.btnDeckCard.setIcon(game.getGameParams().getBackCardImage());
@@ -685,14 +711,26 @@ public class InterfaceJeu extends JFrame {
         panelNbCardRemaining.setBounds(1552, 712, 42, 150);
         layeredThurnplan.add(panelNbCardRemaining, 1);
         
-        JLabel lblNbCardRemaining = new JLabel(String.valueOf(game.getListeCityCards().size()));
-        // lblNbCardRemaining.setHorizontalTextPosition(SwingConstants.CENTER);
-        lblNbCardRemaining.setVerticalTextPosition(SwingConstants.BOTTOM);
-        panelNbCardRemaining.add(lblNbCardRemaining);
-        lblNbCardRemaining.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+        this.lblNbCardRemaining = new JLabel(String.valueOf(game.getListeCityCards().size()));
+        this.lblNbCardRemaining.setHorizontalTextPosition(SwingConstants.CENTER);
+        this.lblNbCardRemaining.setVerticalTextPosition(SwingConstants.BOTTOM);
+        panelNbCardRemaining.add(this.lblNbCardRemaining);
+        this.lblNbCardRemaining.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 
         this.setSize(1600, 900);
         this.setVisible(true);
+    }
+    
+    // -------------------------
+    // GETTERS / SETTERS Publics
+    // -------------------------
+
+    public JLabel getLblNbCardRemaining() {
+        return this.lblNbCardRemaining;
+    }
+    
+    public void setLblNbCardRemaining(JLabel lblNbCardRemaining) {
+        this.lblNbCardRemaining = lblNbCardRemaining;
     }
     
     public JButton getBtnDeckCard() {
@@ -711,35 +749,27 @@ public class InterfaceJeu extends JFrame {
         this.listeCardsVisible = listeCardsVisible;
     }
     
-    public JButton getBtnAdministrator() {
-        return this.btnAdministrator;
+    public List<JButton> getListeCardsHand() {
+        return this.listeCardsHand;
     }
 
-    public void setBtnAdministrator(JButton btnAdministrator) {
-        this.btnAdministrator = btnAdministrator;
+    public void setListeCardsHand(List<JButton> listeCardsHand) {
+        this.listeCardsHand = listeCardsHand;
     }
 
-    public JButton getBtnPostmaster() {
-        return this.btnPostmaster;
+    public List<JButton> getListeButtonsOfficials() {
+        return this.listeButtonsOfficials;
     }
 
-    public void setBtnPostmaster(JButton btnPostmaster) {
-        this.btnPostmaster = btnPostmaster;
+    public void setListeButtonsOfficials(List<JButton> listeButtonsOfficials) {
+        this.listeButtonsOfficials = listeButtonsOfficials;
     }
-
-    public JButton getBtnPostalCarrier() {
-        return this.btnPostalCarrier;
+    
+    public List<JButton> getListeCardsRoad() {
+        return this.listeCardsRoad;
     }
-
-    public void setBtnPostalCarrier(JButton btnPostalCarrier) {
-        this.btnPostalCarrier = btnPostalCarrier;
-    }
-
-    public JButton getBtnCartwright() {
-        return this.btnCartwright;
-    }
-
-    public void setBtnCartwright(JButton btnCartwright) {
-        this.btnCartwright = btnCartwright;
+    
+    public void setListeCardsRoad(List<JButton> listeCardsRoad) {
+        this.listeCardsRoad = listeCardsRoad;
     }
 }
