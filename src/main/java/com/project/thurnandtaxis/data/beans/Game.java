@@ -14,6 +14,7 @@ public class Game {
     private List<Province> listeProvinces;
     private List<Adjacence> listeAdjacences;
     private Bonus bonus;
+    private List<Player> listePlayers;
 
     public Game() {
         this.listeOfficials = Lists.newArrayList();
@@ -22,6 +23,7 @@ public class Game {
         this.listeCityCards = Lists.newArrayList();
         this.listeProvinces = Lists.newArrayList();
         this.listeAdjacences = Lists.newArrayList();
+        this.listePlayers = Lists.newArrayList();
     }
 
     public List<Official> getListeOfficials() {
@@ -86,6 +88,14 @@ public class Game {
     
     public void setListeCityCards(List<CityCard> listeCityCards) {
         this.listeCityCards = listeCityCards;
+    }
+    
+    public List<Player> getListePlayers() {
+        return this.listePlayers;
+    }
+    
+    public void setListePlayers(List<Player> listePlayers) {
+        this.listePlayers = listePlayers;
     }
     
 }

@@ -5,7 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,23 +16,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 
-import com.google.common.collect.Lists;
-import com.project.thurnandtaxis.data.beans.Game;
+public class InterfaceTest extends JFrame {
 
-public class InterfaceJeu extends JFrame {
-
-    private static final long serialVersionUID = 3006307486047180080L;
-
-    private JButton btnDeckCard;
-    private List<JButton> listeCardsVisible;
-    private JButton btnAdministrator;
-    private JButton btnPostmaster;
-    private JButton btnPostalCarrier;
-    private JButton btnCartwright;
-    
-    public InterfaceJeu(final Game game) {
+    public InterfaceTest() {
         this.setTitle("Thurn and Taxis");
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,57 +30,46 @@ public class InterfaceJeu extends JFrame {
         
         JLabel lblThurnplan = new JLabel("");
         lblThurnplan.setBounds(0, 0, 1024, 712);
-        layeredThurnplan.add(lblThurnplan, 0);
+        layeredThurnplan.add(lblThurnplan, new Integer(0));
         lblThurnplan.setHorizontalAlignment(SwingConstants.CENTER);
-        lblThurnplan.setIcon(game.getGameParams().getGameBoardImage());
+        lblThurnplan.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/thurnplan.jpg")));
         
-        // -------------
-        // CARDS VISIBLE
-        // -------------
-        this.listeCardsVisible = Lists.newArrayList();
-
         JPanel panelCardVisible = new JPanel();
         panelCardVisible.setBackground(new Color(205, 133, 63));
         layeredThurnplan.setLayer(panelCardVisible, 1);
         panelCardVisible.setBounds(20, 225, 167, 375);
         panelCardVisible.setVisible(true);
-        layeredThurnplan.add(panelCardVisible, 1);
+        layeredThurnplan.add(panelCardVisible, new Integer(1));
         panelCardVisible.setLayout(new GridLayout(3, 2, 10, 10));
         
         JButton cardVisible1 = new JButton("");
         cardVisible1.setBackground(new Color(244, 164, 96));
         panelCardVisible.add(cardVisible1);
         layeredThurnplan.setLayer(cardVisible1, 1);
-        this.listeCardsVisible.add(cardVisible1);
         
         JButton cardVisible2 = new JButton("");
         cardVisible2.setBackground(new Color(244, 164, 96));
         panelCardVisible.add(cardVisible2);
         layeredThurnplan.setLayer(cardVisible2, 1);
-        this.listeCardsVisible.add(cardVisible2);
         
         JButton cardVisible3 = new JButton("");
         cardVisible3.setBackground(new Color(244, 164, 96));
         panelCardVisible.add(cardVisible3);
-        this.listeCardsVisible.add(cardVisible3);
         
         JButton cardVisible4 = new JButton("");
         cardVisible4.setBackground(new Color(244, 164, 96));
         panelCardVisible.add(cardVisible4);
-        this.listeCardsVisible.add(cardVisible4);
         
         JButton cardVisible5 = new JButton("");
         cardVisible5.setBackground(new Color(244, 164, 96));
         panelCardVisible.add(cardVisible5);
-        this.listeCardsVisible.add(cardVisible5);
         
         JButton cardVisible6 = new JButton("");
         cardVisible6.setBackground(new Color(244, 164, 96));
         panelCardVisible.add(cardVisible6);
-        this.listeCardsVisible.add(cardVisible6);
         
         JButton btnBonusBaden = new JButton("");
-        btnBonusBaden.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusBaden.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/baden/bonusbaden3.png")));
         btnBonusBaden.setBackground(new Color(244, 164, 96));
         btnBonusBaden.setToolTipText("Bonus Baden");
@@ -100,7 +77,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusBaden, new Integer(1));
 
         JButton btnBonusBohmen = new JButton("");
-        btnBonusBohmen.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusBohmen.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/bohmen/bonusbohmen4.png")));
         btnBonusBohmen.setToolTipText("Bonus Bohmen");
         btnBonusBohmen.setBackground(new Color(244, 164, 96));
@@ -108,7 +85,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusBohmen, new Integer(1));
 
         JButton btnBonusBaiern = new JButton("");
-        btnBonusBaiern.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusBaiern.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/baiern/bonusbaiern5.png")));
         btnBonusBaiern.setToolTipText("Bonus Baiern");
         btnBonusBaiern.setBackground(new Color(244, 164, 96));
@@ -116,7 +93,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusBaiern, new Integer(1));
 
         JButton btnBonusSchweiz = new JButton("");
-        btnBonusSchweiz.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusSchweiz.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/schweiz/bonusschweiz3.png")));
         btnBonusSchweiz.setToolTipText("Bonus Schweiz");
         btnBonusSchweiz.setBackground(new Color(244, 164, 96));
@@ -124,7 +101,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusSchweiz, new Integer(1));
 
         JButton btnBonusWruttemberg = new JButton("");
-        btnBonusWruttemberg.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusWruttemberg.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonus_tile_city/wurttemberg/bonuswurttemberg3.png")));
         btnBonusWruttemberg.setToolTipText("Bonus Wruttemberg");
         btnBonusWruttemberg.setBackground(new Color(244, 164, 96));
@@ -132,7 +109,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusWruttemberg, new Integer(1));
 
         JButton btnBonusLongRoad5 = new JButton("");
-        btnBonusLongRoad5.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusLongRoad5.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonustileroadlong/roadlong5/bonus52.png")));
         btnBonusLongRoad5.setToolTipText("Bonus Long Road 5");
         btnBonusLongRoad5.setBackground(new Color(244, 164, 96));
@@ -140,7 +117,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusLongRoad5, new Integer(1));
 
         JButton btnBonusLongRoad6 = new JButton("");
-        btnBonusLongRoad6.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusLongRoad6.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonustileroadlong/roadlong6/bonus63.png")));
         btnBonusLongRoad6.setToolTipText("Bonus Long Road 6");
         btnBonusLongRoad6.setBackground(new Color(244, 164, 96));
@@ -148,7 +125,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusLongRoad6, new Integer(1));
 
         JButton btnBonusLongRoad7 = new JButton("");
-        btnBonusLongRoad7.setIcon(new ImageIcon(InterfaceJeu.class
+        btnBonusLongRoad7.setIcon(new ImageIcon(InterfaceTest.class
                         .getResource("/com/project/thurnandtaxis/statics/img/bonustileroadlong/roadlong7/bonus74.png")));
         btnBonusLongRoad7.setToolTipText("Bonus Long Road 7");
         btnBonusLongRoad7.setBackground(new Color(244, 164, 96));
@@ -156,14 +133,14 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnBonusLongRoad7, new Integer(1));
         
         JButton btnBonusAll = new JButton("");
-        btnBonusAll.setIcon(new ImageIcon(InterfaceJeu.class.getResource("/com/project/thurnandtaxis/statics/img/allprovinces/bonusall6.png")));
+        btnBonusAll.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/allprovinces/bonusall6.png")));
         btnBonusAll.setToolTipText("Bonus all");
         btnBonusAll.setBackground(new Color(244, 164, 96));
         btnBonusAll.setBounds(326, 65, 35, 35);
         layeredThurnplan.add(btnBonusAll, new Integer(1));
         
         JButton btnBonusEnd = new JButton("");
-        btnBonusEnd.setIcon(new ImageIcon(InterfaceJeu.class.getResource("/com/project/thurnandtaxis/statics/img/endgamebonus/bonusend0.png")));
+        btnBonusEnd.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/endgamebonus/bonusend0.png")));
         btnBonusEnd.setToolTipText("Bonus end");
         btnBonusEnd.setBackground(new Color(244, 164, 96));
         btnBonusEnd.setBounds(326, 25, 35, 35);
@@ -196,11 +173,12 @@ public class InterfaceJeu extends JFrame {
         btnCaleche5.setBackground(new Color(244, 164, 96));
         panelCardCaleche.add(btnCaleche5);
 
+        // ------------------------------------------------------
         JPanel panelCardsHandAndRoad = new JPanel();
         panelCardsHandAndRoad.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelCardsHandAndRoad.setBackground(new Color(205, 133, 63));
         layeredThurnplan.setLayer(panelCardsHandAndRoad, 1);
-        panelCardsHandAndRoad.setBounds(1, 712, 1024, 150);
+        panelCardsHandAndRoad.setBounds(0, 705, 1024, 150);
         layeredThurnplan.add(panelCardsHandAndRoad);
         panelCardsHandAndRoad.setLayout(new GridLayout(1, 2, 1, 20));
         
@@ -208,38 +186,43 @@ public class InterfaceJeu extends JFrame {
         panelCardHand.setBackground(new Color(205, 133, 63));
         panelCardsHandAndRoad.add(panelCardHand);
         panelCardHand.setLayout(new GridLayout(1, 6, 2, 0));
-
-        // Dimension dimCard = new Dimension(10, 150);
         
-        JButton btnNewButton = new JButton("");
-        btnNewButton.setPreferredSize(new Dimension(10, 150));
+        Dimension dimCard = new Dimension(10, 150);
+        
+        JButton btnNewButton = new JButton("Card1");
+        btnNewButton.setPreferredSize(dimCard);
         btnNewButton.setBackground(new Color(205, 133, 63));
         btnNewButton.setForeground(new Color(255, 215, 0));
         panelCardHand.add(btnNewButton);
         
-        JButton btnNewButton_1 = new JButton("");
+        JButton btnNewButton_1 = new JButton("Card2");
         btnNewButton_1.setBackground(new Color(205, 133, 63));
-        btnNewButton_1.setPreferredSize(new Dimension(10, 150));
+        btnNewButton_1.setPreferredSize(dimCard);
         panelCardHand.add(btnNewButton_1);
         
-        JButton btnNewButton_2 = new JButton("");
+        JButton btnNewButton_2 = new JButton("Card3");
         btnNewButton_2.setBackground(new Color(205, 133, 63));
-        btnNewButton_2.setPreferredSize(new Dimension(10, 150));
+        btnNewButton_2.setPreferredSize(dimCard);
         panelCardHand.add(btnNewButton_2);
         
-        JButton btnNewButton_3 = new JButton("");
+        JButton btnNewButton_3 = new JButton("Card4");
         btnNewButton_3.setBackground(new Color(205, 133, 63));
-        btnNewButton_3.setPreferredSize(new Dimension(10, 150));
+        btnNewButton_3.setPreferredSize(dimCard);
         panelCardHand.add(btnNewButton_3);
         
-        JButton btnNewButton_4 = new JButton("");
+        JButton btnNewButton_4 = new JButton("Card5");
+        btnNewButton_4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+            }
+        });
         btnNewButton_4.setBackground(new Color(205, 133, 63));
-        btnNewButton_4.setPreferredSize(new Dimension(10, 150));
+        btnNewButton_4.setPreferredSize(dimCard);
         panelCardHand.add(btnNewButton_4);
         
-        JButton btnNewButton_5 = new JButton("");
+        JButton btnNewButton_5 = new JButton("Card6");
         btnNewButton_5.setBackground(new Color(205, 133, 63));
-        btnNewButton_5.setPreferredSize(new Dimension(10, 150));
+        btnNewButton_5.setPreferredSize(dimCard);
         panelCardHand.add(btnNewButton_5);
         
         JPanel panelCardRoad = new JPanel();
@@ -247,34 +230,34 @@ public class InterfaceJeu extends JFrame {
         panelCardsHandAndRoad.add(panelCardRoad);
         panelCardRoad.setLayout(new GridLayout(1, 6, 2, 0));
         
-        JButton btnRoad = new JButton("");
+        JButton btnRoad = new JButton("Road1");
         btnRoad.setBackground(new Color(205, 133, 63));
-        btnRoad.setPreferredSize(new Dimension(10, 150));
+        btnRoad.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad);
         
-        JButton btnRoad_1 = new JButton("");
+        JButton btnRoad_1 = new JButton("Road2");
         btnRoad_1.setBackground(new Color(205, 133, 63));
-        btnRoad_1.setPreferredSize(new Dimension(10, 150));
+        btnRoad_1.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_1);
         
-        JButton btnRoad_2 = new JButton("");
+        JButton btnRoad_2 = new JButton("Road3");
         btnRoad_2.setBackground(new Color(205, 133, 63));
-        btnRoad_2.setPreferredSize(new Dimension(10, 150));
+        btnRoad_2.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_2);
         
-        JButton btnRoad_3 = new JButton("");
+        JButton btnRoad_3 = new JButton("Road4");
         btnRoad_3.setBackground(new Color(205, 133, 63));
-        btnRoad_3.setPreferredSize(new Dimension(10, 150));
+        btnRoad_3.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_3);
         
-        JButton btnRoad_4 = new JButton("");
+        JButton btnRoad_4 = new JButton("Road5");
         btnRoad_4.setBackground(new Color(205, 133, 63));
-        btnRoad_4.setPreferredSize(new Dimension(10, 150));
+        btnRoad_4.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_4);
         
-        JButton btnRoad_5 = new JButton("");
+        JButton btnRoad_5 = new JButton("Road6");
         btnRoad_5.setBackground(new Color(205, 133, 63));
-        btnRoad_5.setPreferredSize(new Dimension(10, 150));
+        btnRoad_5.setPreferredSize(dimCard);
         panelCardRoad.add(btnRoad_5);
 
         JPanel panelLabelPlayer1 = new JPanel();
@@ -282,8 +265,8 @@ public class InterfaceJeu extends JFrame {
         panelLabelPlayer1.setBackground(new Color(205, 133, 63));
         panelLabelPlayer1.setBounds(1024, 0, 286, 40);
         layeredThurnplan.add(panelLabelPlayer1);
-        
-        JLabel lblPlayer1 = new JLabel(game.getListePlayers().get(0).getName());
+
+        JLabel lblPlayer1 = new JLabel("Player 1");
         lblPlayer1.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
         lblPlayer1.setVerticalAlignment(SwingConstants.BOTTOM);
         lblPlayer1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -306,7 +289,7 @@ public class InterfaceJeu extends JFrame {
         JPanel panelLabelPlayer3 = new JPanel();
         panelLabelPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelLabelPlayer3.setBackground(new Color(205, 133, 63));
-        panelLabelPlayer3.setBounds(1024, 356, 286, 40);
+        panelLabelPlayer3.setBounds(1024, 352, 286, 40);
         layeredThurnplan.add(panelLabelPlayer3);
 
         JLabel lblPlayer3 = new JLabel("Player 3");
@@ -318,7 +301,7 @@ public class InterfaceJeu extends JFrame {
         JPanel panelLabelPlayer4 = new JPanel();
         panelLabelPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelLabelPlayer4.setBackground(new Color(205, 133, 63));
-        panelLabelPlayer4.setBounds(1310, 356, 286, 40);
+        panelLabelPlayer4.setBounds(1310, 352, 286, 40);
         layeredThurnplan.add(panelLabelPlayer4);
 
         JLabel lblPlayer4 = new JLabel("Player 4");
@@ -330,36 +313,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelItemPlayer1 = new JPanel();
         panelItemPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelItemPlayer1.setBackground(new Color(205, 133, 63));
-        panelItemPlayer1.setBounds(1024, 40, 143, 316);
+        panelItemPlayer1.setBounds(1024, 40, 143, 312);
         layeredThurnplan.add(panelItemPlayer1);
         panelItemPlayer1.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel lblNewLabel_2 = new JLabel("");
+        JLabel lblNewLabel_2 = new JLabel("New label");
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_2.setBackground(new Color(205, 133, 63));
         panelItemPlayer1.add(lblNewLabel_2);
 
-        JLabel lblNewLabel_3 = new JLabel("");
+        JLabel lblNewLabel_3 = new JLabel("New label");
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_3.setBackground(new Color(205, 133, 63));
         panelItemPlayer1.add(lblNewLabel_3);
 
-        JLabel lblNewLabel_4 = new JLabel("");
+        JLabel lblNewLabel_4 = new JLabel("New label");
         lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_4.setBackground(new Color(205, 133, 63));
         panelItemPlayer1.add(lblNewLabel_4);
 
-        JLabel lblNewLabel_5 = new JLabel("");
+        JLabel lblNewLabel_5 = new JLabel("New label");
         lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_5.setBackground(new Color(205, 133, 63));
         panelItemPlayer1.add(lblNewLabel_5);
 
-        JLabel lblNewLabel_6 = new JLabel("");
+        JLabel lblNewLabel_6 = new JLabel("New label");
         lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_6.setBackground(new Color(205, 133, 63));
         panelItemPlayer1.add(lblNewLabel_6);
 
-        JLabel lblNewLabel_7 = new JLabel("");
+        JLabel lblNewLabel_7 = new JLabel("New label");
         lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_7.setBackground(new Color(205, 133, 63));
         panelItemPlayer1.add(lblNewLabel_7);
@@ -367,36 +350,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelCardsPlayer1 = new JPanel();
         panelCardsPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelCardsPlayer1.setBackground(new Color(205, 133, 63));
-        panelCardsPlayer1.setBounds(1167, 40, 143, 316);
+        panelCardsPlayer1.setBounds(1167, 40, 143, 312);
         layeredThurnplan.add(panelCardsPlayer1);
         panelCardsPlayer1.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label_36 = new JLabel("");
+        JLabel label_36 = new JLabel("New label");
         label_36.setHorizontalAlignment(SwingConstants.CENTER);
         label_36.setBackground(new Color(205, 133, 63));
         panelCardsPlayer1.add(label_36);
 
-        JLabel label_37 = new JLabel("");
+        JLabel label_37 = new JLabel("New label");
         label_37.setHorizontalAlignment(SwingConstants.CENTER);
         label_37.setBackground(new Color(205, 133, 63));
         panelCardsPlayer1.add(label_37);
 
-        JLabel label_38 = new JLabel("");
+        JLabel label_38 = new JLabel("New label");
         label_38.setHorizontalAlignment(SwingConstants.CENTER);
         label_38.setBackground(new Color(205, 133, 63));
         panelCardsPlayer1.add(label_38);
 
-        JLabel label_39 = new JLabel("");
+        JLabel label_39 = new JLabel("New label");
         label_39.setHorizontalAlignment(SwingConstants.CENTER);
         label_39.setBackground(new Color(205, 133, 63));
         panelCardsPlayer1.add(label_39);
 
-        JLabel label_40 = new JLabel("");
+        JLabel label_40 = new JLabel("New label");
         label_40.setHorizontalAlignment(SwingConstants.CENTER);
         label_40.setBackground(new Color(205, 133, 63));
         panelCardsPlayer1.add(label_40);
 
-        JLabel label_41 = new JLabel("");
+        JLabel label_41 = new JLabel("New label");
         label_41.setHorizontalAlignment(SwingConstants.CENTER);
         label_41.setBackground(new Color(205, 133, 63));
         panelCardsPlayer1.add(label_41);
@@ -404,36 +387,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelItemPlayer2 = new JPanel();
         panelItemPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelItemPlayer2.setBackground(new Color(205, 133, 63));
-        panelItemPlayer2.setBounds(1310, 40, 143, 316);
+        panelItemPlayer2.setBounds(1310, 40, 143, 312);
         layeredThurnplan.add(panelItemPlayer2);
         panelItemPlayer2.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label_42 = new JLabel("");
+        JLabel label_42 = new JLabel("New label");
         label_42.setHorizontalAlignment(SwingConstants.CENTER);
         label_42.setBackground(new Color(205, 133, 63));
         panelItemPlayer2.add(label_42);
 
-        JLabel label_43 = new JLabel("");
+        JLabel label_43 = new JLabel("New label");
         label_43.setHorizontalAlignment(SwingConstants.CENTER);
         label_43.setBackground(new Color(205, 133, 63));
         panelItemPlayer2.add(label_43);
 
-        JLabel label_44 = new JLabel("");
+        JLabel label_44 = new JLabel("New label");
         label_44.setHorizontalAlignment(SwingConstants.CENTER);
         label_44.setBackground(new Color(205, 133, 63));
         panelItemPlayer2.add(label_44);
 
-        JLabel label_45 = new JLabel("");
+        JLabel label_45 = new JLabel("New label");
         label_45.setHorizontalAlignment(SwingConstants.CENTER);
         label_45.setBackground(new Color(205, 133, 63));
         panelItemPlayer2.add(label_45);
 
-        JLabel label_46 = new JLabel("");
+        JLabel label_46 = new JLabel("New label");
         label_46.setHorizontalAlignment(SwingConstants.CENTER);
         label_46.setBackground(new Color(205, 133, 63));
         panelItemPlayer2.add(label_46);
 
-        JLabel label_47 = new JLabel("");
+        JLabel label_47 = new JLabel("New label");
         label_47.setHorizontalAlignment(SwingConstants.CENTER);
         label_47.setBackground(new Color(205, 133, 63));
         panelItemPlayer2.add(label_47);
@@ -441,36 +424,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelCardsPlayer2 = new JPanel();
         panelCardsPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelCardsPlayer2.setBackground(new Color(205, 133, 63));
-        panelCardsPlayer2.setBounds(1453, 40, 143, 316);
+        panelCardsPlayer2.setBounds(1453, 40, 143, 312);
         layeredThurnplan.add(panelCardsPlayer2);
         panelCardsPlayer2.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label_48 = new JLabel("");
+        JLabel label_48 = new JLabel("New label");
         label_48.setHorizontalAlignment(SwingConstants.CENTER);
         label_48.setBackground(new Color(205, 133, 63));
         panelCardsPlayer2.add(label_48);
 
-        JLabel label_49 = new JLabel("");
+        JLabel label_49 = new JLabel("New label");
         label_49.setHorizontalAlignment(SwingConstants.CENTER);
         label_49.setBackground(new Color(205, 133, 63));
         panelCardsPlayer2.add(label_49);
 
-        JLabel label_50 = new JLabel("");
+        JLabel label_50 = new JLabel("New label");
         label_50.setHorizontalAlignment(SwingConstants.CENTER);
         label_50.setBackground(new Color(205, 133, 63));
         panelCardsPlayer2.add(label_50);
 
-        JLabel label_51 = new JLabel("");
+        JLabel label_51 = new JLabel("New label");
         label_51.setHorizontalAlignment(SwingConstants.CENTER);
         label_51.setBackground(new Color(205, 133, 63));
         panelCardsPlayer2.add(label_51);
 
-        JLabel label_52 = new JLabel("");
+        JLabel label_52 = new JLabel("New label");
         label_52.setHorizontalAlignment(SwingConstants.CENTER);
         label_52.setBackground(new Color(205, 133, 63));
         panelCardsPlayer2.add(label_52);
 
-        JLabel label_53 = new JLabel("");
+        JLabel label_53 = new JLabel("New label");
         label_53.setHorizontalAlignment(SwingConstants.CENTER);
         label_53.setBackground(new Color(205, 133, 63));
         panelCardsPlayer2.add(label_53);
@@ -478,36 +461,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelItemPlayer3 = new JPanel();
         panelItemPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelItemPlayer3.setBackground(new Color(205, 133, 63));
-        panelItemPlayer3.setBounds(1024, 396, 143, 316);
+        panelItemPlayer3.setBounds(1024, 392, 143, 312);
         layeredThurnplan.add(panelItemPlayer3);
         panelItemPlayer3.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label = new JLabel("");
+        JLabel label = new JLabel("New label");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBackground(new Color(205, 133, 63));
         panelItemPlayer3.add(label);
 
-        JLabel label_1 = new JLabel("");
+        JLabel label_1 = new JLabel("New label");
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
         label_1.setBackground(new Color(205, 133, 63));
         panelItemPlayer3.add(label_1);
 
-        JLabel label_2 = new JLabel("");
+        JLabel label_2 = new JLabel("New label");
         label_2.setHorizontalAlignment(SwingConstants.CENTER);
         label_2.setBackground(new Color(205, 133, 63));
         panelItemPlayer3.add(label_2);
 
-        JLabel label_3 = new JLabel("");
+        JLabel label_3 = new JLabel("New label");
         label_3.setHorizontalAlignment(SwingConstants.CENTER);
         label_3.setBackground(new Color(205, 133, 63));
         panelItemPlayer3.add(label_3);
 
-        JLabel label_4 = new JLabel("");
+        JLabel label_4 = new JLabel("New label");
         label_4.setHorizontalAlignment(SwingConstants.CENTER);
         label_4.setBackground(new Color(205, 133, 63));
         panelItemPlayer3.add(label_4);
 
-        JLabel label_5 = new JLabel("");
+        JLabel label_5 = new JLabel("New label");
         label_5.setHorizontalAlignment(SwingConstants.CENTER);
         label_5.setBackground(new Color(205, 133, 63));
         panelItemPlayer3.add(label_5);
@@ -515,36 +498,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelCardsPlayer3 = new JPanel();
         panelCardsPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelCardsPlayer3.setBackground(new Color(205, 133, 63));
-        panelCardsPlayer3.setBounds(1167, 396, 143, 316);
+        panelCardsPlayer3.setBounds(1167, 392, 143, 312);
         layeredThurnplan.add(panelCardsPlayer3);
         panelCardsPlayer3.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label_6 = new JLabel("");
+        JLabel label_6 = new JLabel("New label");
         label_6.setHorizontalAlignment(SwingConstants.CENTER);
         label_6.setBackground(new Color(205, 133, 63));
         panelCardsPlayer3.add(label_6);
 
-        JLabel label_7 = new JLabel("");
+        JLabel label_7 = new JLabel("New label");
         label_7.setHorizontalAlignment(SwingConstants.CENTER);
         label_7.setBackground(new Color(205, 133, 63));
         panelCardsPlayer3.add(label_7);
 
-        JLabel label_8 = new JLabel("");
+        JLabel label_8 = new JLabel("New label");
         label_8.setHorizontalAlignment(SwingConstants.CENTER);
         label_8.setBackground(new Color(205, 133, 63));
         panelCardsPlayer3.add(label_8);
 
-        JLabel label_9 = new JLabel("");
+        JLabel label_9 = new JLabel("New label");
         label_9.setHorizontalAlignment(SwingConstants.CENTER);
         label_9.setBackground(new Color(205, 133, 63));
         panelCardsPlayer3.add(label_9);
 
-        JLabel label_10 = new JLabel("");
+        JLabel label_10 = new JLabel("New label");
         label_10.setHorizontalAlignment(SwingConstants.CENTER);
         label_10.setBackground(new Color(205, 133, 63));
         panelCardsPlayer3.add(label_10);
 
-        JLabel label_11 = new JLabel("");
+        JLabel label_11 = new JLabel("New label");
         label_11.setHorizontalAlignment(SwingConstants.CENTER);
         label_11.setBackground(new Color(205, 133, 63));
         panelCardsPlayer3.add(label_11);
@@ -552,36 +535,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelItemPlayer4 = new JPanel();
         panelItemPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelItemPlayer4.setBackground(new Color(205, 133, 63));
-        panelItemPlayer4.setBounds(1310, 396, 143, 316);
+        panelItemPlayer4.setBounds(1310, 392, 143, 312);
         layeredThurnplan.add(panelItemPlayer4);
         panelItemPlayer4.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label_12 = new JLabel("");
+        JLabel label_12 = new JLabel("New label");
         label_12.setHorizontalAlignment(SwingConstants.CENTER);
         label_12.setBackground(new Color(205, 133, 63));
         panelItemPlayer4.add(label_12);
 
-        JLabel label_13 = new JLabel("");
+        JLabel label_13 = new JLabel("New label");
         label_13.setHorizontalAlignment(SwingConstants.CENTER);
         label_13.setBackground(new Color(205, 133, 63));
         panelItemPlayer4.add(label_13);
 
-        JLabel label_14 = new JLabel("");
+        JLabel label_14 = new JLabel("New label");
         label_14.setHorizontalAlignment(SwingConstants.CENTER);
         label_14.setBackground(new Color(205, 133, 63));
         panelItemPlayer4.add(label_14);
 
-        JLabel label_15 = new JLabel("");
+        JLabel label_15 = new JLabel("New label");
         label_15.setHorizontalAlignment(SwingConstants.CENTER);
         label_15.setBackground(new Color(205, 133, 63));
         panelItemPlayer4.add(label_15);
 
-        JLabel label_16 = new JLabel("");
+        JLabel label_16 = new JLabel("New label");
         label_16.setHorizontalAlignment(SwingConstants.CENTER);
         label_16.setBackground(new Color(205, 133, 63));
         panelItemPlayer4.add(label_16);
 
-        JLabel label_17 = new JLabel("");
+        JLabel label_17 = new JLabel("New label");
         label_17.setHorizontalAlignment(SwingConstants.CENTER);
         label_17.setBackground(new Color(205, 133, 63));
         panelItemPlayer4.add(label_17);
@@ -589,36 +572,36 @@ public class InterfaceJeu extends JFrame {
         JPanel panelCardsPlayer4 = new JPanel();
         panelCardsPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelCardsPlayer4.setBackground(new Color(205, 133, 63));
-        panelCardsPlayer4.setBounds(1453, 396, 143, 316);
+        panelCardsPlayer4.setBounds(1453, 392, 143, 312);
         layeredThurnplan.add(panelCardsPlayer4);
         panelCardsPlayer4.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel label_18 = new JLabel("");
+        JLabel label_18 = new JLabel("New label");
         label_18.setHorizontalAlignment(SwingConstants.CENTER);
         label_18.setBackground(new Color(205, 133, 63));
         panelCardsPlayer4.add(label_18);
 
-        JLabel label_19 = new JLabel("");
+        JLabel label_19 = new JLabel("New label");
         label_19.setHorizontalAlignment(SwingConstants.CENTER);
         label_19.setBackground(new Color(205, 133, 63));
         panelCardsPlayer4.add(label_19);
 
-        JLabel label_20 = new JLabel("");
+        JLabel label_20 = new JLabel("New label");
         label_20.setHorizontalAlignment(SwingConstants.CENTER);
         label_20.setBackground(new Color(205, 133, 63));
         panelCardsPlayer4.add(label_20);
 
-        JLabel label_21 = new JLabel("");
+        JLabel label_21 = new JLabel("New label");
         label_21.setHorizontalAlignment(SwingConstants.CENTER);
         label_21.setBackground(new Color(205, 133, 63));
         panelCardsPlayer4.add(label_21);
 
-        JLabel label_22 = new JLabel("");
+        JLabel label_22 = new JLabel("New label");
         label_22.setHorizontalAlignment(SwingConstants.CENTER);
         label_22.setBackground(new Color(205, 133, 63));
         panelCardsPlayer4.add(label_22);
 
-        JLabel label_23 = new JLabel("");
+        JLabel label_23 = new JLabel("New label");
         label_23.setHorizontalAlignment(SwingConstants.CENTER);
         label_23.setBackground(new Color(205, 133, 63));
         panelCardsPlayer4.add(label_23);
@@ -627,119 +610,50 @@ public class InterfaceJeu extends JFrame {
         panelOfficials.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(244, 164, 96), new Color(244, 164, 96), null, null));
         panelOfficials.setBackground(new Color(205, 133, 63));
         layeredThurnplan.setLayer(panelOfficials, 1);
-        panelOfficials.setBounds(1025, 712, 427, 150);
+        panelOfficials.setBounds(1024, 705, 470, 150);
         layeredThurnplan.add(panelOfficials);
-        GridLayout gl_panelOfficials = new GridLayout(2, 3);
-        gl_panelOfficials.setVgap(1);
-        gl_panelOfficials.setHgap(2);
-        panelOfficials.setLayout(gl_panelOfficials);
-        
-        JButton btnCancel = new JButton("Cancel");
-        btnCancel.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
-        panelOfficials.add(btnCancel);
-        btnCancel.setBackground(new Color(205, 133, 63));
-        
-        this.btnAdministrator = new JButton("");
-        this.btnAdministrator.setIcon(new ImageIcon(InterfaceJeu.class
-                        .getResource("/com/project/thurnandtaxis/statics/img/officials/administratorTile.png")));
-        panelOfficials.add(this.btnAdministrator);
-        this.btnAdministrator.setToolTipText("Administrator");
-        this.btnAdministrator.setBackground(new Color(205, 133, 63));
-        
-        this.btnPostmaster = new JButton("");
-        this.btnPostmaster.setIcon(new ImageIcon(InterfaceJeu.class
-                        .getResource("/com/project/thurnandtaxis/statics/img/officials/postmasterTile.png")));
-        panelOfficials.add(this.btnPostmaster);
-        this.btnPostmaster.setToolTipText("Postmaster");
-        this.btnPostmaster.setBackground(new Color(205, 133, 63));
+        panelOfficials.setLayout(new GridLayout(2, 3, 0, 0));
         
         JButton btnValidate = new JButton("Validate");
-        btnValidate.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
         panelOfficials.add(btnValidate);
         btnValidate.setBackground(new Color(205, 133, 63));
         
-        this.btnPostalCarrier = new JButton("");
-        this.btnPostalCarrier.setIcon(new ImageIcon(InterfaceJeu.class
-                        .getResource("/com/project/thurnandtaxis/statics/img/officials/postalCarrierTile.png")));
-        panelOfficials.add(this.btnPostalCarrier);
-        this.btnPostalCarrier.setToolTipText("Postal carrier");
-        this.btnPostalCarrier.setBackground(new Color(205, 133, 63));
+        JButton btnAdministrator = new JButton("");
+        panelOfficials.add(btnAdministrator);
+        btnAdministrator.setToolTipText("Administrator");
+        btnAdministrator.setBackground(new Color(205, 133, 63));
+        btnAdministrator.setSelectedIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/bailiff.jpg")));
         
-        this.btnCartwright = new JButton("");
-        this.btnCartwright.setIcon(new ImageIcon(InterfaceJeu.class
-                        .getResource("/com/project/thurnandtaxis/statics/img/officials/cartwrightTile.png")));
-        panelOfficials.add(this.btnCartwright);
-        this.btnCartwright.setToolTipText("Cartwright");
-        this.btnCartwright.setBackground(new Color(205, 133, 63));
+        JButton btnPostmaster = new JButton("");
+        panelOfficials.add(btnPostmaster);
+        btnPostmaster.setToolTipText("Postmaster");
+        btnPostmaster.setBackground(new Color(205, 133, 63));
+        btnPostmaster.setSelectedIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/postmaster.jpg")));
         
-        this.btnDeckCard = new JButton("");
-        this.btnDeckCard.setIcon(game.getGameParams().getBackCardImage());
-        layeredThurnplan.setLayer(this.btnDeckCard, 1);
-        this.btnDeckCard.setBounds(1452, 712, 100, 150);
-        layeredThurnplan.add(this.btnDeckCard);
-        this.btnDeckCard.setToolTipText(game.getListeCityCards().size() + " cards remaining");
-
-        JPanel panelNbCardRemaining = new JPanel();
-        panelNbCardRemaining.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(244, 164, 96), null));
-        panelNbCardRemaining.setBackground(new Color(205, 133, 63));
-        panelNbCardRemaining.setBounds(1552, 712, 42, 150);
-        layeredThurnplan.add(panelNbCardRemaining, 1);
+        JButton btnCancel = new JButton("Cancel");
+        panelOfficials.add(btnCancel);
+        btnCancel.setBackground(new Color(205, 133, 63));
         
-        JLabel lblNbCardRemaining = new JLabel(String.valueOf(game.getListeCityCards().size()));
-        // lblNbCardRemaining.setHorizontalTextPosition(SwingConstants.CENTER);
-        lblNbCardRemaining.setVerticalTextPosition(SwingConstants.BOTTOM);
-        panelNbCardRemaining.add(lblNbCardRemaining);
-        lblNbCardRemaining.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
-
+        JButton btnPostalCarrier = new JButton("");
+        panelOfficials.add(btnPostalCarrier);
+        btnPostalCarrier.setToolTipText("Postal carrier");
+        btnPostalCarrier.setBackground(new Color(205, 133, 63));
+        btnPostalCarrier.setSelectedIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/coachman.jpg")));
+        
+        JButton btnCartwright = new JButton("");
+        btnCartwright.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/wainwright.jpg")));
+        panelOfficials.add(btnCartwright);
+        btnCartwright.setToolTipText("Cartwright");
+        btnCartwright.setBackground(new Color(205, 133, 63));
+        
+        JButton btnDeckCard = new JButton("");
+        btnDeckCard.setIcon(new ImageIcon(InterfaceTest.class.getResource("/com/project/thurnandtaxis/statics/img/deck.jpg")));
+        layeredThurnplan.setLayer(btnDeckCard, 1);
+        btnDeckCard.setBounds(1510, 735, 65, 89);
+        layeredThurnplan.add(btnDeckCard);
+        btnDeckCard.setToolTipText("Deck");
+        
         this.setSize(1600, 900);
         this.setVisible(true);
-    }
-    
-    public JButton getBtnDeckCard() {
-        return this.btnDeckCard;
-    }
-
-    public void setBtnDeckCard(JButton btnDeckCard) {
-        this.btnDeckCard = btnDeckCard;
-    }
-
-    public List<JButton> getListeCardsVisible() {
-        return this.listeCardsVisible;
-    }
-
-    public void setListeCardsVisible(List<JButton> listeCardsVisible) {
-        this.listeCardsVisible = listeCardsVisible;
-    }
-    
-    public JButton getBtnAdministrator() {
-        return this.btnAdministrator;
-    }
-
-    public void setBtnAdministrator(JButton btnAdministrator) {
-        this.btnAdministrator = btnAdministrator;
-    }
-
-    public JButton getBtnPostmaster() {
-        return this.btnPostmaster;
-    }
-
-    public void setBtnPostmaster(JButton btnPostmaster) {
-        this.btnPostmaster = btnPostmaster;
-    }
-
-    public JButton getBtnPostalCarrier() {
-        return this.btnPostalCarrier;
-    }
-
-    public void setBtnPostalCarrier(JButton btnPostalCarrier) {
-        this.btnPostalCarrier = btnPostalCarrier;
-    }
-
-    public JButton getBtnCartwright() {
-        return this.btnCartwright;
-    }
-
-    public void setBtnCartwright(JButton btnCartwright) {
-        this.btnCartwright = btnCartwright;
     }
 }

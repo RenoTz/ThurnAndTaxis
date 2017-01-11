@@ -2,12 +2,10 @@ package com.project.thurnandtaxis.controler;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.common.collect.Lists;
 import com.project.thurnandtaxis.data.beans.Game;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
@@ -32,19 +30,23 @@ public class PlayTUT {
         CardsUtils.melangerLesCartes(game.getListeCityCards());
 
         // 4. Création des joueurs (seulement 1 dans un premier temps -> pour le développement)
-        final List<Player> listPlayer = Lists.newArrayList();
         final Player pDev = new Player();
         pDev.setColor(Color.BLUE);
         pDev.setName("Gaston");
-        listPlayer.add(pDev);
+        game.getListePlayers().add(pDev);
 
         // 4. on construit l'interface de jeu à partir des éléments du jeu
-        final InterfaceJeu ihm = new InterfaceJeu(game, listPlayer);
+        final InterfaceJeu ihm = new InterfaceJeu(game);
         
         // 5. on ajoute les évènements sur les boutons
         final ServiceActionButton serviceActionButton = new ServiceActionButton();
         // - bouton deckCard
-        serviceActionButton.addActionButtonDeckCard(ihm.getBtnDeckCard(), listPlayer.get(0), game.getListeCityCards());
+        serviceActionButton.addActionButtonDeckCard(ihm.getBtnDeckCard(), game.getListePlayers().get(0), game.getListeCityCards());
+        // - officials
+        serviceActionButton.addActionButtonAdministrator(ihm.getBtnAdministrator(), game.getListeCityCards(), ihm.getListeCardsVisible());
+        serviceActionButton.addActionButtonCartwright(ihm.getBtnCartwright(), game.getListeCityCards());
+        serviceActionButton.addActionButtonPostalCarrier(ihm.getBtnPostalCarrier(), game.getListeCityCards());
+        serviceActionButton.addActionButtonPostmaster(ihm.getBtnPostmaster(), game.getListeCityCards());
         
     }
 }
