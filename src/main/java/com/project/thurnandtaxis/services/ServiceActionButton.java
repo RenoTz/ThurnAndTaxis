@@ -80,7 +80,7 @@ public class ServiceActionButton {
                         ServiceActionButton.this.updateLabelCardRemaining(listeCityCards);
                     }
                 } else {
-                    JOptionPane.showInternalMessageDialog(null, "Plus assez de cartes.");
+                    JOptionPane.showMessageDialog(null, "Plus assez de cartes.");
                 }
             }
         });
