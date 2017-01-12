@@ -2,15 +2,31 @@ package com.project.thurnandtaxis.data.beans;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public class Game {
 
-    private List<Official> listeOfficials = null;
-    private List<House> listeHouses = null;
-    private List<Carriage> listeCarriages = null;
-    private GameParams gameParams = null;
-    private List<Province> listeProvinces = null;
-    private List<Adjacence> listeAdjacences = null;
-    private Bonus bonus = null;
+    private List<Official> listeOfficials;
+    private List<House> listeHouses;
+    private List<Carriage> listeCarriages;
+    private GameParams gameParams;
+    private List<CityCard> listeCityCards;
+    private List<Province> listeProvinces;
+    private List<Adjacence> listeAdjacences;
+    private Bonus bonus;
+    private List<Player> listePlayers;
+    private List<CityCard> listeCardsDiscard;
+
+    public Game() {
+        this.listeOfficials = Lists.newArrayList();
+        this.listeHouses = Lists.newArrayList();
+        this.listeCarriages = Lists.newArrayList();
+        this.listeCityCards = Lists.newArrayList();
+        this.listeProvinces = Lists.newArrayList();
+        this.listeAdjacences = Lists.newArrayList();
+        this.listePlayers = Lists.newArrayList();
+        this.listeCardsDiscard = Lists.newArrayList();
+    }
 
     public List<Official> getListeOfficials() {
         return this.listeOfficials;
@@ -61,11 +77,35 @@ public class Game {
     }
 
     public Bonus getBonus() {
-        return bonus;
+        return this.bonus;
     }
 
     public void setBonus(Bonus bonus) {
         this.bonus = bonus;
+    }
+    
+    public List<CityCard> getListeCityCards() {
+        return this.listeCityCards;
+    }
+    
+    public void setListeCityCards(List<CityCard> listeCityCards) {
+        this.listeCityCards = listeCityCards;
+    }
+    
+    public List<Player> getListePlayers() {
+        return this.listePlayers;
+    }
+    
+    public void setListePlayers(List<Player> listePlayers) {
+        this.listePlayers = listePlayers;
+    }
+    
+    public List<CityCard> getListeCardsDiscard() {
+        return this.listeCardsDiscard;
+    }
+    
+    public void setListeCardsDiscard(List<CityCard> listeCardsDiscard) {
+        this.listeCardsDiscard = listeCardsDiscard;
     }
     
 }

@@ -1,4 +1,4 @@
-package com.project.thurnandtaxis.services;
+package com.project.thurnandtaxis.services.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

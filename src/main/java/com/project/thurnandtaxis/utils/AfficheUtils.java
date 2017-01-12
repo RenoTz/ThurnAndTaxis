@@ -8,6 +8,7 @@ import com.project.thurnandtaxis.data.beans.Adjacence;
 import com.project.thurnandtaxis.data.beans.Bonus;
 import com.project.thurnandtaxis.data.beans.Carriage;
 import com.project.thurnandtaxis.data.beans.City;
+import com.project.thurnandtaxis.data.beans.CityCard;
 import com.project.thurnandtaxis.data.beans.GameParams;
 import com.project.thurnandtaxis.data.beans.House;
 import com.project.thurnandtaxis.data.beans.Official;
@@ -29,6 +30,16 @@ public class AfficheUtils {
         System.out.println("nb_max_city_cards_route_closed : " + gameParams.getNbMaxCityCardsRouteClosed());
     }
 
+    public static void afficherCityCards(final List<CityCard> listeCityCards) {
+        System.out.println("-------------- CITY CARDS ----------------");
+        for (CityCard city : listeCityCards) {
+            System.out.println(city.getNameCity());
+            System.out.println(city.getNameProvince());
+            System.out.println(city.getColorProvince().toString());
+            System.out.println(city.getImage().getDescription());
+        }
+    }
+    
     public static void afficherOfficials(final List<Official> listeOfficials) {
         System.out.println("-------------- OFFICIALS ----------------");
         for (Official official : listeOfficials) {
