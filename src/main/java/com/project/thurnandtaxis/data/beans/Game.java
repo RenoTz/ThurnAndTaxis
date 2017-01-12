@@ -6,50 +6,26 @@ import com.google.common.collect.Lists;
 
 public class Game {
 
-    private List<Official> listeOfficials;
-    private List<House> listeHouses;
-    private List<Carriage> listeCarriages;
+    private List<Official> listOfficials;
+    private List<House> listHouses;
+    private List<Carriage> listCarriages;
     private GameParams gameParams;
-    private List<CityCard> listeCityCards;
-    private List<Province> listeProvinces;
-    private List<Adjacence> listeAdjacences;
+    private List<CityCard> listCityCards;
+    private List<Province> listProvinces;
+    private List<Adjacence> listAdjacences;
     private Bonus bonus;
-    private List<Player> listePlayers;
-    private List<CityCard> listeCardsDiscard;
+    private List<Player> listPlayers;
+    private List<CityCard> listCardsDiscarded;
 
     public Game() {
-        this.listeOfficials = Lists.newArrayList();
-        this.listeHouses = Lists.newArrayList();
-        this.listeCarriages = Lists.newArrayList();
-        this.listeCityCards = Lists.newArrayList();
-        this.listeProvinces = Lists.newArrayList();
-        this.listeAdjacences = Lists.newArrayList();
-        this.listePlayers = Lists.newArrayList();
-        this.listeCardsDiscard = Lists.newArrayList();
-    }
-
-    public List<Official> getListeOfficials() {
-        return this.listeOfficials;
-    }
-
-    public void setListeOfficials(List<Official> listeOfficials) {
-        this.listeOfficials = listeOfficials;
-    }
-
-    public List<House> getListeHouses() {
-        return this.listeHouses;
-    }
-
-    public void setListeHouses(List<House> listeHouses) {
-        this.listeHouses = listeHouses;
-    }
-
-    public List<Carriage> getListeCarriages() {
-        return this.listeCarriages;
-    }
-
-    public void setListeCarriages(List<Carriage> listeCarriages) {
-        this.listeCarriages = listeCarriages;
+        this.listOfficials = Lists.newArrayList();
+        this.listHouses = Lists.newArrayList();
+        this.listCarriages = Lists.newArrayList();
+        this.listCityCards = Lists.newArrayList();
+        this.listProvinces = Lists.newArrayList();
+        this.listAdjacences = Lists.newArrayList();
+        this.listPlayers = Lists.newArrayList();
+        this.listCardsDiscarded = Lists.newArrayList();
     }
 
     public GameParams getGameParams() {
@@ -60,22 +36,6 @@ public class Game {
         this.gameParams = gameParams;
     }
 
-    public List<Province> getListeProvinces() {
-        return this.listeProvinces;
-    }
-
-    public void setListeProvinces(List<Province> listeProvinces) {
-        this.listeProvinces = listeProvinces;
-    }
-
-    public List<Adjacence> getListeAdjacences() {
-        return this.listeAdjacences;
-    }
-
-    public void setListeAdjacences(List<Adjacence> listeAdjacences) {
-        this.listeAdjacences = listeAdjacences;
-    }
-
     public Bonus getBonus() {
         return this.bonus;
     }
@@ -84,28 +44,68 @@ public class Game {
         this.bonus = bonus;
     }
     
-    public List<CityCard> getListeCityCards() {
-        return this.listeCityCards;
+    public List<Official> getListOfficials() {
+        return this.listOfficials;
     }
     
-    public void setListeCityCards(List<CityCard> listeCityCards) {
-        this.listeCityCards = listeCityCards;
+    public void setListOfficials(List<Official> listOfficials) {
+        this.listOfficials = listOfficials;
     }
     
-    public List<Player> getListePlayers() {
-        return this.listePlayers;
+    public List<House> getListHouses() {
+        return this.listHouses;
     }
     
-    public void setListePlayers(List<Player> listePlayers) {
-        this.listePlayers = listePlayers;
+    public void setListHouses(List<House> listHouses) {
+        this.listHouses = listHouses;
     }
     
-    public List<CityCard> getListeCardsDiscard() {
-        return this.listeCardsDiscard;
+    public List<Carriage> getListCarriages() {
+        return this.listCarriages;
     }
     
-    public void setListeCardsDiscard(List<CityCard> listeCardsDiscard) {
-        this.listeCardsDiscard = listeCardsDiscard;
+    public void setListCarriages(List<Carriage> listCarriages) {
+        this.listCarriages = listCarriages;
+    }
+    
+    public List<CityCard> getListCityCards() {
+        return this.listCityCards;
+    }
+    
+    public void setListCityCards(List<CityCard> listCityCards) {
+        this.listCityCards = listCityCards;
+    }
+    
+    public List<Province> getListProvinces() {
+        return this.listProvinces;
+    }
+    
+    public void setListProvinces(List<Province> listProvinces) {
+        this.listProvinces = listProvinces;
+    }
+    
+    public List<Adjacence> getListAdjacences() {
+        return this.listAdjacences;
+    }
+    
+    public void setListAdjacences(List<Adjacence> listAdjacences) {
+        this.listAdjacences = listAdjacences;
+    }
+    
+    public List<Player> getListPlayers() {
+        return this.listPlayers;
+    }
+    
+    public void setListPlayers(List<Player> listPlayers) {
+        this.listPlayers = listPlayers;
+    }
+    
+    public List<CityCard> getListCardsDiscarded() {
+        return this.listCardsDiscarded;
+    }
+    
+    public void setListCardsDiscarded(List<CityCard> listCardsDiscarded) {
+        this.listCardsDiscarded = listCardsDiscarded;
     }
     
 }

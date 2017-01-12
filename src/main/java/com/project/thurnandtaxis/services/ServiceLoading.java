@@ -25,11 +25,11 @@ public class ServiceLoading {
         
         final Game game = new Game();
         game.setGameParams(this.coordGameParams.recupererGameParamsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.GAME)));
-        game.setListeOfficials(this.coordGameParams.recupererListeOfficialsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.OFFICIALS)));
-        game.setListeHouses(this.coordGameParams.recupererListeHousesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.HOUSES)));
-        game.setListeCarriages(this.coordGameParams.recupererListeCarriagesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.CARRIAGES)));
-        game.setListeProvinces(this.coordGameParams.recupererListeProvincesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES)));
-        game.setListeAdjacences(this.coordGameParams.recupererListeAdjacencesJSON(jsonGameElements
+        game.setListOfficials(this.coordGameParams.recupererListeOfficialsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.OFFICIALS)));
+        game.setListHouses(this.coordGameParams.recupererListeHousesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.HOUSES)));
+        game.setListCarriages(this.coordGameParams.recupererListeCarriagesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.CARRIAGES)));
+        game.setListProvinces(this.coordGameParams.recupererListeProvincesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES)));
+        game.setListAdjacences(this.coordGameParams.recupererListeAdjacencesJSON(jsonGameElements
                         .getJSONObject(ConstantesGameParams.DIRECT_ADJACENCES)));
         game.setBonus(this.coordGameParams.recupererTousLesBonus(jsonGameElements.getJSONObject(ConstantesGameParams.BONUS)));
         
@@ -41,7 +41,7 @@ public class ServiceLoading {
 
     private void chargerLesElementsDuJeuSupplementaires(final Game game) {
 
-        final List<CityCard> listeCityCards = this.coordGameParams.recupererListeCityCards(game.getListeProvinces());
+        final List<CityCard> listeCityCards = this.coordGameParams.recupererListeCityCards(game.getListProvinces());
 
         if (CollectionUtils.isNotEmpty(listeCityCards)) {
             for (CityCard card : listeCityCards) {
@@ -51,7 +51,7 @@ public class ServiceLoading {
                     cityCard.setImage(card.getImage());
                     cityCard.setNameCity(card.getNameCity());
                     cityCard.setNameProvince(card.getNameProvince());
-                    game.getListeCityCards().add(cityCard);
+                    game.getListCityCards().add(cityCard);
                 }
             }
         }

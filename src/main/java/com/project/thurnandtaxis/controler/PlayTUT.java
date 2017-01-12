@@ -9,8 +9,12 @@ import org.json.JSONObject;
 import com.project.thurnandtaxis.data.beans.Game;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
+import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 import com.project.thurnandtaxis.services.ServiceActionButton;
+import com.project.thurnandtaxis.services.ServiceActionOfficials;
 import com.project.thurnandtaxis.services.ServiceLoading;
+import com.project.thurnandtaxis.services.impl.ServiceActionButtonImpl;
+import com.project.thurnandtaxis.services.impl.ServiceActionOfficialsImpl;
 import com.project.thurnandtaxis.services.parser.ParserJSON;
 import com.project.thurnandtaxis.utils.CardsUtils;
 
@@ -27,25 +31,30 @@ public class PlayTUT {
         final Game game = loading.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
         
         // 3. on effectue les taches de préparation du jeu
-        CardsUtils.melangerLesCartes(game.getListeCityCards());
+        CardsUtils.melangerLesCartes(game.getListCityCards());
 
         // 4. Création des joueurs (seulement 1 dans un premier temps -> pour le développement)
         final Player pDev = new Player();
         pDev.setColor(Color.BLUE);
         pDev.setName("Gaston");
-        game.getListePlayers().add(pDev);
+        game.getListPlayers().add(pDev);
 
         // 4. on construit l'interface de jeu à partir des éléments du jeu
         final InterfaceJeu ihm = new InterfaceJeu();
         ihm.createInterface(game);
         
         // 5. on ajoute les évènements sur les boutons
-        final ServiceActionButton serviceActionButton = new ServiceActionButton(ihm.getBtnDeckCard(), ihm.getLblNbCardRemaining(),
-                        ihm.getListeCardsHand(), ihm.getListeCardsRoad(), ihm.getListeButtonsOfficials(), ihm.getListeCardsVisible());
+        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(ihm.getBtnDeckCard(), ihm.getLblNbCardRemaining(),
+                        ihm.getListeCardsHand(), ihm.getListeCardsRoad(), game.getListCardsDiscarded());
         // - bouton deckCard
-        serviceActionButton.addActionButtonDeckCard(game.getListePlayers().get(0), game.getListeCityCards());
+        serviceActionButton.addActionButtonDeckCard(game.getListPlayers().get(0), game.getListCityCards());
         // - officials
-        serviceActionButton.addActionsButtonsOfficials(game.getListeCityCards());
+        final ServiceActionOfficials serviceActionOfficial = new ServiceActionOfficialsImpl(ihm.getListeButtonsOfficials(),
+                        ihm.getListeCardsVisible(), game.getListCardsDiscarded(), game.getListCityCards());
+        serviceActionOfficial.addActionButtonAdministrator(EnumOfficials.ADMINISTRATOR);
+        serviceActionOfficial.addActionButtonCartwright(EnumOfficials.CARTWRIGHT);
+        serviceActionOfficial.addActionButtonPostalCarrier(EnumOfficials.POSTAL_CARRIER);
+        serviceActionOfficial.addActionButtonPostmaster(EnumOfficials.POSTMASTER);
         
     }
 }
