@@ -11,24 +11,26 @@ import com.project.thurnandtaxis.data.beans.Player;
 
 public class ServiceCards {
     
-    public void takeOneCityCard(final Player player, final List<CityCard> listCardRemaining, List<CityCard> listCardsHand) {
-        CityCard cityCard = this.addCityCardToCardPlayer(player, listCardRemaining);
-        this.addCityCardToCardHand(cityCard, listCardsHand);
+    public void takeOneCityCard(final Player player, final CityCard card) {
+        final CityCard cardToClone = card.clone();
+        this.addCityCardToCardPlayer(player.getListHandCityCards(), cardToClone);
     }
 
-    public CityCard addCityCardToCardPlayer(final Player player, final List<CityCard> listCardRemaining) {
-
-        final CityCard cardToPlayer = Iterables.getLast(listCardRemaining).clone();
-        player.getListHandCityCards().add(cardToPlayer);
-        listCardRemaining.remove(Iterables.getLast(listCardRemaining));
-        return cardToPlayer;
+    public void addCityCardToCardPlayer(final List<CityCard> listPlayerCards, final CityCard cardToClone) {
+        
+        for (CityCard playerCard : listPlayerCards) {
+            if (StringUtils.isBlank(playerCard.getNameCity())) {
+                playerCard.cloneWithButton(cardToClone);
+                break;
+            }
+        }
     }
     
-    public void addCityCardToCardHand(final CityCard cityCard, final List<CityCard> listCardsHand) {
+    public void addCityCardToCardRoad(final List<CityCard> listCardsRoad, final CityCard cityCard) {
 
-        for (CityCard cardHand : listCardsHand) {
-            if (StringUtils.isBlank(cardHand.getNameCity())) {
-                cardHand.cloneWithButton(cityCard);
+        for (CityCard cardRoad : listCardsRoad) {
+            if (StringUtils.isBlank(cardRoad.getNameCity())) {
+                cardRoad.cloneWithButton(cityCard);
                 break;
             }
         }

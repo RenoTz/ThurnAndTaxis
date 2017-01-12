@@ -45,9 +45,11 @@ public class PlayTUT {
         
         // 5. on ajoute les évènements sur les boutons
         final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(ihm.getBtnDeckCard(), ihm.getLblNbCardRemaining(),
-                        ihm.getListeCardsHand(), ihm.getListeCardsRoad(), game.getListCardsDiscarded());
+                        ihm.getListeCardsHand(), ihm.getListeCardsRoad(), game.getListCardsDiscarded(), ihm.getListeCardsVisible());
         // - bouton deckCard
         serviceActionButton.addActionButtonDeckCard(game.getListPlayers().get(0), game.getListCityCards());
+        // - boutons cards visibles
+        serviceActionButton.addActionButtonCardVisible(pDev);
         // - officials
         final ServiceActionOfficials serviceActionOfficial = new ServiceActionOfficialsImpl(ihm.getListeButtonsOfficials(),
                         ihm.getListeCardsVisible(), game.getListCardsDiscarded(), game.getListCityCards());

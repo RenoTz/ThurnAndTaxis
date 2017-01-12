@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Iterables;
 import com.project.thurnandtaxis.data.beans.CityCard;
+import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
 import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 import com.project.thurnandtaxis.services.ServiceActionOfficials;
 import com.project.thurnandtaxis.services.ServiceCards;
@@ -44,19 +45,21 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listeCityCards)) {
+                    // mise à la défausse des 6 cartes visibles
                     if (this.isCardsAlreadyLaid()) {
                         for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
                             ServiceActionOfficialsImpl.this.serviceCards.addCardsToDiscard(ServiceActionOfficialsImpl.this.listCardsDiscarded,
                                             cardVisible);
                         }
                     }
+                    // ajout des six cartes visibles
                     for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
                         ServiceActionOfficialsImpl.this.serviceCards.addCardVisible(ServiceActionOfficialsImpl.this.listeCityCards, cardVisible);
                         ServiceActionOfficialsImpl.this.listeCityCards.remove(Iterables.getLast(ServiceActionOfficialsImpl.this.listeCityCards));
                         ServiceActionButtonImpl.updateLabelCardRemaining(ServiceActionOfficialsImpl.this.listeCityCards);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Plus assez de cartes.", INFORMATION, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_NO_CARDS, INFORMATION, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             

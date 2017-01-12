@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Iterables;
 import com.project.thurnandtaxis.data.beans.CityCard;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
@@ -19,34 +20,36 @@ import com.project.thurnandtaxis.services.ServiceActionButton;
 import com.project.thurnandtaxis.services.ServiceCards;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
-
+    
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
     private static JLabel lblCardRemaining;
     private List<CityCard> listCardsHand;
     private List<CityCard> listCardsRoad;
     private List<CityCard> listCardsDiscarded;
-
+    private List<CityCard> listCardsVisible;
+    
     public ServiceActionButtonImpl(final JButton btnDeckCard, JLabel lblCardRemaining, List<CityCard> listCardsHand,
-        List<CityCard> listCardsRoad, List<CityCard> listCardsDiscarded) {
+        List<CityCard> listCardsRoad, List<CityCard> listCardsDiscarded, List<CityCard> listCardsVisible) {
         this.serviceCards = new ServiceCards();
         this.btnDeckCard = btnDeckCard;
         ServiceActionButtonImpl.lblCardRemaining = lblCardRemaining;
         this.listCardsHand = listCardsHand;
         this.listCardsRoad = listCardsRoad;
         this.listCardsDiscarded = listCardsDiscarded;
+        this.listCardsVisible = listCardsVisible;
     }
-
+    
     @Override
     public void addActionButtonDeckCard(final Player player, final List<CityCard> listCardRemaining) {
         this.btnDeckCard.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(listCardRemaining)) {
                     if (ServiceActionButtonImpl.this.isListeCardsHandFull(ServiceActionButtonImpl.this.listCardsHand)) {
-                        ServiceActionButtonImpl.this.serviceCards.takeOneCityCard(player, listCardRemaining,
-                                        ServiceActionButtonImpl.this.listCardsHand);
+                        ServiceActionButtonImpl.this.serviceCards.takeOneCityCard(player, Iterables.getLast(listCardRemaining));
+                        listCardRemaining.remove(Iterables.getLast(listCardRemaining));
                         ServiceActionButtonImpl.updateLabelCardRemaining(listCardRemaining);
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
@@ -63,14 +66,35 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     }
                 }
             }
-            
+
         });
     }
     
+    @Override
+    public void addActionButtonCardVisible(final Player player) {
+        
+        for (final CityCard card : this.listCardsVisible) {
+            card.getCityButton().addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ServiceActionButtonImpl.this.serviceCards.takeOneCityCard(player, card);
+                    for (CityCard cardRemove : ServiceActionButtonImpl.this.listCardsDiscarded) {
+                        if (card.equals(cardRemove)) {
+                            ServiceActionButtonImpl.this.listCardsDiscarded.remove(cardRemove);
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+        
+    }
+
     protected static void updateLabelCardRemaining(List<CityCard> listCardRemaining) {
         lblCardRemaining.setText(String.valueOf(listCardRemaining.size()));
     }
-
+    
     private boolean isListeCardsHandFull(List<CityCard> listCardsHand) {
         for (CityCard btn : listCardsHand) {
             if (StringUtils.isBlank(btn.getNameCity())) {
@@ -79,4 +103,5 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         }
         return false;
     }
+
 }
