@@ -24,7 +24,7 @@ import com.project.thurnandtaxis.services.ServiceCards;
 import com.project.thurnandtaxis.utils.UpdateUtils;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
-
+    
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
     private JLabel lblCardRemaining;
@@ -32,9 +32,9 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsRemaining;
-    
-    private AllListsCards listsCards;// TODO A VIRER
 
+    private AllListsCards listsCards;// TODO A VIRER
+    
     public ServiceActionButtonImpl(AllButtons allButtons, AllLabels allLabels, AllListsCards listsCards) {
         this.serviceCards = new ServiceCards();
         this.listCardsRoad = listsCards.getListCardsRoad();
@@ -45,11 +45,11 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         this.btnDeckCard = allButtons.getBtnDeckCard();
         this.lblCardRemaining = allLabels.getLblNbCardRemaining();
     }
-
+    
     @Override
     public void addActionButtonDeckCard(final Player player, final List<CityCard> listCardRemaining) {
         this.btnDeckCard.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(listCardRemaining)) {
@@ -79,20 +79,28 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     }
                 }
             }
-            
+
         });
     }
-
+    
+    /**
+     * ActionListener sur <strong>buttonCardVisible</strong> permettant de sélectionner une carte à partir des cartes visibles. <br>
+     * 1 - on transfère la carte visible dans les cartes en main du joueur <br>
+     * 2 - on nettoie la carte visible, sans la supprimer <br>
+     * 3 - on transfère une carte du tas de cartes sur la carte visible <br>
+     * 4 - on supprime la carte prise précédemment <br>
+     * 5 - on met à jour le label du nombre de cartes restantes <br>
+     */
     @Override
     public void addActionButtonCardVisible(final Player player) {
-
+        
         for (final CityCard card : this.listCardsVisible) {
             card.getCityButton().addActionListener(new ActionListener() {
                 
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(player.getListHandCityCards(), card);
-                    
+
                     for (CityCard cardToClear : ServiceActionButtonImpl.this.listCardsVisible) {
                         if (card.equals(cardToClear)) {
                             card.clear();
@@ -106,16 +114,16 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         }
                     }
                 }
-                
+
             });
         }
-
+        
     }
-    
+
     private int getNbCardsRemaining() {
         return ServiceActionButtonImpl.this.listCardsRemaining.size();
     }
-    
+
     private boolean isListeCardsHandFull(List<CityCard> listCardsHand) {
         for (CityCard btn : listCardsHand) {
             if (StringUtils.isBlank(btn.getNameCity())) {
@@ -124,5 +132,5 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         }
         return false;
     }
-    
+
 }
