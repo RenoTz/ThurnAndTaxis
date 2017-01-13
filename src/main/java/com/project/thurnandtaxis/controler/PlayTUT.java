@@ -6,6 +6,9 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.project.thurnandtaxis.data.beans.AllButtons;
+import com.project.thurnandtaxis.data.beans.AllLabels;
+import com.project.thurnandtaxis.data.beans.AllListsCards;
 import com.project.thurnandtaxis.data.beans.Game;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
@@ -38,21 +41,30 @@ public class PlayTUT {
         pDev.setColor(Color.BLUE);
         pDev.setName("Gaston");
         game.getListPlayers().add(pDev);
-
-        // 4. on construit l'interface de jeu à partir des éléments du jeu
+        
+        // 5.) on construit l'interface de jeu à partir des éléments du jeu
         final InterfaceJeu ihm = new InterfaceJeu();
         ihm.createInterface(game);
         
-        // 5. on ajoute les évènements sur les boutons
-        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(ihm.getBtnDeckCard(), ihm.getLblNbCardRemaining(),
-                        ihm.getListeCardsHand(), ihm.getListeCardsRoad(), game.getListCardsDiscarded(), ihm.getListeCardsVisible());
+        // 6.a) agrégation des listes de cartes dans un bean
+        final AllListsCards listsCards = new AllListsCards(game.getListCardsDiscarded(), game.getListCityCards(), ihm.getListeCardsRoad(),
+                        ihm.getListeCardsVisible());
+        
+        // 6.b) agrégation de tous les boutons dans un bean
+        final AllButtons allButtons = new AllButtons(ihm.getListeButtonsOfficials(), ihm.getListBonusButton(), ihm.getBtnDeckCard());
+        
+        // 6.c) agrégation de tous les labels dans un bean
+        final AllLabels allLabels = new AllLabels(ihm.getLblNbCardRemaining());
+        
+        // 7. on ajoute les évènements sur les boutons
+        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allButtons, allLabels, listsCards);
         // - bouton deckCard
-        serviceActionButton.addActionButtonDeckCard(game.getListPlayers().get(0), game.getListCityCards());
+        serviceActionButton.addActionButtonDeckCard(pDev, game.getListCityCards());
         // - boutons cards visibles
         serviceActionButton.addActionButtonCardVisible(pDev);
         // - officials
-        final ServiceActionOfficials serviceActionOfficial = new ServiceActionOfficialsImpl(ihm.getListeButtonsOfficials(),
-                        ihm.getListeCardsVisible(), game.getListCardsDiscarded(), game.getListCityCards());
+        final ServiceActionOfficials serviceActionOfficial = new ServiceActionOfficialsImpl(allButtons.getListOfficialsButtons(), listsCards,
+                        allLabels);
         serviceActionOfficial.addActionButtonAdministrator(EnumOfficials.ADMINISTRATOR);
         serviceActionOfficial.addActionButtonCartwright(EnumOfficials.CARTWRIGHT);
         serviceActionOfficial.addActionButtonPostalCarrier(EnumOfficials.POSTAL_CARRIER);

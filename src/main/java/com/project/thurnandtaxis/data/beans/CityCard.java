@@ -6,6 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class CityCard {
     
     private String nameCity;
@@ -82,6 +84,15 @@ public class CityCard {
         card.setNameCity(this.getNameCity());
         card.setNameProvince(this.getNameProvince());
         return card;
+    }
+    
+    public void clear() {
+        this.getCityButton().setToolTipText(StringUtils.EMPTY);
+        this.getCityButton().setIcon(null);
+        this.setColorProvince(null);
+        this.setImage(null);
+        this.setNameCity(StringUtils.EMPTY);
+        this.setNameProvince(StringUtils.EMPTY);
     }
 
     public void cloneWithButton(final CityCard cardToClone) {
