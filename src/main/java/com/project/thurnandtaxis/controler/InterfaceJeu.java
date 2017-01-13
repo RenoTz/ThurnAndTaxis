@@ -224,53 +224,62 @@ public class InterfaceJeu extends JFrame {
         btnLeftRoad.setPreferredSize(dimCard);
         btnLeftRoad.setBackground(ColorUtils.PERU);
         btnLeftRoad.setForeground(new Color(255, 215, 0));
+        btnLeftRoad.setBorder(new BevelBorder(BevelBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnLeftRoad);
         
         JButton btnRoad1 = new JButton("");
         btnRoad1.setBackground(ColorUtils.PERU);
         btnRoad1.setPreferredSize(dimCard);
+        btnRoad1.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad1);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad1));
         
         JButton btnRoad2 = new JButton("");
         btnRoad2.setBackground(ColorUtils.PERU);
         btnRoad2.setPreferredSize(dimCard);
+        btnRoad2.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad2);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad2));
 
         JButton btnRoad3 = new JButton("");
         btnRoad3.setBackground(ColorUtils.PERU);
         btnRoad3.setPreferredSize(dimCard);
+        btnRoad3.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad3);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad3));
         
         JButton btnRoad4 = new JButton("");
         btnRoad4.setBackground(ColorUtils.PERU);
         btnRoad4.setPreferredSize(dimCard);
+        btnRoad4.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad4);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad4));
         
         JButton btnRoad5 = new JButton("");
         btnRoad5.setBackground(ColorUtils.PERU);
         btnRoad5.setPreferredSize(dimCard);
+        btnRoad5.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad5);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad5));
 
         JButton btnRoad6 = new JButton("");
         btnRoad6.setBackground(ColorUtils.PERU);
         btnRoad6.setPreferredSize(dimCard);
+        btnRoad6.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad6);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad6));
         
         JButton btnRoad7 = new JButton("");
         btnRoad7.setBackground(ColorUtils.PERU);
         btnRoad7.setPreferredSize(dimCard);
+        btnRoad7.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad7);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad7));
 
         JButton btnRoad8 = new JButton("");
         btnRoad8.setBackground(ColorUtils.PERU);
         btnRoad8.setPreferredSize(dimCard);
+        btnRoad8.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnRoad8);
         allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad8));
 
@@ -278,6 +287,7 @@ public class InterfaceJeu extends JFrame {
         btnRightRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
         btnRightRoad.setBackground(ColorUtils.PERU);
         btnRightRoad.setForeground(new Color(255, 215, 0));
+        btnRightRoad.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.GRAY));
         btnRightRoad.setPreferredSize(dimCard);
         panelCardRoad.add(btnRightRoad);
         
@@ -697,6 +707,7 @@ public class InterfaceJeu extends JFrame {
         panelOfficials.add(btnBuildRoad);
         btnBuildRoad.setBackground(ColorUtils.PERU);
         btnBuildRoad.setForeground(new Color(255, 215, 0));
+        btnBuildRoad.setBorder(new BevelBorder(BevelBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
         allItems.getAllButtons().setBtnBuildRoad(btnBuildRoad);
         
         JButton btnPostalCarrier = new JButton("");
@@ -720,7 +731,7 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.setLayer(btnDeckCard, 1);
         btnDeckCard.setBounds(1452, 712, 100, 150);
         layeredThurnplan.add(btnDeckCard);
-        btnDeckCard.setToolTipText(game.getListCityCards().size() + " cards remaining");
+        btnDeckCard.setToolTipText("Take one");
         allItems.getAllButtons().setBtnDeckCard(btnDeckCard);
         
         // -----------------------

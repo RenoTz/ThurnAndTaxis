@@ -63,12 +63,25 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     final int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_SHUFFLE_CARDS, ConstantesMsgBox.QUESTION,
                                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (option == JOptionPane.OK_OPTION) {
+                        for (CityCard cardVisible : ServiceActionButtonImpl.this.listCardsVisible) {
+                            ServiceActionButtonImpl.this.listCardsDiscarded.add(cardVisible.clone());
+                            cardVisible.clear();
+                        }
                         ServiceActionButtonImpl.this.listCardsRemaining.addAll(ServiceActionButtonImpl.this.listCardsDiscarded);
                         ServiceActionButtonImpl.this.listCardsDiscarded.clear();
                         Collections.shuffle(ServiceActionButtonImpl.this.listCardsRemaining);
+                        this.addSixCardsVisible();
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
                     }
+                }
+            }
+            
+            private void addSixCardsVisible() {
+                // ajout des six cartes visibles
+                for (CityCard cardVisible : ServiceActionButtonImpl.this.listCardsVisible) {
+                    ServiceActionButtonImpl.this.serviceCards.addCardVisible(ServiceActionButtonImpl.this.listCardsRemaining, cardVisible);
+                    ServiceActionButtonImpl.this.listCardsRemaining.remove(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                 }
             }
 

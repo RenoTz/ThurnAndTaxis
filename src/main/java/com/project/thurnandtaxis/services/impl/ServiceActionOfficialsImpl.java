@@ -1,5 +1,6 @@
 package com.project.thurnandtaxis.services.impl;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.border.BevelBorder;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +29,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
     private List<JButton> listOfficialsButtons;
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsDiscarded;
-    private List<CityCard> listeCardsRemaining;
+    private List<CityCard> listCardsRemaining;
     private JLabel lblCardRemaining;
     
     public ServiceActionOfficialsImpl(AllItems allItems) {
@@ -35,7 +37,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
         this.listOfficialsButtons = allItems.getAllButtons().getListOfficialsButtons();
         this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
         this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
-        this.listeCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
+        this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
         this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
     }
     
@@ -47,7 +49,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listeCardsRemaining)) {
+                if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listCardsRemaining)) {
                     // mise à la défausse des 6 cartes visibles
                     if (this.isCardsAlreadyLaid()) {
                         for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
@@ -55,18 +57,22 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
                                             cardVisible);
                         }
                     }
-                    // ajout des six cartes visibles
-                    for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
-                        ServiceActionOfficialsImpl.this.serviceCards.addCardVisible(ServiceActionOfficialsImpl.this.listeCardsRemaining,
-                                        cardVisible);
-                        ServiceActionOfficialsImpl.this.listeCardsRemaining.remove(Iterables
-                                        .getLast(ServiceActionOfficialsImpl.this.listeCardsRemaining));
-                        UpdateUtils.updateLabelCardRemaining(ServiceActionOfficialsImpl.this.lblCardRemaining,
-                                        ServiceActionOfficialsImpl.this.listeCardsRemaining.size());
-                    }
+                    btnAdministrator.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
+                    this.addSixCardsVisible();
                 } else {
                     JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_NO_CARDS, ConstantesMsgBox.INFORMATION,
                                     JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+
+            private void addSixCardsVisible() {
+                // ajout des six cartes visibles
+                for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
+                    ServiceActionOfficialsImpl.this.serviceCards.addCardVisible(ServiceActionOfficialsImpl.this.listCardsRemaining, cardVisible);
+                    ServiceActionOfficialsImpl.this.listCardsRemaining.remove(Iterables
+                                    .getLast(ServiceActionOfficialsImpl.this.listCardsRemaining));
+                    UpdateUtils.updateLabelCardRemaining(ServiceActionOfficialsImpl.this.lblCardRemaining,
+                                    ServiceActionOfficialsImpl.this.listCardsRemaining.size());
                 }
             }
             
