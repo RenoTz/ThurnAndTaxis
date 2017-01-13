@@ -13,9 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Iterables;
-import com.project.thurnandtaxis.data.beans.AllButtons;
-import com.project.thurnandtaxis.data.beans.AllLabels;
-import com.project.thurnandtaxis.data.beans.AllListsCards;
+import com.project.thurnandtaxis.data.beans.AllItems;
 import com.project.thurnandtaxis.data.beans.CityCard;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
@@ -24,7 +22,7 @@ import com.project.thurnandtaxis.services.ServiceCards;
 import com.project.thurnandtaxis.utils.UpdateUtils;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
-
+    
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
     private JLabel lblCardRemaining;
@@ -32,24 +30,21 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsRemaining;
-    
-    private AllListsCards listsCards;// TODO A VIRER
 
-    public ServiceActionButtonImpl(AllButtons allButtons, AllLabels allLabels, AllListsCards listsCards) {
+    public ServiceActionButtonImpl(AllItems allItems) {
         this.serviceCards = new ServiceCards();
-        this.listCardsRoad = listsCards.getListCardsRoad();
-        this.listCardsDiscarded = listsCards.getListCardsDiscarded();
-        this.listCardsVisible = listsCards.getListCardsVisibles();
-        this.listCardsRemaining = listsCards.getListeCardsRemaining();
-        this.listsCards = listsCards;
-        this.btnDeckCard = allButtons.getBtnDeckCard();
-        this.lblCardRemaining = allLabels.getLblNbCardRemaining();
+        this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
+        this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
+        this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
+        this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
+        this.btnDeckCard = allItems.getAllButtons().getBtnDeckCard();
+        this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
     }
-
+    
     @Override
     public void addActionButtonDeckCard(final Player player, final List<CityCard> listCardRemaining) {
         this.btnDeckCard.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(listCardRemaining)) {
@@ -75,10 +70,10 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     }
                 }
             }
-            
+
         });
     }
-
+    
     /**
      * ActionListener sur <strong>buttonCardVisible</strong> permettant de sélectionner une carte à partir des cartes visibles. <br>
      * 1 - on transfère la carte visible dans les cartes en main du joueur <br>
@@ -89,14 +84,14 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
      */
     @Override
     public void addActionButtonCardVisible(final Player player) {
-
+        
         for (final CityCard card : this.listCardsVisible) {
             card.getCityButton().addActionListener(new ActionListener() {
-
+                
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(player.getListHandCityCards(), card);
-                    
+
                     for (CityCard cardToClear : ServiceActionButtonImpl.this.listCardsVisible) {
                         if (card.equals(cardToClear)) {
                             card.clear();
@@ -110,16 +105,16 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         }
                     }
                 }
-                
+
             });
         }
-
+        
     }
-    
+
     private int getNbCardsRemaining() {
         return ServiceActionButtonImpl.this.listCardsRemaining.size();
     }
-    
+
     private boolean isListeCardsHandFull(List<CityCard> listCardsHand) {
         for (CityCard btn : listCardsHand) {
             if (StringUtils.isBlank(btn.getNameCity())) {
@@ -128,5 +123,5 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         }
         return false;
     }
-    
+
 }

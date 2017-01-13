@@ -1,5 +1,5 @@
 package com.project.thurnandtaxis.data.beans;
 
-public class ListBonusButton {
+public class AllBonus {
     
 }
