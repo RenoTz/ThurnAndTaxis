@@ -42,16 +42,17 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     }
     
     @Override
-    public void addActionButtonDeckCard(final Player player, final List<CityCard> listCardRemaining) {
+    public void addActionButtonDeckCard(final Player player) {
         this.btnDeckCard.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (CollectionUtils.isNotEmpty(listCardRemaining)) {
+                if (CollectionUtils.isNotEmpty(ServiceActionButtonImpl.this.listCardsRemaining)) {
                     if (ServiceActionButtonImpl.this.isListeCardsHandFull(player.getListHandCityCards())) {
                         ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(player.getListHandCityCards(),
-                                        Iterables.getLast(listCardRemaining));
-                        listCardRemaining.remove(Iterables.getLast(listCardRemaining));
+                                        Iterables.getLast(ServiceActionButtonImpl.this.listCardsRemaining));
+                        ServiceActionButtonImpl.this.listCardsRemaining.remove(Iterables
+                                        .getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
                     } else {
@@ -62,9 +63,9 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     final int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_SHUFFLE_CARDS, ConstantesMsgBox.QUESTION,
                                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (option == JOptionPane.OK_OPTION) {
-                        listCardRemaining.addAll(ServiceActionButtonImpl.this.listCardsDiscarded);
+                        ServiceActionButtonImpl.this.listCardsRemaining.addAll(ServiceActionButtonImpl.this.listCardsDiscarded);
                         ServiceActionButtonImpl.this.listCardsDiscarded.clear();
-                        Collections.shuffle(listCardRemaining);
+                        Collections.shuffle(ServiceActionButtonImpl.this.listCardsRemaining);
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
                     }

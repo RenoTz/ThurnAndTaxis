@@ -2,6 +2,8 @@ package com.project.thurnandtaxis.data.beans;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public class AllListsCards {
 
     private List<CityCard> listCardsDiscarded;
@@ -9,12 +11,11 @@ public class AllListsCards {
     private List<CityCard> listCardsRoad;
     private List<CityCard> listCardsVisibles;
 
-    public AllListsCards(List<CityCard> listCardsDiscarded, List<CityCard> listeCardsRemaining, List<CityCard> listCardsRoad,
-        List<CityCard> listCardsVisibles) {
-        this.listCardsDiscarded = listCardsDiscarded;
-        this.listeCardsRemaining = listeCardsRemaining;
-        this.listCardsRoad = listCardsRoad;
-        this.listCardsVisibles = listCardsVisibles;
+    public AllListsCards() {
+        this.listCardsDiscarded = Lists.newArrayList();
+        this.listeCardsRemaining = Lists.newArrayList();
+        this.listCardsRoad = Lists.newArrayList();
+        this.listCardsVisibles = Lists.newArrayList();
     }
 
     public List<CityCard> getListCardsVisibles() {
