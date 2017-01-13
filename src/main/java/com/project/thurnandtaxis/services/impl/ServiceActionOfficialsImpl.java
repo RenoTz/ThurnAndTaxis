@@ -33,7 +33,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
     private JLabel lblCardRemaining;
     
     public ServiceActionOfficialsImpl(AllItems allItems) {
-        this.serviceCards = new ServiceCards();
+        this.serviceCards = new ServiceCardsImpl();
         this.listOfficialsButtons = allItems.getAllButtons().getListOfficialsButtons();
         this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
         this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
@@ -58,24 +58,13 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
                         }
                     }
                     btnAdministrator.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
-                    this.addSixCardsVisible();
+                    ServiceActionOfficialsImpl.this.addSixCardsVisible();
                 } else {
                     JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_NO_CARDS, ConstantesMsgBox.INFORMATION,
                                     JOptionPane.INFORMATION_MESSAGE);
                 }
             }
 
-            private void addSixCardsVisible() {
-                // ajout des six cartes visibles
-                for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
-                    ServiceActionOfficialsImpl.this.serviceCards.addCardVisible(ServiceActionOfficialsImpl.this.listCardsRemaining, cardVisible);
-                    ServiceActionOfficialsImpl.this.listCardsRemaining.remove(Iterables
-                                    .getLast(ServiceActionOfficialsImpl.this.listCardsRemaining));
-                    UpdateUtils.updateLabelCardRemaining(ServiceActionOfficialsImpl.this.lblCardRemaining,
-                                    ServiceActionOfficialsImpl.this.listCardsRemaining.size());
-                }
-            }
-            
             private boolean isCardsAlreadyLaid() {
                 for (CityCard card : ServiceActionOfficialsImpl.this.listCardsVisible) {
                     if (StringUtils.isNotBlank(card.getNameCity())) {
@@ -86,6 +75,18 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             }
         });
         
+    }
+    
+    @Override
+    public void addSixCardsVisible() {
+        
+        for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
+            ServiceActionOfficialsImpl.this.serviceCards.transferOneCityCard(
+                            Iterables.getLast(ServiceActionOfficialsImpl.this.listCardsRemaining), cardVisible);
+            ServiceActionOfficialsImpl.this.listCardsRemaining.remove(Iterables.getLast(ServiceActionOfficialsImpl.this.listCardsRemaining));
+            UpdateUtils.updateLabelCardRemaining(ServiceActionOfficialsImpl.this.lblCardRemaining,
+                            ServiceActionOfficialsImpl.this.listCardsRemaining.size());
+        }
     }
 
     @Override
