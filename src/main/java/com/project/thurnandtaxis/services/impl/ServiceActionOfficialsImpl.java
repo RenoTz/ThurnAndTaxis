@@ -16,6 +16,7 @@ import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
 import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 import com.project.thurnandtaxis.services.ServiceActionOfficials;
 import com.project.thurnandtaxis.services.ServiceCards;
+import com.project.thurnandtaxis.utils.AfficheUtils;
 
 public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
     
@@ -84,7 +85,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-
+            	AfficheUtils.aImplementer();
             }
         });
 
@@ -99,7 +100,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-
+            	AfficheUtils.aImplementer();
             }
         });
 
@@ -114,7 +115,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO le joueur prend 2 cartes
-
+            	AfficheUtils.aImplementer();
             }
         });
     }

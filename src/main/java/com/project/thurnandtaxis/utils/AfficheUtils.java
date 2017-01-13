@@ -2,6 +2,8 @@ package com.project.thurnandtaxis.utils;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.project.thurnandtaxis.data.beans.Adjacence;
@@ -15,9 +17,15 @@ import com.project.thurnandtaxis.data.beans.Official;
 import com.project.thurnandtaxis.data.beans.Province;
 import com.project.thurnandtaxis.data.beans.ProvinceBonus;
 import com.project.thurnandtaxis.data.beans.Tile;
+import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
 
 public class AfficheUtils {
 
+	public static final void aImplementer(){
+		JOptionPane.showMessageDialog(null, ConstantesMsgBox.A_IMPLEMENTER, ConstantesMsgBox.INFORMATION,
+            JOptionPane.INFORMATION_MESSAGE);
+	}
+	
     public static void afficherGameParams(final GameParams gameParams) {
         System.out.println("-------------- GAME ----------------");
         System.out.println("name : " + gameParams.getName());
