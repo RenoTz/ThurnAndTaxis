@@ -21,7 +21,7 @@ public class ServiceCardsImpl implements ServiceCards {
     
     @Override
     public void addCardsToDiscard(List<CityCard> listCardsDiscarded, CityCard cardVisible) {
-        listCardsDiscarded.add(cardVisible);
+        listCardsDiscarded.add(cardVisible.clone());
     }
     
 }

@@ -14,7 +14,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 
 import com.project.thurnandtaxis.data.beans.AllItems;
 import com.project.thurnandtaxis.data.beans.CityCard;
@@ -350,41 +349,35 @@ public class InterfaceJeu extends JFrame {
         // ----------------
 
         JPanel panelItemPlayer1 = new JPanel();
-        panelItemPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
+        panelItemPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         panelItemPlayer1.setBackground(ColorUtils.PERU);
         panelItemPlayer1.setBounds(1024, 40, 143, 316);
         layeredThurnplan.add(panelItemPlayer1);
         panelItemPlayer1.setLayout(new GridLayout(0, 1, 2, 2));
 
-        JLabel lblNewLabel_2 = new JLabel("");
+        JLabel lblNewLabel_2 = new JLabel("lblNewLabel_2");
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         lblNewLabel_2.setBackground(ColorUtils.PERU);
         panelItemPlayer1.add(lblNewLabel_2);
 
-        JLabel lblNewLabel_3 = new JLabel("");
+        JLabel lblNewLabel_3 = new JLabel("lblNewLabel_3");
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_3.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         lblNewLabel_3.setBackground(ColorUtils.PERU);
         panelItemPlayer1.add(lblNewLabel_3);
 
-        JLabel lblNewLabel_4 = new JLabel("");
+        JLabel lblNewLabel_4 = new JLabel("lblNewLabel_4");
         lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_4.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         lblNewLabel_4.setBackground(ColorUtils.PERU);
         panelItemPlayer1.add(lblNewLabel_4);
 
-        JLabel lblNewLabel_5 = new JLabel("");
+        JLabel lblNewLabel_5 = new JLabel("lblNewLabel_5");
         lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_5.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         lblNewLabel_5.setBackground(ColorUtils.PERU);
         panelItemPlayer1.add(lblNewLabel_5);
-
-        JLabel lblNewLabel_6 = new JLabel("");
-        lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_6.setBackground(ColorUtils.PERU);
-        panelItemPlayer1.add(lblNewLabel_6);
-
-        JLabel lblNewLabel_7 = new JLabel("");
-        lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_7.setBackground(ColorUtils.PERU);
-        panelItemPlayer1.add(lblNewLabel_7);
 
         JPanel panelCardsPlayer1 = new JPanel();
         panelCardsPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -395,36 +388,42 @@ public class InterfaceJeu extends JFrame {
 
         JButton label_36 = new JButton("");
         label_36.setHorizontalAlignment(SwingConstants.CENTER);
+        label_36.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_36.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.add(label_36);
         this.p1.getListHandCityCards().add(new CityCard(label_36));
 
         JButton label_37 = new JButton("");
         label_37.setHorizontalAlignment(SwingConstants.CENTER);
+        label_37.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_37.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.add(label_37);
         this.p1.getListHandCityCards().add(new CityCard(label_37));
 
         JButton label_38 = new JButton("");
         label_38.setHorizontalAlignment(SwingConstants.CENTER);
+        label_38.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_38.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.add(label_38);
         this.p1.getListHandCityCards().add(new CityCard(label_38));
 
         JButton label_39 = new JButton("");
         label_39.setHorizontalAlignment(SwingConstants.CENTER);
+        label_39.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_39.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.add(label_39);
         this.p1.getListHandCityCards().add(new CityCard(label_39));
 
         JButton label_40 = new JButton("");
         label_40.setHorizontalAlignment(SwingConstants.CENTER);
+        label_40.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_40.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.add(label_40);
         this.p1.getListHandCityCards().add(new CityCard(label_40));
 
         JButton label_41 = new JButton("");
         label_41.setHorizontalAlignment(SwingConstants.CENTER);
+        label_41.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_41.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.add(label_41);
         this.p1.getListHandCityCards().add(new CityCard(label_41));
@@ -434,7 +433,7 @@ public class InterfaceJeu extends JFrame {
         // ----------------
 
         JPanel panelItemPlayer2 = new JPanel();
-        panelItemPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
+        panelItemPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         panelItemPlayer2.setBackground(ColorUtils.PERU);
         panelItemPlayer2.setBounds(1310, 40, 143, 316);
         layeredThurnplan.add(panelItemPlayer2);
@@ -442,33 +441,27 @@ public class InterfaceJeu extends JFrame {
 
         JLabel label_42 = new JLabel("");
         label_42.setHorizontalAlignment(SwingConstants.CENTER);
+        label_42.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_42.setBackground(ColorUtils.PERU);
         panelItemPlayer2.add(label_42);
 
         JLabel label_43 = new JLabel("");
         label_43.setHorizontalAlignment(SwingConstants.CENTER);
+        label_43.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_43.setBackground(ColorUtils.PERU);
         panelItemPlayer2.add(label_43);
 
         JLabel label_44 = new JLabel("");
         label_44.setHorizontalAlignment(SwingConstants.CENTER);
+        label_44.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_44.setBackground(ColorUtils.PERU);
         panelItemPlayer2.add(label_44);
 
         JLabel label_45 = new JLabel("");
         label_45.setHorizontalAlignment(SwingConstants.CENTER);
+        label_45.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_45.setBackground(ColorUtils.PERU);
         panelItemPlayer2.add(label_45);
-
-        JLabel label_46 = new JLabel("");
-        label_46.setHorizontalAlignment(SwingConstants.CENTER);
-        label_46.setBackground(ColorUtils.PERU);
-        panelItemPlayer2.add(label_46);
-
-        JLabel label_47 = new JLabel("");
-        label_47.setHorizontalAlignment(SwingConstants.CENTER);
-        label_47.setBackground(ColorUtils.PERU);
-        panelItemPlayer2.add(label_47);
 
         JPanel panelCardsPlayer2 = new JPanel();
         panelCardsPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -479,31 +472,37 @@ public class InterfaceJeu extends JFrame {
 
         JButton label_48 = new JButton("");
         label_48.setHorizontalAlignment(SwingConstants.CENTER);
+        label_48.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_48.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.add(label_48);
 
         JButton label_49 = new JButton("");
         label_49.setHorizontalAlignment(SwingConstants.CENTER);
+        label_49.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_49.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.add(label_49);
 
         JButton label_50 = new JButton("");
         label_50.setHorizontalAlignment(SwingConstants.CENTER);
+        label_50.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_50.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.add(label_50);
 
         JButton label_51 = new JButton("");
         label_51.setHorizontalAlignment(SwingConstants.CENTER);
+        label_51.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_51.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.add(label_51);
 
         JButton label_52 = new JButton("");
         label_52.setHorizontalAlignment(SwingConstants.CENTER);
+        label_52.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_52.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.add(label_52);
 
         JButton label_53 = new JButton("");
         label_53.setHorizontalAlignment(SwingConstants.CENTER);
+        label_53.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_53.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.add(label_53);
         
@@ -520,33 +519,27 @@ public class InterfaceJeu extends JFrame {
 
         JLabel label = new JLabel("");
         label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label.setBackground(ColorUtils.PERU);
         panelItemPlayer3.add(label);
 
         JLabel label_1 = new JLabel("");
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
+        label_1.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_1.setBackground(ColorUtils.PERU);
         panelItemPlayer3.add(label_1);
 
         JLabel label_2 = new JLabel("");
         label_2.setHorizontalAlignment(SwingConstants.CENTER);
+        label_2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_2.setBackground(ColorUtils.PERU);
         panelItemPlayer3.add(label_2);
 
         JLabel label_3 = new JLabel("");
         label_3.setHorizontalAlignment(SwingConstants.CENTER);
+        label_3.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_3.setBackground(ColorUtils.PERU);
         panelItemPlayer3.add(label_3);
-
-        JLabel label_4 = new JLabel("");
-        label_4.setHorizontalAlignment(SwingConstants.CENTER);
-        label_4.setBackground(ColorUtils.PERU);
-        panelItemPlayer3.add(label_4);
-
-        JLabel label_5 = new JLabel("");
-        label_5.setHorizontalAlignment(SwingConstants.CENTER);
-        label_5.setBackground(ColorUtils.PERU);
-        panelItemPlayer3.add(label_5);
 
         JPanel panelCardsPlayer3 = new JPanel();
         panelCardsPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -556,31 +549,37 @@ public class InterfaceJeu extends JFrame {
         panelCardsPlayer3.setLayout(new GridLayout(0, 1, 2, 2));
 
         JButton label_6 = new JButton("");
+        label_6.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_6.setHorizontalAlignment(SwingConstants.CENTER);
         label_6.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.add(label_6);
 
         JButton label_7 = new JButton("");
+        label_7.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_7.setHorizontalAlignment(SwingConstants.CENTER);
         label_7.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.add(label_7);
 
         JButton label_8 = new JButton("");
+        label_8.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_8.setHorizontalAlignment(SwingConstants.CENTER);
         label_8.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.add(label_8);
 
         JButton label_9 = new JButton("");
+        label_9.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_9.setHorizontalAlignment(SwingConstants.CENTER);
         label_9.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.add(label_9);
 
         JButton label_10 = new JButton("");
+        label_10.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_10.setHorizontalAlignment(SwingConstants.CENTER);
         label_10.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.add(label_10);
 
         JButton label_11 = new JButton("");
+        label_11.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_11.setHorizontalAlignment(SwingConstants.CENTER);
         label_11.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.add(label_11);
@@ -598,33 +597,27 @@ public class InterfaceJeu extends JFrame {
 
         JLabel label_12 = new JLabel("");
         label_12.setHorizontalAlignment(SwingConstants.CENTER);
+        label_12.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_12.setBackground(ColorUtils.PERU);
         panelItemPlayer4.add(label_12);
 
         JLabel label_13 = new JLabel("");
         label_13.setHorizontalAlignment(SwingConstants.CENTER);
+        label_13.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_13.setBackground(ColorUtils.PERU);
         panelItemPlayer4.add(label_13);
 
         JLabel label_14 = new JLabel("");
         label_14.setHorizontalAlignment(SwingConstants.CENTER);
+        label_14.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_14.setBackground(ColorUtils.PERU);
         panelItemPlayer4.add(label_14);
 
         JLabel label_15 = new JLabel("");
         label_15.setHorizontalAlignment(SwingConstants.CENTER);
+        label_15.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_15.setBackground(ColorUtils.PERU);
         panelItemPlayer4.add(label_15);
-
-        JLabel label_16 = new JLabel("");
-        label_16.setHorizontalAlignment(SwingConstants.CENTER);
-        label_16.setBackground(ColorUtils.PERU);
-        panelItemPlayer4.add(label_16);
-
-        JLabel label_17 = new JLabel("");
-        label_17.setHorizontalAlignment(SwingConstants.CENTER);
-        label_17.setBackground(ColorUtils.PERU);
-        panelItemPlayer4.add(label_17);
 
         JPanel panelCardsPlayer4 = new JPanel();
         panelCardsPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -634,31 +627,37 @@ public class InterfaceJeu extends JFrame {
         panelCardsPlayer4.setLayout(new GridLayout(0, 1, 2, 2));
 
         JButton label_18 = new JButton("");
+        label_18.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_18.setHorizontalAlignment(SwingConstants.CENTER);
         label_18.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.add(label_18);
 
         JButton label_19 = new JButton("");
+        label_19.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_19.setHorizontalAlignment(SwingConstants.CENTER);
         label_19.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.add(label_19);
 
         JButton label_20 = new JButton("");
+        label_20.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_20.setHorizontalAlignment(SwingConstants.CENTER);
         label_20.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.add(label_20);
 
         JButton label_21 = new JButton("");
+        label_21.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_21.setHorizontalAlignment(SwingConstants.CENTER);
         label_21.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.add(label_21);
 
         JButton label_22 = new JButton("");
+        label_22.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_22.setHorizontalAlignment(SwingConstants.CENTER);
         label_22.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.add(label_22);
 
         JButton label_23 = new JButton("");
+        label_23.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         label_23.setHorizontalAlignment(SwingConstants.CENTER);
         label_23.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.add(label_23);
@@ -739,7 +738,8 @@ public class InterfaceJeu extends JFrame {
         // -----------------------
         
         JPanel panelNbCardRemaining = new JPanel();
-        panelNbCardRemaining.setBorder(new EtchedBorder(EtchedBorder.LOWERED, ColorUtils.SANDY_BROWN, null));
+        // panelNbCardRemaining.setBorder(new EtchedBorder(EtchedBorder.LOWERED, ColorUtils.SANDY_BROWN, null));
+        panelNbCardRemaining.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         panelNbCardRemaining.setBackground(ColorUtils.PERU);
         panelNbCardRemaining.setBounds(1552, 712, 42, 150);
         layeredThurnplan.add(panelNbCardRemaining, 1);

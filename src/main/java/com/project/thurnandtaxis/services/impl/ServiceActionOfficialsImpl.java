@@ -1,6 +1,5 @@
 package com.project.thurnandtaxis.services.impl;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.border.BevelBorder;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -57,7 +55,6 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
                                             cardVisible);
                         }
                     }
-                    btnAdministrator.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
                     ServiceActionOfficialsImpl.this.addSixCardsVisible();
                 } else {
                     JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_NO_CARDS, ConstantesMsgBox.INFORMATION,
