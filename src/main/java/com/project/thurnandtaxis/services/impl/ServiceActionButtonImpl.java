@@ -2,6 +2,7 @@ package com.project.thurnandtaxis.services.impl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.project.thurnandtaxis.data.beans.AllPlayers;
 import com.project.thurnandtaxis.data.beans.CityCard;
 import com.project.thurnandtaxis.data.beans.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
+import com.project.thurnandtaxis.services.PDFapercu;
 import com.project.thurnandtaxis.services.ServiceActionButton;
 import com.project.thurnandtaxis.services.ServiceCards;
 import com.project.thurnandtaxis.utils.UpdateUtils;
@@ -26,6 +28,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
+    private JButton btnRules;
     private JLabel lblCardRemaining;
     private List<CityCard> listCardsRoad;
     private List<CityCard> listCardsDiscarded;
@@ -44,6 +47,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
         this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
         this.btnDeckCard = allItems.getAllButtons().getBtnDeckCard();
+        this.btnRules = allItems.getAllButtons().getBtnRules();
         this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
         this.player1 = allPlayers.getPlayer1();
         this.player2 = allPlayers.getPlayer2();
@@ -167,6 +171,25 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
             }
         }
         return false;
+    }
+
+    @Override
+    public void addActionButtonRules() {
+        // TODO Auto-generated method stub
+        this.btnRules.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                PDFapercu pdfApercu = new PDFapercu("ThurnAndTaxis_regles.pdf");
+                try {
+                    pdfApercu.createPage();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        
     }
 
 }

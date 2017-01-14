@@ -3,12 +3,14 @@ package com.project.thurnandtaxis.data.constantes;
 public class ConstantesStatics {
 
     public static final String FILENAME_PARAMS = ConstantesStatics.RACINE_STATICS_XML + "tutParams.xml";
+    public static final String FILENAME_RULES = ConstantesStatics.RACINE_STATICS_XML + "ThurnAndTaxis_regles.pdf";
 
     public static final String RACINE = "src/main/java/com/project/thurnandtaxis/";
     public static final String RACINE_STATICS = RACINE + "statics/";
 
     public static final String RACINE_STATICS_XML = RACINE_STATICS + "xml/";
     public static final String RACINE_STATICS_IMG = RACINE_STATICS + "img/";
+    public static final String RACINE_STATICS_PDF = RACINE_STATICS + "pdf/";
     
     // Officials
     public static final String RACINE_IMG_OFFICIALS = RACINE_STATICS_IMG + "officials/";
@@ -47,4 +49,7 @@ public class ConstantesStatics {
     
     // End Game Bonus
     public static final String RACINE_IMG_END_GAME_BONUS = RACINE_STATICS_IMG + "endgamebonus/";
+
+    // Icons
+    public static final String RACINE_IMG_ICONS = RACINE_STATICS_IMG + "icons/";
 }
