@@ -1,8 +1,9 @@
-package com.project.thurnandtaxis.data.beans;
+package com.project.thurnandtaxis.data.beans.principal;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
 
 public class AllListsCards {
 

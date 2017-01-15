@@ -1,4 +1,4 @@
-package com.project.thurnandtaxis.data.beans;
+package com.project.thurnandtaxis.data.beans.secondaire;
 
 import java.awt.Color;
 import java.util.List;
@@ -9,7 +9,7 @@ public class Province {
 
     private String name;
     private Color color;
-    private List<City> listeCity;
+    private List<CityCard> listeCity;
     private Long nbCities;
 
     public Province() {
@@ -32,11 +32,11 @@ public class Province {
         this.color = color;
     }
 
-    public List<City> getListeCity() {
+    public List<CityCard> getListeCity() {
         return this.listeCity;
     }
 
-    public void setListeCity(List<City> listeCity) {
+    public void setListeCity(List<CityCard> listeCity) {
         this.listeCity = listeCity;
     }
     

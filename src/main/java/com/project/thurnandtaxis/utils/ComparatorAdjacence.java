@@ -2,7 +2,7 @@ package com.project.thurnandtaxis.utils;
 
 import java.util.Comparator;
 
-import com.project.thurnandtaxis.data.beans.Adjacence;
+import com.project.thurnandtaxis.data.beans.secondaire.Adjacence;
 
 public class ComparatorAdjacence implements Comparator<Adjacence> {
 

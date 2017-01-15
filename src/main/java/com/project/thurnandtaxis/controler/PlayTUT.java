@@ -6,18 +6,19 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.project.thurnandtaxis.data.beans.AllItems;
-import com.project.thurnandtaxis.data.beans.Game;
-import com.project.thurnandtaxis.data.beans.Player;
+import com.project.thurnandtaxis.data.beans.principal.AllItems;
+import com.project.thurnandtaxis.data.beans.principal.Game;
+import com.project.thurnandtaxis.data.beans.secondaire.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
 import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 import com.project.thurnandtaxis.services.ServiceActionButton;
 import com.project.thurnandtaxis.services.ServiceActionOfficials;
+import com.project.thurnandtaxis.services.ServiceCards;
 import com.project.thurnandtaxis.services.ServiceLoading;
 import com.project.thurnandtaxis.services.impl.ServiceActionButtonImpl;
 import com.project.thurnandtaxis.services.impl.ServiceActionOfficialsImpl;
+import com.project.thurnandtaxis.services.impl.ServiceCardsImpl;
 import com.project.thurnandtaxis.services.parser.ParserJSON;
-import com.project.thurnandtaxis.utils.CardsUtils;
 
 public class PlayTUT {
     
@@ -41,7 +42,8 @@ public class PlayTUT {
         final InterfaceJeu ihm = new InterfaceJeu();
         final AllItems allItems = ihm.createInterface(game);
 
-        CardsUtils.melangerLesCartes(game.getListCityCards());
+        final ServiceCards serviceCards = new ServiceCardsImpl();
+        serviceCards.shuffleListCards(game.getListCityCards());
         allItems.getAllListsCards().getListeCardsRemaining().addAll(game.getListCityCards());
         
         // 6. on ajoute les évènements sur les boutons
@@ -59,6 +61,7 @@ public class PlayTUT {
         
         // 7.
         // mise en place des 6 cards visible
-        serviceActionOfficial.addSixCardsVisible();
+        serviceCards.addSixCardsVisible(allItems.getAllListsCards().getListCardsVisibles(),
+                        allItems.getAllListsCards().getListeCardsRemaining(), allItems.getAllLabels().getLblNbCardRemaining());
     }
 }

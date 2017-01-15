@@ -1,8 +1,16 @@
-package com.project.thurnandtaxis.data.beans;
+package com.project.thurnandtaxis.data.beans.principal;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.project.thurnandtaxis.data.beans.secondaire.Adjacence;
+import com.project.thurnandtaxis.data.beans.secondaire.Bonus;
+import com.project.thurnandtaxis.data.beans.secondaire.Carriage;
+import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
+import com.project.thurnandtaxis.data.beans.secondaire.GameParams;
+import com.project.thurnandtaxis.data.beans.secondaire.House;
+import com.project.thurnandtaxis.data.beans.secondaire.Official;
+import com.project.thurnandtaxis.data.beans.secondaire.Province;
 
 public class Game {
     

@@ -14,10 +14,10 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Iterables;
-import com.project.thurnandtaxis.data.beans.AllItems;
-import com.project.thurnandtaxis.data.beans.AllPlayers;
-import com.project.thurnandtaxis.data.beans.CityCard;
-import com.project.thurnandtaxis.data.beans.Player;
+import com.project.thurnandtaxis.data.beans.principal.AllItems;
+import com.project.thurnandtaxis.data.beans.principal.AllPlayers;
+import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
+import com.project.thurnandtaxis.data.beans.secondaire.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
 import com.project.thurnandtaxis.services.PDFapercu;
 import com.project.thurnandtaxis.services.ServiceActionButton;

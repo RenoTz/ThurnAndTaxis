@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
-import com.project.thurnandtaxis.data.beans.City;
 import com.project.thurnandtaxis.data.constantes.ConstantesGameParams;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
 import com.project.thurnandtaxis.data.enumerations.EnumColor;
@@ -40,7 +39,7 @@ public class ImageUtils {
         return new ImageIcon(racineTileCity + tileJSON.getString(ConstantesGameParams.IMAGE));
     }
     
-    public static ImageIcon selectImageCityCardByColor(final JSONObject iterCityJSON, final City city, final EnumColor enumColor) {
+    public static ImageIcon selectImageCityCardByColor(final JSONObject iterCityJSON, final EnumColor enumColor) {
 
         String racineCityCards = StringUtils.EMPTY;
 

@@ -1,4 +1,6 @@
-package com.project.thurnandtaxis.data.beans;
+package com.project.thurnandtaxis.data.beans.principal;
+
+import com.project.thurnandtaxis.data.beans.secondaire.Player;
 
 public class AllPlayers {
     

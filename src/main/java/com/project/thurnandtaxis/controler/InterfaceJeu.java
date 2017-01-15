@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
-import com.project.thurnandtaxis.data.beans.AllItems;
-import com.project.thurnandtaxis.data.beans.CityCard;
-import com.project.thurnandtaxis.data.beans.Game;
-import com.project.thurnandtaxis.data.beans.Player;
+import com.project.thurnandtaxis.data.beans.principal.AllItems;
+import com.project.thurnandtaxis.data.beans.principal.Game;
+import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
+import com.project.thurnandtaxis.data.beans.secondaire.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesStatics;
 import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 import com.project.thurnandtaxis.utils.ColorUtils;

@@ -11,15 +11,13 @@ import javax.swing.JOptionPane;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.collect.Iterables;
-import com.project.thurnandtaxis.data.beans.AllItems;
-import com.project.thurnandtaxis.data.beans.CityCard;
+import com.project.thurnandtaxis.data.beans.principal.AllItems;
+import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
 import com.project.thurnandtaxis.data.enumerations.EnumOfficials;
 import com.project.thurnandtaxis.services.ServiceActionOfficials;
 import com.project.thurnandtaxis.services.ServiceCards;
 import com.project.thurnandtaxis.utils.AfficheUtils;
-import com.project.thurnandtaxis.utils.UpdateUtils;
 
 public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
     
@@ -55,7 +53,8 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
                                             cardVisible);
                         }
                     }
-                    ServiceActionOfficialsImpl.this.addSixCardsVisible();
+                    ServiceActionOfficialsImpl.this.serviceCards.addSixCardsVisible(ServiceActionOfficialsImpl.this.listCardsVisible,
+                                    ServiceActionOfficialsImpl.this.listCardsRemaining, ServiceActionOfficialsImpl.this.lblCardRemaining);
                 } else {
                     JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_NO_CARDS, ConstantesMsgBox.INFORMATION,
                                     JOptionPane.INFORMATION_MESSAGE);
@@ -74,18 +73,6 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
         
     }
     
-    @Override
-    public void addSixCardsVisible() {
-        
-        for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
-            ServiceActionOfficialsImpl.this.serviceCards.transferOneCityCard(
-                            Iterables.getLast(ServiceActionOfficialsImpl.this.listCardsRemaining), cardVisible);
-            ServiceActionOfficialsImpl.this.listCardsRemaining.remove(Iterables.getLast(ServiceActionOfficialsImpl.this.listCardsRemaining));
-            UpdateUtils.updateLabelCardRemaining(ServiceActionOfficialsImpl.this.lblCardRemaining,
-                            ServiceActionOfficialsImpl.this.listCardsRemaining.size());
-        }
-    }
-
     @Override
     public void addActionButtonCartwright(final EnumOfficials enumOfficial) {
 
@@ -124,8 +111,8 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO le joueur prend 2 cartes
-                AfficheUtils.aImplementer();
+                JOptionPane.showMessageDialog(btnPostmaster, "Please, take one card.", ConstantesMsgBox.INFORMATION,
+                                JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }

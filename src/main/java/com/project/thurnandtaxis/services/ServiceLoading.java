@@ -8,8 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.project.thurnandtaxis.coordinations.CoordinationGameParams;
-import com.project.thurnandtaxis.data.beans.CityCard;
-import com.project.thurnandtaxis.data.beans.Game;
+import com.project.thurnandtaxis.data.beans.principal.Game;
+import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
 import com.project.thurnandtaxis.data.constantes.ConstantesGameParams;
 
 public class ServiceLoading {

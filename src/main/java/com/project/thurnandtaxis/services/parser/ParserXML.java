@@ -14,7 +14,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import com.google.common.collect.Lists;
-import com.project.thurnandtaxis.data.beans.Official;
+import com.project.thurnandtaxis.data.beans.secondaire.Official;
 
 public class ParserXML {
 

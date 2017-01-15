@@ -1,4 +1,4 @@
-package com.project.thurnandtaxis.data.beans;
+package com.project.thurnandtaxis.data.beans.secondaire;
 
 import java.awt.Color;
 import java.util.List;
