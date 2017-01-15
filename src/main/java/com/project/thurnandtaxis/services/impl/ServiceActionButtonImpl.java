@@ -2,7 +2,6 @@ package com.project.thurnandtaxis.services.impl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,13 +18,12 @@ import com.project.thurnandtaxis.data.beans.principal.AllPlayers;
 import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
 import com.project.thurnandtaxis.data.beans.secondaire.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
-import com.project.thurnandtaxis.services.PDFapercu;
 import com.project.thurnandtaxis.services.ServiceActionButton;
 import com.project.thurnandtaxis.services.ServiceCards;
 import com.project.thurnandtaxis.utils.UpdateUtils;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
-    
+
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
     private JButton btnRules;
@@ -34,12 +32,12 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsRemaining;
-
+    
     private Player player1;
     private Player player2;
     private Player player3;
     private Player player4;
-
+    
     public ServiceActionButtonImpl(AllItems allItems, AllPlayers allPlayers) {
         this.serviceCards = new ServiceCardsImpl();
         this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
@@ -54,11 +52,11 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         this.player3 = allPlayers.getPlayer3();
         this.player4 = allPlayers.getPlayer4();
     }
-    
+
     @Override
     public void addActionButtonDeckCard() {
         this.btnDeckCard.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionButtonImpl.this.listCardsRemaining)) {
@@ -91,7 +89,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     }
                 }
             }
-            
+
             private void addSixCardsVisible() {
                 // ajout des six cartes visibles
                 for (CityCard cardVisible : ServiceActionButtonImpl.this.listCardsVisible) {
@@ -100,10 +98,10 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     ServiceActionButtonImpl.this.listCardsRemaining.remove(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                 }
             }
-
+            
         });
     }
-    
+
     /**
      * ActionListener sur <strong>buttonCardVisible</strong> permettant de sélectionner une carte à partir des cartes visibles. <br>
      * 1 - on transfère la carte visible dans les cartes en main du joueur <br>
@@ -114,17 +112,17 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
      */
     @Override
     public void addActionButtonCardVisible() {
-        
+
         for (final CityCard cardVisible : this.listCardsVisible) {
             cardVisible.getCityButton().addActionListener(new ActionListener() {
-                
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    
                     if (ServiceActionButtonImpl.this.isListeCardsHandNotFull(ServiceActionButtonImpl.this.player1.getListHandCityCards())) {
                         ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardVisible,
                                         ServiceActionButtonImpl.this.getCardHandPlayerEmpty());
-                        
+
                         for (CityCard cardToClear : ServiceActionButtonImpl.this.listCardsVisible) {
                             if (cardVisible.equals(cardToClear)) {
                                 cardVisible.clear();
@@ -144,14 +142,14 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                         JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-                
+
             });
         }
-        
+
     }
-
+    
     private CityCard getCardHandPlayerEmpty() {
-
+        
         for (CityCard cardPlayer : this.player1.getListHandCityCards()) {
             if (StringUtils.isBlank(cardPlayer.getNameCity())) {
                 return cardPlayer;
@@ -159,11 +157,11 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         }
         return null;
     }
-
+    
     private int getNbCardsRemaining() {
         return ServiceActionButtonImpl.this.listCardsRemaining.size();
     }
-
+    
     private boolean isListeCardsHandNotFull(List<CityCard> listCardsHand) {
         for (CityCard btn : listCardsHand) {
             if (StringUtils.isBlank(btn.getNameCity())) {
@@ -172,24 +170,10 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         }
         return false;
     }
-
+    
     @Override
     public void addActionButtonRules() {
         // TODO Auto-generated method stub
-        this.btnRules.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                PDFapercu pdfApercu = new PDFapercu("ThurnAndTaxis_regles.pdf");
-                try {
-                    pdfApercu.createPage();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        
     }
-
+    
 }
