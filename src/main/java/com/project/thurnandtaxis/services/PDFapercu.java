@@ -54,7 +54,7 @@ public class PDFapercu {
         this.pdffile = new PDFFile(buf);
 
         // on affiche la premiere page
-        this.goToPage(2);
+        this.goToPage(1);
     }
 
     public void goToPage(int nbpage) throws IndexOutOfBoundsException {
