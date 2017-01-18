@@ -20,10 +20,14 @@ import com.project.thurnandtaxis.data.beans.secondaire.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
 import com.project.thurnandtaxis.services.ServiceActionButton;
 import com.project.thurnandtaxis.services.ServiceCards;
+import com.project.thurnandtaxis.utils.CardsUtils;
 import com.project.thurnandtaxis.utils.UpdateUtils;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
-
+    
+    protected static final int CARD_TO_LEFT = 0;
+    protected static final int CARD_TO_RIGHT = 1;
+    
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
     private JButton btnRules;
@@ -32,31 +36,21 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsRemaining;
-    
+
     private Player player1;
     private Player player2;
     private Player player3;
     private Player player4;
-    
+
     public ServiceActionButtonImpl(AllItems allItems, AllPlayers allPlayers) {
         this.serviceCards = new ServiceCardsImpl();
-        this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
-        this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
-        this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
-        this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
-        this.btnDeckCard = allItems.getAllButtons().getBtnDeckCard();
-        this.btnRules = allItems.getAllButtons().getBtnRules();
-        this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
-        this.player1 = allPlayers.getPlayer1();
-        this.player2 = allPlayers.getPlayer2();
-        this.player3 = allPlayers.getPlayer3();
-        this.player4 = allPlayers.getPlayer4();
+        this.initialiserVariables(allItems, allPlayers);
     }
-
+    
     @Override
     public void addActionButtonDeckCard() {
         this.btnDeckCard.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionButtonImpl.this.listCardsRemaining)) {
@@ -89,7 +83,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     }
                 }
             }
-
+            
             private void addSixCardsVisible() {
                 // ajout des six cartes visibles
                 for (CityCard cardVisible : ServiceActionButtonImpl.this.listCardsVisible) {
@@ -98,10 +92,10 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     ServiceActionButtonImpl.this.listCardsRemaining.remove(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                 }
             }
-            
+
         });
     }
-
+    
     /**
      * ActionListener sur <strong>buttonCardVisible</strong> permettant de sélectionner une carte à partir des cartes visibles. <br>
      * 1 - on transfère la carte visible dans les cartes en main du joueur <br>
@@ -112,17 +106,17 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
      */
     @Override
     public void addActionButtonCardVisible() {
-
+        
         for (final CityCard cardVisible : this.listCardsVisible) {
             cardVisible.getCityButton().addActionListener(new ActionListener() {
-
+                
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+
                     if (ServiceActionButtonImpl.this.isListeCardsHandNotFull(ServiceActionButtonImpl.this.player1.getListHandCityCards())) {
                         ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardVisible,
                                         ServiceActionButtonImpl.this.getCardHandPlayerEmpty());
-
+                        
                         for (CityCard cardToClear : ServiceActionButtonImpl.this.listCardsVisible) {
                             if (cardVisible.equals(cardToClear)) {
                                 cardVisible.clear();
@@ -142,10 +136,68 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                         JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-
+                
             });
         }
+        
+    }
 
+    @Override
+    public void addActionButtonPlayersCards() {
+
+        for (final CityCard cardPlayer : this.player1.getListHandCityCards()) {
+            cardPlayer.getCityButton().addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    
+                    if (this.islistCardsRoadEmpty()) {
+                        final CityCard cardRoad = ServiceActionButtonImpl.this.listCardsRoad.get(ServiceActionButtonImpl.this.listCardsRoad
+                                        .size() / 2);
+                        this.addRoadCardFromPlayerCards(cardPlayer, cardRoad);
+                    } else if (this.islistCardsRoadFull()) {
+                        JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_CARDS, ConstantesMsgBox.INFORMATION,
+                                        JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        final int direction = JOptionPane.showOptionDialog(null, ConstantesMsgBox.QUESTION_RIGHT_OR_LEFT, "Put your card", 0,
+                                        JOptionPane.QUESTION_MESSAGE, null, ConstantesMsgBox.OPTIONS_LEFT_RIGHT, null);
+
+                        // TODO controle faisabilité posage de carte
+                        if (direction == CARD_TO_LEFT) {
+                            final CityCard cardLeft = CardsUtils.getLeftCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
+                            this.addRoadCardFromPlayerCards(cardPlayer, cardLeft);
+                        } else if (direction == CARD_TO_RIGHT) {
+                            final CityCard cardRight = CardsUtils.getRightCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
+                            this.addRoadCardFromPlayerCards(cardPlayer, cardRight);
+                        }
+                    }
+                }
+
+                private void addRoadCardFromPlayerCards(final CityCard cardPlayer, CityCard cardLeft) {
+                    ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
+                    cardPlayer.clear();
+                }
+                
+                private boolean islistCardsRoadEmpty() {
+                    for (CityCard card : ServiceActionButtonImpl.this.listCardsRoad) {
+                        if (StringUtils.isNotBlank(card.getNameCity())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                
+                private boolean islistCardsRoadFull() {
+                    return StringUtils.isNotBlank(ServiceActionButtonImpl.this.listCardsRoad.get(0).getNameCity())
+                                    && StringUtils.isNotBlank(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRoad).getNameCity());
+                }
+            });
+        }
+    }
+    
+    @Override
+    public void addActionButtonRules() {
+        // TODO Auto-generated method stub
     }
     
     private CityCard getCardHandPlayerEmpty() {
@@ -171,9 +223,18 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         return false;
     }
     
-    @Override
-    public void addActionButtonRules() {
-        // TODO Auto-generated method stub
+    private void initialiserVariables(AllItems allItems, AllPlayers allPlayers) {
+        this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
+        this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
+        this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
+        this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
+        this.btnDeckCard = allItems.getAllButtons().getBtnDeckCard();
+        this.btnRules = allItems.getAllButtons().getBtnRules();
+        this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
+        this.player1 = allPlayers.getPlayer1();
+        this.player2 = allPlayers.getPlayer2();
+        this.player3 = allPlayers.getPlayer3();
+        this.player4 = allPlayers.getPlayer4();
     }
     
 }

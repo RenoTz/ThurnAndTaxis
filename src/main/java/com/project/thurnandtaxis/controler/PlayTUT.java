@@ -50,6 +50,7 @@ public class PlayTUT {
         final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allItems, game.getAllPlayers());
         serviceActionButton.addActionButtonDeckCard();
         serviceActionButton.addActionButtonRules();
+        serviceActionButton.addActionButtonPlayersCards();
         // a) boutons cards visibles
         serviceActionButton.addActionButtonCardVisible();
         // b) officials

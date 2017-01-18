@@ -7,4 +7,6 @@ public interface ServiceActionButton {
     void addActionButtonCardVisible();
 
     void addActionButtonRules();
+    
+    void addActionButtonPlayersCards();
 }
