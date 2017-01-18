@@ -48,6 +48,11 @@
 		    <artifactId>json</artifactId>
 		    <version>20160810</version>
 		</dependency>
+		<dependency>
+		    <groupId>pdf-renderer</groupId>
+		    <artifactId>pdf-renderer</artifactId>
+		    <version>1.13-atlassian-6</version>
+		</dependency>
 		  
   		<!-- POUR LES TESTS -->
 	    <dependency>
