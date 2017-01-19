@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.Iterables;
 import com.project.thurnandtaxis.data.beans.principal.AllItems;
 import com.project.thurnandtaxis.data.beans.principal.AllPlayers;
+import com.project.thurnandtaxis.data.beans.secondaire.Adjacence;
 import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
 import com.project.thurnandtaxis.data.beans.secondaire.Player;
 import com.project.thurnandtaxis.data.constantes.ConstantesMsgBox;
@@ -25,6 +26,8 @@ import com.project.thurnandtaxis.utils.UpdateUtils;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
     
+    protected static final String LEFT = "left";
+    protected static final String RIGHT = "right";
     protected static final int CARD_TO_LEFT = 0;
     protected static final int CARD_TO_RIGHT = 1;
     
@@ -143,7 +146,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     }
 
     @Override
-    public void addActionButtonPlayersCards() {
+    public void addActionButtonPlayersCards(final List<Adjacence> listAdjacences) {
 
         for (final CityCard cardPlayer : this.player1.getListHandCityCards()) {
             cardPlayer.getCityButton().addActionListener(new ActionListener() {
@@ -159,16 +162,22 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        final int direction = JOptionPane.showOptionDialog(null, ConstantesMsgBox.QUESTION_RIGHT_OR_LEFT, "Put your card", 0,
-                                        JOptionPane.QUESTION_MESSAGE, null, ConstantesMsgBox.OPTIONS_LEFT_RIGHT, null);
+                        // final int direction = JOptionPane.showOptionDialog(null, ConstantesMsgBox.QUESTION_RIGHT_OR_LEFT, "Put your card", 0,
+                        // JOptionPane.QUESTION_MESSAGE, null, ConstantesMsgBox.OPTIONS_LEFT_RIGHT, null);
 
                         // TODO controle faisabilité posage de carte
-                        if (direction == CARD_TO_LEFT) {
-                            final CityCard cardLeft = CardsUtils.getLeftCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
-                            this.addRoadCardFromPlayerCards(cardPlayer, cardLeft);
-                        } else if (direction == CARD_TO_RIGHT) {
-                            final CityCard cardRight = CardsUtils.getRightCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
-                            this.addRoadCardFromPlayerCards(cardPlayer, cardRight);
+                        final String[] possibleDirection = CardsUtils.isPossibleToPutCard(ServiceActionButtonImpl.this.listCardsRoad,
+                                        listAdjacences, cardPlayer);
+                        final boolean possible = Boolean.parseBoolean(possibleDirection[0]);
+                        final String dir = possibleDirection[1];
+                        if (possible) {
+                            if (StringUtils.equals(dir, LEFT)) {
+                                final CityCard cardLeft = CardsUtils.getLeftCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
+                                this.addRoadCardFromPlayerCards(cardPlayer, cardLeft);
+                            } else if (StringUtils.equals(dir, RIGHT)) {
+                                final CityCard cardRight = CardsUtils.getRightCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
+                                this.addRoadCardFromPlayerCards(cardPlayer, cardRight);
+                            }
                         }
                     }
                 }
