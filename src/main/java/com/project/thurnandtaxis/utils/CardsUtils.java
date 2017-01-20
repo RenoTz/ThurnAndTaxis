@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.Iterables;
 import com.project.thurnandtaxis.data.beans.secondaire.Adjacence;
 import com.project.thurnandtaxis.data.beans.secondaire.CityCard;
+import com.project.thurnandtaxis.data.enumerations.EnumDirection;
 
 public class CardsUtils {
 
@@ -39,38 +40,53 @@ public class CardsUtils {
         return cardLeft;
     }
 
-    public static String[] isPossibleToPutCard(final List<CityCard> listCardsRoad, final List<Adjacence> listAdjacences, final CityCard cardPlace) {
-        
-        boolean possible = false;
-        String[] retour = new String[2];
-        
+    public static EnumDirection isPossibleToPutCard(final List<CityCard> listCardsRoad, final List<Adjacence> listAdjacences,
+        final CityCard cardPlace) {
+
+        EnumDirection enumDirection = EnumDirection.NEANT;
+
         final CityCard firstCard = listCardsRoad.get(0);
         final CityCard lastCard = Iterables.getLast(listCardsRoad);
-        // cas 1 : plus de place dans la listCardsRoad
-        if (StringUtils.isBlank(firstCard.getNameCity()) && StringUtils.isBlank(lastCard.getNameCity())) {
-            possible = true;
-        }
-        // cas 2 : contrôle s'il est possible de poser la carte - adjacence
-        for (Adjacence adj : listAdjacences) {
-            if (StringUtils.equals(adj.getFromAdjacence(), getLeftCardRoad(listCardsRoad).getNameCity())) {
-                if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
-                    possible = true;
-                    retour[0] = String.valueOf(possible);
-                    retour[1] = "left";
-                    break;
-                }
-            }
-            if (StringUtils.equals(adj.getFromAdjacence(), getRightCardRoad(listCardsRoad).getNameCity())) {
-                if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
-                    possible = true;
-                    retour[0] = String.valueOf(possible);
-                    retour[1] = "right";
-                    break;
-                }
-            }
 
+        // 1. Placement de cartes possible dans la listCardsRoad
+        if (StringUtils.isBlank(firstCard.getNameCity()) && StringUtils.isBlank(lastCard.getNameCity())) {
+            // 2. Contrôle si la carte à poser est adjacente aux cartes aux extrémités
+            for (Adjacence adj : listAdjacences) {
+                if (StringUtils.equals(adj.getFromAdjacence(), getLeftCardRoad(listCardsRoad).getNameCity())) {
+                    if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
+                        enumDirection = EnumDirection.LEFT;
+                        break;
+                    }
+                }
+                if (StringUtils.equals(adj.getFromAdjacence(), getRightCardRoad(listCardsRoad).getNameCity())) {
+                    if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
+                        enumDirection = EnumDirection.RIGHT;
+                        break;
+                    }
+                }
+                
+            }
         }
-        return retour;
+        return enumDirection;
+    }
+    
+    public static CityCard getFirstCardHandPlayerAvailable(final List<CityCard> listHandCityCards) {
+        
+        for (CityCard cardPlayer : listHandCityCards) {
+            if (StringUtils.isBlank(cardPlayer.getNameCity())) {
+                return cardPlayer;
+            }
+        }
+        return null;
+    }
+    
+    public static boolean isListeCardsHandNotFull(final List<CityCard> listCardsHand) {
+        for (CityCard btn : listCardsHand) {
+            if (StringUtils.isBlank(btn.getNameCity())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     private static CityCard getRightCardRoad(List<CityCard> listCardsRoad) {
