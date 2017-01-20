@@ -149,7 +149,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                     
                     if (this.islistCardsRoadEmpty()) {
                         final CityCard cardRoad = ServiceActionButtonImpl.this.listCardsRoad.get(0);
-                        this.addRoadCardFromPlayerCards(cardPlayer, cardRoad);
+                        this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRoad);
                     } else if (this.islistCardsRoadFull()) {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_ADDITIONAL_CARDS,
                                         ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
@@ -167,16 +167,22 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                             enumDirection = EnumDirection.getEnumDirectionByOption(option);
                         }
                         if (enumDirection == EnumDirection.LEFT) {
-                            final CityCard cardLeft = CardsUtils.getLeftCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
-                            this.addRoadCardFromPlayerCards(cardPlayer, cardLeft);
+                            this.addRoadCardFromPlayerCardsToTheLeft(cardPlayer);
                         } else if (enumDirection == EnumDirection.RIGHT) {
                             final CityCard cardRight = CardsUtils.getRightCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
-                            this.addRoadCardFromPlayerCards(cardPlayer, cardRight);
+                            this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRight);
                         }
                     }
                 }
 
-                private void addRoadCardFromPlayerCards(final CityCard cardPlayer, CityCard cardLeft) {
+                private void addRoadCardFromPlayerCardsToTheRight(final CityCard cardPlayer, CityCard cardLeft) {
+                    ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
+                    cardPlayer.clear();
+                }
+
+                private void addRoadCardFromPlayerCardsToTheLeft(final CityCard cardPlayer) {
+                    CardsUtils.moveCardsToTheRight(ServiceActionButtonImpl.this.listCardsRoad);
+                    final CityCard cardLeft = ServiceActionButtonImpl.this.listCardsRoad.get(0);
                     ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
                     cardPlayer.clear();
                 }
