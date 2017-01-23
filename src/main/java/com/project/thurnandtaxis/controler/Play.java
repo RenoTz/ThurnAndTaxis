@@ -20,7 +20,7 @@ import com.project.thurnandtaxis.services.impl.ServiceActionOfficialsImpl;
 import com.project.thurnandtaxis.services.impl.ServiceCardsImpl;
 import com.project.thurnandtaxis.services.parser.ParserJSON;
 
-public class PlayTUT {
+public class Play {
     
     public static void main(String[] args) throws JSONException, IOException {
         
