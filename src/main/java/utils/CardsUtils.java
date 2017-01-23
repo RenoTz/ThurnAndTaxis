@@ -56,42 +56,59 @@ public class CardsUtils {
         final CityCard cardPlace) {
         
         EnumDirection enumDirection = EnumDirection.NEANT;
-        
+        final String leftCity = getLeftCardRoad(listCardsRoad).getNameCity();
+        final String rightRoadCard = getRightCardRoad(listCardsRoad).getNameCity();
+
         // 1. on regarde si il reste une place dans la listCardsRoad
-        if (StringUtils.isBlank(Iterables.getLast(listCardsRoad).getNameCity())) {
+        if (verifierSiPossibleDePoserLaCarte(listCardsRoad, cardPlace)) {
             // 2. Contrôle si la carte à poser est adjacente aux cartes aux extrémités
             // 2.a) left
-            EnumDirection enumDirLeft = null;
+            boolean toTheLeft = false;
             for (Adjacence adj : listAdjacences) {
-                if (StringUtils.equals(adj.getFromAdjacence(), getLeftCardRoad(listCardsRoad).getNameCity())) {
+                if (StringUtils.equals(adj.getFromAdjacence(), leftCity)) {
                     if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
-                        enumDirLeft = EnumDirection.LEFT;
+                        toTheLeft = true;
                         break;
                     }
                 }
             }
             // 2.b) right
-            EnumDirection enumDirRight = null;
+            boolean toTheRight = false;
             for (Adjacence adj : listAdjacences) {
-                if (StringUtils.equals(adj.getFromAdjacence(), getRightCardRoad(listCardsRoad).getNameCity())) {
+                if (StringUtils.equals(adj.getFromAdjacence(), rightRoadCard)) {
                     if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
-                        enumDirRight = EnumDirection.RIGHT;
+                        toTheRight = true;
                         break;
                     }
                 }
             }
             // on récupère la direction
-            if ((enumDirLeft != null) && (enumDirRight != null)) {
+            if (StringUtils.equals(leftCity, rightRoadCard)) {
                 enumDirection = EnumDirection.LEFT_OR_RIGHT;
-            } else if (enumDirLeft != null) {
-                enumDirection = enumDirLeft;
-            } else if (enumDirRight != null) {
-                enumDirection = enumDirRight;
+            } else if ((toTheLeft) && (toTheRight)) {
+                enumDirection = EnumDirection.NEANT;
+            } else if (toTheLeft) {
+                enumDirection = EnumDirection.LEFT;
+            } else if (toTheRight) {
+                enumDirection = EnumDirection.RIGHT;
             }
         }
         return enumDirection;
     }
     
+    private static boolean verifierSiPossibleDePoserLaCarte(final List<CityCard> listCardsRoad, CityCard cardPlace) {
+        return StringUtils.isBlank(Iterables.getLast(listCardsRoad).getNameCity()) && !isCarteDejaPresente(listCardsRoad, cardPlace);
+    }
+    
+    private static boolean isCarteDejaPresente(List<CityCard> listCardsRoad, CityCard cardPlace) {
+        for (CityCard cardRoad : listCardsRoad) {
+            if (StringUtils.equals(cardPlace.getNameCity(), cardRoad.getNameCity())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static CityCard getFirstCardHandPlayerAvailable(final List<CityCard> listHandCityCards) {
         
         for (CityCard cardPlayer : listHandCityCards) {

@@ -14,6 +14,7 @@ public class Player {
     private List<CityCard> listRoadCityCards;
     private List<Bonus> listeBonus;
     private Long points;
+    private boolean won;
 
     public Player() {
         this.listHandCityCards = Lists.newArrayList();
@@ -77,4 +78,12 @@ public class Player {
         this.points = points;
     }
     
+    public boolean isWon() {
+        return this.won;
+    }
+    
+    public void setWon(boolean won) {
+        this.won = won;
+    }
+
 }

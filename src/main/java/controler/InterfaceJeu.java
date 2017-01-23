@@ -408,16 +408,11 @@ public class InterfaceJeu extends JFrame {
         allItems.getAllButtons().setBtnDiscardRoad(btnDiscardRoad);
         
         for (Official official : game.getListOfficials()) {
-            if (StringUtils.equals(official.getName(), EnumOfficials.ADMINISTRATOR.getName())) {
-                final JButton btnAdministrator = this.createButtonOfficial(official);
-                panelOfficials.add(btnAdministrator);
-                allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
-            }
+            final JButton btnAdministrator = this.createButtonOfficial(official);
+            panelOfficials.add(btnAdministrator);
+            allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
+
             if (StringUtils.equals(official.getName(), EnumOfficials.POSTMASTER.getName())) {
-                final JButton btnAdministrator = this.createButtonOfficial(official);
-                panelOfficials.add(btnAdministrator);
-                allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
-                
                 final JButton btnBuildRoad = new JButton("BUILD");
                 btnBuildRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
                 panelOfficials.add(btnBuildRoad);
@@ -425,16 +420,6 @@ public class InterfaceJeu extends JFrame {
                 btnBuildRoad.setForeground(new Color(255, 215, 0));
                 btnBuildRoad.setBorder(new BevelBorder(BevelBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
                 allItems.getAllButtons().setBtnBuildRoad(btnBuildRoad);
-            }
-            if (StringUtils.equals(official.getName(), EnumOfficials.POSTAL_CARRIER.getName())) {
-                final JButton btnAdministrator = this.createButtonOfficial(official);
-                panelOfficials.add(btnAdministrator);
-                allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
-            }
-            if (StringUtils.equals(official.getName(), EnumOfficials.CARTWRIGHT.getName())) {
-                final JButton btnAdministrator = this.createButtonOfficial(official);
-                panelOfficials.add(btnAdministrator);
-                allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
             }
         }
 
