@@ -59,8 +59,8 @@ public class CardsUtils {
         final String leftCity = getLeftCardRoad(listCardsRoad).getNameCity();
         final String rightRoadCard = getRightCardRoad(listCardsRoad).getNameCity();
 
-        // 1. on regarde si il reste une place dans la listCardsRoad
-        if (verifierSiPossibleDePoserLaCarte(listCardsRoad, cardPlace)) {
+        // 1. on regarde si il est possible de poser la carte dans la listCardsRoad
+        if (verifierSiPossibleDePoserLaCarte(listCardsRoad, cardPlace) && isUniquementAdjacenteAuxExtremites(listCardsRoad, listAdjacences, cardPlace)) {
             // 2. Contrôle si la carte à poser est adjacente aux cartes aux extrémités
             // 2.a) left
             boolean toTheLeft = false;
@@ -100,7 +100,37 @@ public class CardsUtils {
         return StringUtils.isBlank(Iterables.getLast(listCardsRoad).getNameCity()) && !isCarteDejaPresente(listCardsRoad, cardPlace);
     }
     
-    private static boolean isCarteDejaPresente(List<CityCard> listCardsRoad, CityCard cardPlace) {
+    private static boolean isUniquementAdjacenteAuxExtremites(final List<CityCard> listCardsRoad, final List<Adjacence> listAdjacences, final CityCard cardPlace){
+    	
+        if(isPlusDeDeuxCartesSurLaRoute(listCardsRoad)){
+        	final String leftCity = getLeftCardRoad(listCardsRoad).getNameCity();
+            final String rightCity = getRightCardRoad(listCardsRoad).getNameCity();
+	    	for(CityCard cardRoad : listCardsRoad){
+	    		for (Adjacence adj : listAdjacences) {
+	                if (StringUtils.equals(adj.getFromAdjacence(), cardRoad.getNameCity())) {
+	                    if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
+	                        if(!StringUtils.equals(cardRoad.getNameCity(), leftCity) || !StringUtils.equals(cardRoad.getNameCity(), rightCity)){
+	                        	return false;
+	                        }
+	                    }
+	                }
+	            }
+	    	}
+        }
+    	return true;
+    }
+    
+    private static boolean isPlusDeDeuxCartesSurLaRoute(List<CityCard> listCardsRoad) {
+		int nbRoadCard = 0;
+		for(CityCard card : listCardsRoad){
+			if(StringUtils.isNotBlank(card.getNameCity())){
+				nbRoadCard++;
+			}
+		}
+		return nbRoadCard > 2;
+	}
+
+	private static boolean isCarteDejaPresente(List<CityCard> listCardsRoad, CityCard cardPlace) {
         for (CityCard cardRoad : listCardsRoad) {
             if (StringUtils.equals(cardPlace.getNameCity(), cardRoad.getNameCity())) {
                 return true;
