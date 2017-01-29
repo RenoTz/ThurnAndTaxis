@@ -109,7 +109,7 @@ public class CardsUtils {
 	    		for (Adjacence adj : listAdjacences) {
 	                if (StringUtils.equals(adj.getFromAdjacence(), cardRoad.getNameCity())) {
 	                    if (StringUtils.equals(adj.getToAdjacence(), cardPlace.getNameCity())) {
-	                        if(!StringUtils.equals(cardRoad.getNameCity(), leftCity) || !StringUtils.equals(cardRoad.getNameCity(), rightCity)){
+	                        if(!(StringUtils.equals(cardRoad.getNameCity(), leftCity) || StringUtils.equals(cardRoad.getNameCity(), rightCity))){
 	                        	return false;
 	                        }
 	                    }

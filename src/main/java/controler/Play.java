@@ -54,6 +54,7 @@ public class Play {
         serviceActionButton.addActionButtonDeckCard();
         serviceActionButton.addActionButtonRules();
         serviceActionButton.addActionButtonPlayersCards(game.getListAdjacences());
+        serviceActionButton.addActionButtonDiscard();
         // a) cards visibles
         serviceActionButton.addActionButtonCardVisible();
         // b) officials

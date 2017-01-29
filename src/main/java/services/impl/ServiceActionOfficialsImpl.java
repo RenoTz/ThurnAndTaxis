@@ -45,7 +45,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listCardsRemaining)) {
+                if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listCardsRemaining) && listCardsRemaining.size() > 6) {
                     // mise à la défausse des 6 cartes visibles
                     if (this.isCardsAlreadyLaid()) {
                         for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {

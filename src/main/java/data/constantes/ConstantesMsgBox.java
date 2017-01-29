@@ -16,6 +16,7 @@ public class ConstantesMsgBox {
     public static final String QUESTION_SHUFFLE_CARDS = "Do you want to shuffle cards ?";
     public static final String QUESTION_RIGHT_OR_LEFT = "Right or Left ?";
     public static final String QUESTION_SCREEN_RESOLUTION = "Choose your screen resolution please.";
+    public static final String QUESTION_CONFIRM_DISCARD = "Confirm discard ?";
     
     public static final String[] OPTIONS_LEFT_RIGHT = {"Left", "Right"};
 }

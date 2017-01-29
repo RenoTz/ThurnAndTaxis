@@ -13,4 +13,8 @@ public interface ServiceActionButton {
     void addActionButtonRules();
 
     void addActionButtonPlayersCards(final List<Adjacence> listAdjacences);
+    
+    void addActionButtonDiscard();
+    
+    void addActionButtonBuild();
 }

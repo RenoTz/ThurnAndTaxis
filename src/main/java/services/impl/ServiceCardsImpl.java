@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.swing.JLabel;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import services.ServiceCards;
 import utils.UpdateUtils;
 
@@ -32,11 +34,14 @@ public class ServiceCardsImpl implements ServiceCards {
 
     @Override
     public void addSixCardsVisible(List<CityCard> listCardsVisible, List<CityCard> listCardsRemaining, JLabel lblCardRemaining) {
-        for (CityCard cardVisible : listCardsVisible) {
-            this.transferOneCityCard(Iterables.getLast(listCardsRemaining), cardVisible);
-            listCardsRemaining.remove(Iterables.getLast(listCardsRemaining));
-            UpdateUtils.updateLabelCardRemaining(lblCardRemaining, listCardsRemaining.size());
-        }
+        
+    	for (CityCard cardVisible : listCardsVisible) {
+    		if(CollectionUtils.isNotEmpty(listCardsRemaining)){
+	            this.transferOneCityCard(Iterables.getLast(listCardsRemaining), cardVisible);
+	            listCardsRemaining.remove(Iterables.getLast(listCardsRemaining));
+	            UpdateUtils.updateLabelCardRemaining(lblCardRemaining, listCardsRemaining.size());
+    		}
+    	}
     }
     
 }
