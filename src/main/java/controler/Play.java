@@ -31,9 +31,12 @@ public class Play {
         final ParserJSON parser = new ParserJSON();
         final JSONObject jsonGameElements = parser.recupererGameElementsEnJSON(ConstantesStatics.FILENAME_PARAMS);
 
-        // 2. on récupère et on construit les éléments du jeu à partir du json
+        // 2.a) on récupère et on construit les éléments du jeu à partir du json
         final ServiceLoading loading = new ServiceLoading();
         final Game game = loading.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
+        
+        // 2.b) on crée les sons du jeu
+        final GameSound sounds = new GameSound();
 
         // 3. Création des joueurs (seulement 1 dans un premier temps -> pour le développement)
         final Player pDev = new Player();
@@ -50,7 +53,7 @@ public class Play {
         allItems.getAllListsCards().getListeCardsRemaining().addAll(game.getListCityCards());
 
         // 6. on ajoute les évènements sur les boutons
-        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allItems, game.getAllPlayers());
+        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allItems, game.getAllPlayers(), sounds);
         serviceActionButton.addActionButtonDeckCard();
         serviceActionButton.addActionButtonRules();
         serviceActionButton.addActionButtonPlayersCards(game.getListAdjacences());

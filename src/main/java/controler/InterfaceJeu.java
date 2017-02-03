@@ -1,10 +1,14 @@
 package controler;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,8 +43,8 @@ public class InterfaceJeu extends JFrame {
     private static final long serialVersionUID = 3006307486047180080L;
     
     private Player p1;
-
-    public AllItems createInterface(final Game game) {
+    
+	public AllItems createInterface(final Game game) {
         this.setTitle("Thurn and Taxis");
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -525,5 +529,5 @@ public class InterfaceJeu extends JFrame {
         }
         return b.append("</HTML>").toString();
     }
-
+    
 }

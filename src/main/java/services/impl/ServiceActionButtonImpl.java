@@ -19,6 +19,7 @@ import utils.UpdateUtils;
 
 import com.google.common.collect.Iterables;
 
+import controler.GameSound;
 import data.beans.principal.AllItems;
 import data.beans.principal.AllPlayers;
 import data.beans.secondaire.Adjacence;
@@ -49,10 +50,13 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private Player player2;
     private Player player3;
     private Player player4;
+    
+    private GameSound sounds;
 
-    public ServiceActionButtonImpl(AllItems allItems, AllPlayers allPlayers) {
+    public ServiceActionButtonImpl(AllItems allItems, AllPlayers allPlayers, GameSound sounds) {
         this.serviceCards = new ServiceCardsImpl();
         this.initialiserVariables(allItems, allPlayers);
+        this.sounds = sounds;
     }
     
     @Override
@@ -70,6 +74,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                         .getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
+                        sounds.getSoundTakeCard().play();
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
@@ -89,6 +94,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                         ServiceActionButtonImpl.this.listCardsRemaining, ServiceActionButtonImpl.this.lblCardRemaining);
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
+                        sounds.getSoundShuffleCards().play();
                     }
                 }
             }
