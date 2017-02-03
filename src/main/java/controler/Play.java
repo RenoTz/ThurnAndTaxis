@@ -89,12 +89,14 @@ public class Play {
                 while (!player.getActions().isTakeOneCard()) {
                     
                 }
+                System.out.println("Vous avez pris une carte.");
                 serviceActionOfficial.setPlayerEnCours(player);
                 player.getActions().setTakeOneCard(false);
                 System.out.println("Vous devez utiliser le Postmaster.");
                 while (!player.getActions().isUsePostMaster()) {
                     
                 }
+                System.out.println("Vous avez utilisé le Postmaster.");
             }
             // le joueur 1 commence
             serviceActionButton.setPlayerEnCours(game.getListPlayers().get(EnumPlayers.INDICE_PLAYER_1.getIndice()));
