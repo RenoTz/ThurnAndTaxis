@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,24 +23,25 @@ import utils.ColorUtils;
 
 import com.google.common.collect.Iterables;
 
+import data.beans.bonus.LongRoadBonus;
+import data.beans.bonus.ProvinceBonus;
 import data.beans.principal.AllItems;
 import data.beans.principal.Game;
 import data.beans.secondaire.CityCard;
-import data.beans.secondaire.LongRoadBonus;
 import data.beans.secondaire.Official;
 import data.beans.secondaire.Player;
-import data.beans.secondaire.ProvinceBonus;
 import data.beans.secondaire.Tile;
 import data.constantes.ConstantesStatics;
 import data.enumerations.EnumOfficials;
+import data.enumerations.EnumPlayers;
 import data.enumerations.EnumResolution;
 
 public class InterfaceJeu extends JFrame {
     
     private static final long serialVersionUID = 3006307486047180080L;
     
-    private Player p1;
-
+    private Player p1, p2, p3, p4;
+    
     public AllItems createInterface(final Game game) {
         this.setTitle("Thurn and Taxis");
         this.setResizable(false);
@@ -58,9 +60,7 @@ public class InterfaceJeu extends JFrame {
         // creation du bean qui contiendra tous les items (JButton, JLabel, ...)
         final AllItems allItems = new AllItems();
         
-        // TODO Chargemement du joueur - A VIRER
-        this.p1 = game.getAllPlayers().getPlayer1();
-
+        this.recupererTousLesJoueurs(game.getListPlayers());
         // --------------------------------
         // PANEL / BUTTONS - CARDS VISIBLES
         // --------------------------------
@@ -469,6 +469,24 @@ public class InterfaceJeu extends JFrame {
         return allItems;
     }
     
+    private void recupererTousLesJoueurs(List<Player> listPlayers) {
+        for (Player player : listPlayers) {
+            if (listPlayers.indexOf(player) == EnumPlayers.INDICE_PLAYER_1.getIndice()) {
+                this.p1 = player;
+            }
+            if (listPlayers.indexOf(player) == EnumPlayers.INDICE_PLAYER_2.getIndice()) {
+                this.p2 = player;
+            }
+            if (listPlayers.indexOf(player) == EnumPlayers.INDICE_PLAYER_3.getIndice()) {
+                this.p3 = player;
+            }
+            if (listPlayers.indexOf(player) == EnumPlayers.INDICE_PLAYER_4.getIndice()) {
+                this.p4 = player;
+            }
+        }
+        
+    }
+
     private JButton createButtonOfficial(Official official) {
         JButton btnAdministrator = new JButton("");
         btnAdministrator.setIcon(official.getImage());

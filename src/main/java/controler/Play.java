@@ -16,12 +16,13 @@ import services.impl.ServiceActionButtonImpl;
 import services.impl.ServiceActionOfficialsImpl;
 import services.impl.ServiceCardsImpl;
 import services.parser.ParserJSON;
+import utils.PlayerUtils;
 import data.beans.principal.AllItems;
-import data.beans.principal.AllPlayers;
 import data.beans.principal.Game;
 import data.beans.secondaire.Player;
 import data.constantes.ConstantesStatics;
 import data.enumerations.EnumOfficials;
+import data.enumerations.EnumPlayers;
 
 public class Play {
 
@@ -39,7 +40,7 @@ public class Play {
         final Player pDev = new Player();
         pDev.setColor(Color.BLUE);
         pDev.setName("Gaston");
-        game.getAllPlayers().setPlayer1(pDev);
+        game.getListPlayers().add(pDev);
 
         // 4.) on construit l'interface de jeu à partir des éléments du jeu
         final InterfaceJeu ihm = new InterfaceJeu();
@@ -50,10 +51,11 @@ public class Play {
         allItems.getAllListsCards().getListeCardsRemaining().addAll(game.getListCityCards());
 
         // 6. on ajoute les évènements sur les boutons
-        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allItems, game.getAllPlayers());
+        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allItems);
         serviceActionButton.addActionButtonDeckCard();
         serviceActionButton.addActionButtonRules();
-        serviceActionButton.addActionButtonPlayersCards(game.getListAdjacences());
+        serviceActionButton.addActionButtonPlayersCards(game.getListAdjacences(), game.getListPlayers());
+
         serviceActionButton.addActionButtonDiscard();
         // a) cards visibles
         serviceActionButton.addActionButtonCardVisible();
@@ -70,12 +72,34 @@ public class Play {
                         allItems.getAllListsCards().getListeCardsRemaining(), allItems.getAllLabels().getLblNbCardRemaining());
 
         // CYCLE DE JEU
-        while (AllPlayers.aucunVainqueur(game.getAllPlayers())) {
+        while (PlayerUtils.aucunVainqueur(game.getListPlayers())) {
             
+            // ------------
+            // PREMIER TOUR
+            // ------------
+            // tous les joueurs doivent utiliser le PostMaster
+            for (Player player : game.getListPlayers()) {
+                // le joueur 1 commence
+                serviceActionButton.setPlayerEnCours(player);
+                System.out.println("Le joueur " + player.getName() + " joue en ce moment.");
+                System.out.println("Vous devez prendre une carte.");
+                while (!player.getActions().isTakeOneCard()) {
+
+                }
+                serviceActionOfficial.setPlayerEnCours(player);
+                player.getActions().setTakeOneCard(false);
+                System.out.println("Vous devez utiliser le Postmaster.");
+                while (!player.getActions().isUsePostMaster()) {
+
+                }
+            }
+            // le joueur 1 commence
+            serviceActionButton.setPlayerEnCours(game.getListPlayers().get(EnumPlayers.INDICE_PLAYER_1.getIndice()));
+            final Player playerEnCours = serviceActionButton.getPlayerEnCours();
+            System.out.println("Le joueur " + playerEnCours.getName() + " joue en ce moment.");
         }
-        Player winner = game.getAllPlayers().getWinner();
+        final Player winner = PlayerUtils.getWinner(game.getListPlayers());
         JOptionPane.showMessageDialog(null, winner.getName() + " has won !!!");
         
     }
-
 }

@@ -15,33 +15,33 @@ import com.google.common.collect.Iterables;
 import data.beans.secondaire.CityCard;
 
 public class ServiceCardsImpl implements ServiceCards {
-    
+
     @Override
     public void transferOneCityCard(final CityCard cardSource, final CityCard cardCible) {
         cardCible.cloneWithButton(cardSource);
     }
-
+    
     @Override
-    public List<CityCard> shuffleListCards(List<CityCard> listCards) {
+    public List<CityCard> shuffleListCards(final List<CityCard> listCards) {
         Collections.shuffle(listCards);
         return listCards;
     }
-    
-    @Override
-    public void addCardsToDiscard(List<CityCard> listCardsDiscarded, CityCard cardVisible) {
-        listCardsDiscarded.add(cardVisible.clone());
-    }
 
     @Override
-    public void addSixCardsVisible(List<CityCard> listCardsVisible, List<CityCard> listCardsRemaining, JLabel lblCardRemaining) {
-        
-    	for (CityCard cardVisible : listCardsVisible) {
-    		if(CollectionUtils.isNotEmpty(listCardsRemaining)){
-	            this.transferOneCityCard(Iterables.getLast(listCardsRemaining), cardVisible);
-	            listCardsRemaining.remove(Iterables.getLast(listCardsRemaining));
-	            UpdateUtils.updateLabelCardRemaining(lblCardRemaining, listCardsRemaining.size());
-    		}
-    	}
+    public void addCardsToDiscard(final List<CityCard> listCardsDiscarded, final CityCard cardToDiscard) {
+        listCardsDiscarded.add(cardToDiscard.clone());
     }
     
+    @Override
+    public void addSixCardsVisible(final List<CityCard> listCardsVisible, final List<CityCard> listCardsRemaining, final JLabel lblCardRemaining) {
+        
+        for (CityCard cardVisible : listCardsVisible) {
+            if (CollectionUtils.isNotEmpty(listCardsRemaining)) {
+                this.transferOneCityCard(Iterables.getLast(listCardsRemaining), cardVisible);
+                listCardsRemaining.remove(Iterables.getLast(listCardsRemaining));
+                UpdateUtils.updateLabelCardRemaining(lblCardRemaining, listCardsRemaining.size());
+            }
+        }
+    }
+
 }

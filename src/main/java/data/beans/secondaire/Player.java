@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import data.beans.Actions;
+import data.beans.bonus.Bonus;
+
 public class Player {
 
     private String name;
@@ -15,11 +18,13 @@ public class Player {
     private List<Bonus> listeBonus;
     private Long points;
     private boolean won;
+    private Actions actions;
 
     public Player() {
         this.listHandCityCards = Lists.newArrayList();
         this.listRoadCityCards = Lists.newArrayList();
         this.listeBonus = Lists.newArrayList();
+        this.actions = new Actions();
     }
 
     public String getName() {
@@ -84,6 +89,14 @@ public class Player {
     
     public void setWon(boolean won) {
         this.won = won;
+    }
+    
+    public Actions getActions() {
+        return this.actions;
+    }
+    
+    public void setActions(Actions actions) {
+        this.actions = actions;
     }
 
 }

@@ -20,7 +20,6 @@ import utils.UpdateUtils;
 import com.google.common.collect.Iterables;
 
 import data.beans.principal.AllItems;
-import data.beans.principal.AllPlayers;
 import data.beans.secondaire.Adjacence;
 import data.beans.secondaire.CityCard;
 import data.beans.secondaire.Player;
@@ -45,14 +44,11 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsRemaining;
 
-    private Player player1;
-    private Player player2;
-    private Player player3;
-    private Player player4;
+    private Player playerEnCours;
 
-    public ServiceActionButtonImpl(AllItems allItems, AllPlayers allPlayers) {
+    public ServiceActionButtonImpl(AllItems allItems) {
         this.serviceCards = new ServiceCardsImpl();
-        this.initialiserVariables(allItems, allPlayers);
+        this.initialiserVariables(allItems);
     }
     
     @Override
@@ -62,14 +58,17 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionButtonImpl.this.listCardsRemaining)) {
-                    if (CardsUtils.isListeCardsHandNotFull(ServiceActionButtonImpl.this.player1.getListHandCityCards())) {
-                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(
-                                        Iterables.getLast(ServiceActionButtonImpl.this.listCardsRemaining),
-                                        CardsUtils.getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.player1.getListHandCityCards()));
+                    if (CardsUtils.isListeCardsHandNotFull(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards())) {
+                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(Iterables
+                                        .getLast(ServiceActionButtonImpl.this.listCardsRemaining), CardsUtils
+                                        .getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards()));
                         ServiceActionButtonImpl.this.listCardsRemaining.remove(Iterables
                                         .getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
+                        
+                        // on signale que le joueur a pris une carte
+                        ServiceActionButtonImpl.this.getPlayerEnCours().getActions().setTakeOneCard(true);
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
@@ -113,10 +112,10 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    if (CardsUtils.isListeCardsHandNotFull(ServiceActionButtonImpl.this.player1.getListHandCityCards())) {
-                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardVisible,
-                                        CardsUtils.getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.player1.getListHandCityCards()));
-                        
+                    if (CardsUtils.isListeCardsHandNotFull(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards())) {
+                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardVisible, CardsUtils
+                                        .getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards()));
+
                         for (CityCard cardToClear : ServiceActionButtonImpl.this.listCardsVisible) {
                             if (cardVisible.equals(cardToClear)) {
                                 cardVisible.clear();
@@ -131,6 +130,8 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                 break;
                             }
                         }
+                        // on signale que le joueur a pris une carte
+                        ServiceActionButtonImpl.this.getPlayerEnCours().getActions().setTakeOneCard(true);
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
@@ -143,103 +144,134 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     }
 
     @Override
-    public void addActionButtonPlayersCards(final List<Adjacence> listAdjacences) {
+    public void addActionButtonPlayersCards(final List<Adjacence> listAdjacences, final List<Player> listPlayers) {
 
-        for (final CityCard cardPlayer : this.player1.getListHandCityCards()) {
-            cardPlayer.getCityButton().addActionListener(new ActionListener() {
+        for (Player player : listPlayers) {
+            for (final CityCard cardPlayer : player.getListHandCityCards()) {
+                cardPlayer.getCityButton().addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    
-                    if (this.islistCardsRoadEmpty()) {
-                        final CityCard cardRoad = ServiceActionButtonImpl.this.listCardsRoad.get(0);
-                        this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRoad);
-                    } else if (this.islistCardsRoadFull()) {
-                        JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_ADDITIONAL_CARDS,
-                                        ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        // TODO controle faisabilité posage de carte
-                        EnumDirection enumDirection = CardsUtils.isPossibleToPutCard(ServiceActionButtonImpl.this.listCardsRoad, listAdjacences,
-                                        cardPlayer);
-                        if (enumDirection == EnumDirection.NEANT) {
-                            JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_THIS_CARD, ConstantesMsgBox.INFORMATION,
-                                            JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        if (enumDirection == EnumDirection.LEFT_OR_RIGHT) {
-                            final int option = JOptionPane.showOptionDialog(null, ConstantesMsgBox.QUESTION_RIGHT_OR_LEFT, "Put your card", 0,
-                                            JOptionPane.QUESTION_MESSAGE, null, ConstantesMsgBox.OPTIONS_LEFT_RIGHT, null);
-                            enumDirection = EnumDirection.getEnumDirectionByOption(option);
-                        }
-                        if (enumDirection == EnumDirection.LEFT) {
-                            this.addRoadCardFromPlayerCardsToTheLeft(cardPlayer);
-                        } else if (enumDirection == EnumDirection.RIGHT) {
-                            final CityCard cardRight = CardsUtils.getRightCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
-                            this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRight);
-                        }
-                    }
-                }
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
 
-                private void addRoadCardFromPlayerCardsToTheRight(final CityCard cardPlayer, CityCard cardLeft) {
-                    serviceCards.transferOneCityCard(cardPlayer, cardLeft);
-                    cardPlayer.clear();
-                }
-
-                private void addRoadCardFromPlayerCardsToTheLeft(final CityCard cardPlayer) {
-                    CardsUtils.moveCardsToTheRight(listCardsRoad);
-                    final CityCard cardLeft = listCardsRoad.get(0);
-                    serviceCards.transferOneCityCard(cardPlayer, cardLeft);
-                    cardPlayer.clear();
-                }
-                
-                private boolean islistCardsRoadEmpty() {
-                    for (CityCard card : listCardsRoad) {
-                        if (StringUtils.isNotBlank(card.getNameCity())) {
-                            return false;
+                        if (this.islistCardsRoadEmpty()) {
+                            final CityCard cardRoad = ServiceActionButtonImpl.this.listCardsRoad.get(0);
+                            this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRoad);
+                        } else if (this.islistCardsRoadFull()) {
+                            JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_ADDITIONAL_CARDS,
+                                            ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            // controle si possible de poser la carte
+                            EnumDirection enumDirection = CardsUtils.isPossibleToPutCard(ServiceActionButtonImpl.this.listCardsRoad,
+                                            listAdjacences, cardPlayer);
+                            if (enumDirection == EnumDirection.NEANT) {
+                                JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_PLACE_THIS_CARD,
+                                                ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
+                            }
+                            if (enumDirection == EnumDirection.LEFT_OR_RIGHT) {
+                                final int option = JOptionPane.showOptionDialog(null, ConstantesMsgBox.QUESTION_RIGHT_OR_LEFT, "Put your card",
+                                                0, JOptionPane.QUESTION_MESSAGE, null, ConstantesMsgBox.OPTIONS_LEFT_RIGHT, null);
+                                enumDirection = EnumDirection.getEnumDirectionByOption(option);
+                            }
+                            if (enumDirection == EnumDirection.LEFT) {
+                                this.addRoadCardFromPlayerCardsToTheLeft(cardPlayer);
+                            } else if (enumDirection == EnumDirection.RIGHT) {
+                                final CityCard cardRight = CardsUtils.getRightCardRoadAvailable(ServiceActionButtonImpl.this.listCardsRoad);
+                                this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRight);
+                            }
                         }
                     }
-                    return true;
-                }
-                
-                private boolean islistCardsRoadFull() {
-                    return StringUtils.isNotBlank(listCardsRoad.get(0).getNameCity())
-                                    && StringUtils.isNotBlank(Iterables.getLast(listCardsRoad).getNameCity());
-                }
-            });
+
+                    private void addRoadCardFromPlayerCardsToTheRight(final CityCard cardPlayer, CityCard cardLeft) {
+                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
+                        cardPlayer.clear();
+                    }
+
+                    private void addRoadCardFromPlayerCardsToTheLeft(final CityCard cardPlayer) {
+                        CardsUtils.moveCardsToTheRight(ServiceActionButtonImpl.this.listCardsRoad);
+                        final CityCard cardLeft = ServiceActionButtonImpl.this.listCardsRoad.get(0);
+                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
+                        cardPlayer.clear();
+                    }
+
+                    private boolean islistCardsRoadEmpty() {
+                        for (CityCard card : ServiceActionButtonImpl.this.listCardsRoad) {
+                            if (StringUtils.isNotBlank(card.getNameCity())) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+
+                    private boolean islistCardsRoadFull() {
+                        return StringUtils.isNotBlank(ServiceActionButtonImpl.this.listCardsRoad.get(0).getNameCity())
+                                        && StringUtils.isNotBlank(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRoad).getNameCity());
+                    }
+                });
+            }
         }
     }
     
     @Override
-	public void addActionButtonDiscard() {
-		
-		btnDiscard.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_CONFIRM_DISCARD, ConstantesMsgBox.QUESTION,
-		                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if(option == JOptionPane.YES_OPTION){
-					for (CityCard cardRoad : listCardsRoad) {
-			            serviceCards.addCardsToDiscard(listCardsDiscarded,
-			                            cardRoad);
-			        }
-				}
-			}
-		});
-		
-	}
+    public void addActionButtonDiscard() {
 
-	@Override
-	public void addActionButtonBuild() {
-		// TODO Auto-generated method stub
-		
-	}
+        this.btnDiscard.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_CONFIRM_DISCARD, ConstantesMsgBox.QUESTION,
+                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (option == JOptionPane.YES_OPTION) {
+                    for (CityCard cardRoad : ServiceActionButtonImpl.this.listCardsRoad) {
+                        ServiceActionButtonImpl.this.serviceCards.addCardsToDiscard(ServiceActionButtonImpl.this.listCardsDiscarded, cardRoad);
+                        cardRoad.clear();
+                    }
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void addActionButtonBuild() {
+        
+        this.btnBuild.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_CONFIRM_BUILD, ConstantesMsgBox.QUESTION,
+                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                
+                if (option == JOptionPane.YES_OPTION) {
+                    // on défause les cartes de la route + les cartes en main qui restent
+                    for (CityCard cardRoad : ServiceActionButtonImpl.this.listCardsRoad) {
+                        ServiceActionButtonImpl.this.serviceCards.addCardsToDiscard(ServiceActionButtonImpl.this.listCardsDiscarded, cardRoad);
+                        cardRoad.clear();
+                    }
+                    for (CityCard cardPlayer : ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards()) {
+                        ServiceActionButtonImpl.this.serviceCards.addCardsToDiscard(ServiceActionButtonImpl.this.listCardsDiscarded, cardPlayer);
+                        cardPlayer.clear();
+                    }
+                }
+            }
+        });
+    }
     
     @Override
     public void addActionButtonRules() {
         // TODO Auto-generated method stub
     }
+
+    @Override
+    public void setPlayerEnCours(Player playerEnCours) {
+        this.playerEnCours = playerEnCours;
+    }
     
-    private void initialiserVariables(AllItems allItems, AllPlayers allPlayers) {
+    @Override
+    public Player getPlayerEnCours() {
+        return this.playerEnCours;
+    }
+    
+    private void initialiserVariables(AllItems allItems) {
         this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
         this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
         this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
@@ -249,10 +281,6 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         this.btnDiscard = allItems.getAllButtons().getBtnDiscardRoad();
         this.btnBuild = allItems.getAllButtons().getBtnBuildRoad();
         this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
-        this.player1 = allPlayers.getPlayer1();
-        this.player2 = allPlayers.getPlayer2();
-        this.player3 = allPlayers.getPlayer3();
-        this.player4 = allPlayers.getPlayer4();
     }
 
     private int getNbCardsRemaining() {

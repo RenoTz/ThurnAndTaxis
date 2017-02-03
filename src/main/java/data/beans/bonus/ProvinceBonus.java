@@ -1,8 +1,10 @@
-package data.beans.secondaire;
+package data.beans.bonus;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
+
+import data.beans.secondaire.Tile;
 
 public class ProvinceBonus {
     

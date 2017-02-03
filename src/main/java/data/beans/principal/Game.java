@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import data.beans.bonus.Bonus;
 import data.beans.secondaire.Adjacence;
-import data.beans.secondaire.Bonus;
 import data.beans.secondaire.Carriage;
 import data.beans.secondaire.CityCard;
 import data.beans.secondaire.GameParams;
 import data.beans.secondaire.House;
 import data.beans.secondaire.Official;
+import data.beans.secondaire.Player;
 import data.beans.secondaire.Province;
 
 public class Game {
@@ -23,7 +24,7 @@ public class Game {
     private List<Province> listProvinces;
     private List<Adjacence> listAdjacences;
     private Bonus bonus;
-    private AllPlayers allPlayers;
+    private List<Player> listPlayers;
     private List<CityCard> listCardsDiscarded;
     
     public Game() {
@@ -34,6 +35,7 @@ public class Game {
         this.listProvinces = Lists.newArrayList();
         this.listAdjacences = Lists.newArrayList();
         this.listCardsDiscarded = Lists.newArrayList();
+        this.listPlayers = Lists.newArrayList();
     }
     
     public GameParams getGameParams() {
@@ -108,15 +110,12 @@ public class Game {
         this.listCardsDiscarded = listCardsDiscarded;
     }
     
-    public AllPlayers getAllPlayers() {
-        if (this.allPlayers == null) {
-            this.allPlayers = new AllPlayers();
-        }
-        return this.allPlayers;
+    public List<Player> getListPlayers() {
+        return this.listPlayers;
     }
     
-    public void setAllPlayers(AllPlayers allPlayers) {
-        this.allPlayers = allPlayers;
+    public void setListPlayers(List<Player> listPlayers) {
+        this.listPlayers = listPlayers;
     }
 
 }

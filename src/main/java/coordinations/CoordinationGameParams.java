@@ -19,16 +19,16 @@ import utils.ImageUtils;
 
 import com.google.common.collect.Lists;
 
+import data.beans.bonus.Bonus;
+import data.beans.bonus.LongRoadBonus;
+import data.beans.bonus.ProvinceBonus;
 import data.beans.secondaire.Adjacence;
-import data.beans.secondaire.Bonus;
 import data.beans.secondaire.Carriage;
 import data.beans.secondaire.CityCard;
 import data.beans.secondaire.GameParams;
 import data.beans.secondaire.House;
-import data.beans.secondaire.LongRoadBonus;
 import data.beans.secondaire.Official;
 import data.beans.secondaire.Province;
-import data.beans.secondaire.ProvinceBonus;
 import data.beans.secondaire.Tile;
 import data.constantes.ConstantesGameParams;
 import data.constantes.ConstantesStatics;

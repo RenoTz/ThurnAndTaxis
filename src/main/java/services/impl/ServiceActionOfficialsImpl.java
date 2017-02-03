@@ -16,6 +16,7 @@ import services.ServiceCards;
 import utils.AfficheUtils;
 import data.beans.principal.AllItems;
 import data.beans.secondaire.CityCard;
+import data.beans.secondaire.Player;
 import data.constantes.ConstantesMsgBox;
 import data.enumerations.EnumOfficials;
 
@@ -27,6 +28,8 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsRemaining;
     private JLabel lblCardRemaining;
+    
+    private Player playerEnCours;
     
     public ServiceActionOfficialsImpl(AllItems allItems) {
         this.serviceCards = new ServiceCardsImpl();
@@ -45,7 +48,8 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listCardsRemaining) && listCardsRemaining.size() > 6) {
+                if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listCardsRemaining)
+                                && (ServiceActionOfficialsImpl.this.listCardsRemaining.size() > 6)) {
                     // mise à la défausse des 6 cartes visibles
                     if (this.isCardsAlreadyLaid()) {
                         for (CityCard cardVisible : ServiceActionOfficialsImpl.this.listCardsVisible) {
@@ -113,6 +117,10 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(btnPostmaster, "Please, take one card.", ConstantesMsgBox.INFORMATION,
                                 JOptionPane.INFORMATION_MESSAGE);
+                while (!ServiceActionOfficialsImpl.this.getPlayerEnCours().getActions().isTakeOneCard()) {
+
+                }
+                ServiceActionOfficialsImpl.this.getPlayerEnCours().getActions().setUsePostMaster(true);
             }
         });
     }
@@ -126,6 +134,16 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             }
         }
         return retour;
+    }
+
+    @Override
+    public Player getPlayerEnCours() {
+        return this.playerEnCours;
+    }
+
+    @Override
+    public void setPlayerEnCours(Player playerEnCours) {
+        this.playerEnCours = playerEnCours;
     }
 
 }
