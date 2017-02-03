@@ -19,6 +19,7 @@ import utils.UpdateUtils;
 
 import com.google.common.collect.Iterables;
 
+import controler.GameSound;
 import data.beans.principal.AllItems;
 import data.beans.secondaire.Adjacence;
 import data.beans.secondaire.CityCard;
@@ -45,10 +46,13 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsRemaining;
 
     private Player playerEnCours;
+    
+    private GameSound sounds;
 
-    public ServiceActionButtonImpl(AllItems allItems) {
+    public ServiceActionButtonImpl(AllItems allItems, GameSound sounds) {
         this.serviceCards = new ServiceCardsImpl();
         this.initialiserVariables(allItems);
+        this.sounds = sounds;
     }
     
     @Override
@@ -69,6 +73,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         
                         // on signale que le joueur a pris une carte
                         ServiceActionButtonImpl.this.getPlayerEnCours().getActions().setTakeOneCard(true);
+                        sounds.getSoundTakeCard().play();
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
@@ -88,6 +93,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                         ServiceActionButtonImpl.this.listCardsRemaining, ServiceActionButtonImpl.this.lblCardRemaining);
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
+                        sounds.getSoundShuffleCards().play();
                     }
                 }
             }
@@ -132,6 +138,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         }
                         // on signale que le joueur a pris une carte
                         ServiceActionButtonImpl.this.getPlayerEnCours().getActions().setTakeOneCard(true);
+                        sounds.getSoundTakeCard().play();
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);

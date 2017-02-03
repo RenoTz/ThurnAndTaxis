@@ -10,6 +10,7 @@ public class ConstantesStatics {
     public static final String RACINE_STATICS_XML = RACINE_STATICS + "xml/";
     public static final String RACINE_STATICS_IMG = RACINE_STATICS + "img/";
     public static final String RACINE_STATICS_PDF = RACINE_STATICS + "pdf/";
+    public static final String RACINE_STATICS_SOUND = RACINE_STATICS + "sound/";
 
     // Officials
     public static final String RACINE_IMG_OFFICIALS = RACINE_STATICS_IMG + "officials/";
