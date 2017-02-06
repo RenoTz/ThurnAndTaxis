@@ -1,17 +1,24 @@
 package services;
 
 import data.beans.secondaire.Player;
-import data.enumerations.EnumOfficials;
 
 public interface ServiceActionOfficials {
 
-    void addActionButtonAdministrator(final EnumOfficials enumOfficial);
-
-    void addActionButtonCartwright(final EnumOfficials enumOfficial);
-
-    void addActionButtonPostalCarrier(final EnumOfficials enumOfficial);
+    void addActionAdministrator();
     
-    void addActionButtonPostmaster(final EnumOfficials enumOfficial);
+    void removeActionAdministrator();
+
+    void addActionCartwright();
+    
+    void removeActionCartwright();
+
+    void addActionPostalCarrier();
+    
+    void removeActionPostalCarrier();
+    
+    void addActionPostmaster();
+
+    void removeActionPostmaster();
 
     Player getPlayerEnCours();
 

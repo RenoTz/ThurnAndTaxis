@@ -1,7 +1,5 @@
-package controler;
+package view;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,29 +37,29 @@ import data.enumerations.EnumPlayers;
 import data.enumerations.EnumResolution;
 
 public class InterfaceJeu extends JFrame {
-    
+
     private static final long serialVersionUID = 3006307486047180080L;
-    
+
     private Player p1, p2, p3, p4;
-    
+
     public AllItems createInterface(final Game game) {
         this.setTitle("Thurn and Taxis");
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
         final JLayeredPane layeredThurnplan = new JLayeredPane();
         layeredThurnplan.setBackground(ColorUtils.SANDY_BROWN);
         this.getContentPane().add(layeredThurnplan, BorderLayout.CENTER);
-
+        
         final JLabel lblThurnplan = new JLabel("");
         lblThurnplan.setBounds(0, 0, 1024, 712);
         layeredThurnplan.add(lblThurnplan, 0);
         lblThurnplan.setHorizontalAlignment(SwingConstants.CENTER);
         lblThurnplan.setIcon(game.getGameParams().getGameBoardImage());
-
+        
         // creation du bean qui contiendra tous les items (JButton, JLabel, ...)
         final AllItems allItems = new AllItems();
-        
+
         this.recupererTousLesJoueurs(game.getListPlayers());
         // --------------------------------
         // PANEL / BUTTONS - CARDS VISIBLES
@@ -73,14 +71,14 @@ public class InterfaceJeu extends JFrame {
         panelCardVisible.setVisible(true);
         layeredThurnplan.add(panelCardVisible, 1);
         panelCardVisible.setLayout(new GridLayout(3, 2, 3, 3));
-
+        
         for (int i = 0; i < 6; i++) {
             final JButton cardVisible = new JButton("");
             cardVisible.setBackground(ColorUtils.SANDY_BROWN);
             panelCardVisible.add(cardVisible);
             allItems.getAllListsCards().getListCardsVisibles().add(new CityCard(cardVisible));
         }
-
+        
         // ------------------------
         // BUTTONS - PROVINCE BONUS
         // ------------------------
@@ -121,7 +119,7 @@ public class InterfaceJeu extends JFrame {
                 layeredThurnplan.add(btnBonusWruttemberg, new Integer(1));
             }
         }
-
+        
         // -------------------------
         // BUTTONS - LONG ROAD BONUS
         // -------------------------
@@ -146,7 +144,7 @@ public class InterfaceJeu extends JFrame {
                 layeredThurnplan.add(btnBonusLongRoad7, new Integer(1));
             }
         }
-
+        
         // -----------------------------
         // BUTTONS - ALL PROVINCES BONUS
         // -----------------------------
@@ -156,7 +154,7 @@ public class InterfaceJeu extends JFrame {
         btnBonusAll.setBackground(ColorUtils.SANDY_BROWN);
         btnBonusAll.setBounds(326, 65, 35, 35);
         layeredThurnplan.add(btnBonusAll, new Integer(1));
-
+        
         // ------------------------
         // BUTTONS - END GAME BONUS
         // ------------------------
@@ -166,7 +164,7 @@ public class InterfaceJeu extends JFrame {
         btnBonusEnd.setBackground(ColorUtils.SANDY_BROWN);
         btnBonusEnd.setBounds(326, 25, 35, 35);
         layeredThurnplan.add(btnBonusEnd, new Integer(1));
-        
+
         // -------------------------------
         // PANEL / BUTTONS - CARD CARRIAGE
         // -------------------------------
@@ -176,14 +174,14 @@ public class InterfaceJeu extends JFrame {
         panelCardCaleche.setBounds(390, 24, 603, 75);
         layeredThurnplan.add(panelCardCaleche);
         panelCardCaleche.setLayout(new GridLayout(0, 5, 1, 0));
-
+        
         for (int i = 0; i < 5; i++) {
             final JButton btnCaleche = new JButton("");
             btnCaleche.setBackground(ColorUtils.SANDY_BROWN);
             btnCaleche.setToolTipText("Carriage " + (i + 1));
             panelCardCaleche.add(btnCaleche);
         }
-        
+
         // ----------------------------
         // PANEL / BUTTONS - CARDS ROAD
         // ----------------------------
@@ -194,9 +192,9 @@ public class InterfaceJeu extends JFrame {
         panelCardRoad.setBounds(1, 712, 1024, 150);
         layeredThurnplan.add(panelCardRoad);
         panelCardRoad.setLayout(new GridLayout(1, 10, 2, 0));
-        
+
         final Dimension dimCard = new Dimension(10, 150);
-        
+
         final JButton btnLeftRoad = new JButton(toVertical("LEFT"));
         btnLeftRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
         btnLeftRoad.setPreferredSize(dimCard);
@@ -204,7 +202,7 @@ public class InterfaceJeu extends JFrame {
         btnLeftRoad.setForeground(new Color(255, 215, 0));
         btnLeftRoad.setBorder(new BevelBorder(BevelBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
         panelCardRoad.add(btnLeftRoad);
-        
+
         for (int i = 0; i < 8; i++) {
             final JButton btnRoad = new JButton("");
             btnRoad.setBackground(ColorUtils.PERU);
@@ -213,7 +211,7 @@ public class InterfaceJeu extends JFrame {
             panelCardRoad.add(btnRoad);
             allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad));
         }
-        
+
         final JButton btnRightRoad = new JButton(toVertical("RIGHT"));
         btnRightRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
         btnRightRoad.setBackground(ColorUtils.PERU);
@@ -221,7 +219,7 @@ public class InterfaceJeu extends JFrame {
         btnRightRoad.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.GRAY));
         btnRightRoad.setPreferredSize(dimCard);
         panelCardRoad.add(btnRightRoad);
-        
+
         // ----------------
         // LABELS - PLAYERS
         // ----------------
@@ -236,7 +234,7 @@ public class InterfaceJeu extends JFrame {
         panelLabelPlayer1.add(lblPlayer1);
         lblPlayer1.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayer1.setBackground(ColorUtils.SANDY_BROWN);
-
+        
         // PLAYER 2
         final JPanel panelLabelPlayer2 = new JPanel();
         panelLabelPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -248,7 +246,7 @@ public class InterfaceJeu extends JFrame {
         panelLabelPlayer2.add(lblPlayer2);
         lblPlayer2.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayer2.setBackground(ColorUtils.SANDY_BROWN);
-
+        
         // PLAYER 3
         final JPanel panelLabelPlayer3 = new JPanel();
         panelLabelPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -260,7 +258,7 @@ public class InterfaceJeu extends JFrame {
         panelLabelPlayer3.add(lblPlayer3);
         lblPlayer3.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayer3.setBackground(ColorUtils.SANDY_BROWN);
-
+        
         // PLAYER 4
         final JPanel panelLabelPlayer4 = new JPanel();
         panelLabelPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
@@ -272,124 +270,124 @@ public class InterfaceJeu extends JFrame {
         panelLabelPlayer4.add(lblPlayer4);
         lblPlayer4.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayer4.setBackground(ColorUtils.SANDY_BROWN);
-        
+
         // ----------------
         // PANEL - JOUEUR 1
         // ----------------
-        
+
         final JPanel panelItemPlayer1 = new JPanel();
         panelItemPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         panelItemPlayer1.setBackground(ColorUtils.PERU);
         panelItemPlayer1.setBounds(1024, 40, 143, 316);
         layeredThurnplan.add(panelItemPlayer1);
         panelItemPlayer1.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 4; i++) {
             final JLabel lblNewLabel_2 = this.createLabelItemPlayer();
             panelItemPlayer1.add(lblNewLabel_2);
         }
-        
+
         final JPanel panelCardsPlayer1 = new JPanel();
         panelCardsPlayer1.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelCardsPlayer1.setBackground(ColorUtils.PERU);
         panelCardsPlayer1.setBounds(1167, 40, 143, 316);
         layeredThurnplan.add(panelCardsPlayer1);
         panelCardsPlayer1.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 6; i++) {
             final JButton label_36 = this.createButtonCardPlayer();
             panelCardsPlayer1.add(label_36);
             this.p1.getListHandCityCards().add(new CityCard(label_36));
         }
-        
+
         // ----------------
         // PANEL - JOUEUR 2
         // ----------------
-        
+
         JPanel panelItemPlayer2 = new JPanel();
         panelItemPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         panelItemPlayer2.setBackground(ColorUtils.PERU);
         panelItemPlayer2.setBounds(1310, 40, 143, 316);
         layeredThurnplan.add(panelItemPlayer2);
         panelItemPlayer2.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 4; i++) {
             final JLabel label_42 = this.createLabelItemPlayer();
             panelItemPlayer2.add(label_42);
         }
-        
+
         JPanel panelCardsPlayer2 = new JPanel();
         panelCardsPlayer2.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelCardsPlayer2.setBackground(ColorUtils.PERU);
         panelCardsPlayer2.setBounds(1453, 40, 143, 316);
         layeredThurnplan.add(panelCardsPlayer2);
         panelCardsPlayer2.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 6; i++) {
             final JButton label_48 = this.createButtonCardPlayer();
             panelCardsPlayer2.add(label_48);
         }
-        
+
         // ----------------
         // PANEL - JOUEUR 3
         // ----------------
-        
+
         final JPanel panelItemPlayer3 = new JPanel();
         panelItemPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelItemPlayer3.setBackground(ColorUtils.PERU);
         panelItemPlayer3.setBounds(1024, 396, 143, 316);
         layeredThurnplan.add(panelItemPlayer3);
         panelItemPlayer3.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 4; i++) {
             final JLabel label = this.createLabelItemPlayer();
             panelItemPlayer3.add(label);
         }
-        
+
         final JPanel panelCardsPlayer3 = new JPanel();
         panelCardsPlayer3.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelCardsPlayer3.setBackground(ColorUtils.PERU);
         panelCardsPlayer3.setBounds(1167, 396, 143, 316);
         layeredThurnplan.add(panelCardsPlayer3);
         panelCardsPlayer3.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 6; i++) {
             final JButton label_6 = this.createButtonCardPlayer();
             panelCardsPlayer3.add(label_6);
         }
-        
+
         // ----------------
         // PANEL - JOUEUR 4
         // ----------------
-        
+
         final JPanel panelItemPlayer4 = new JPanel();
         panelItemPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelItemPlayer4.setBackground(ColorUtils.PERU);
         panelItemPlayer4.setBounds(1310, 396, 143, 316);
         layeredThurnplan.add(panelItemPlayer4);
         panelItemPlayer4.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 4; i++) {
             final JLabel label_12 = this.createLabelItemPlayer();
             panelItemPlayer4.add(label_12);
         }
-        
+
         final JPanel panelCardsPlayer4 = new JPanel();
         panelCardsPlayer4.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelCardsPlayer4.setBackground(ColorUtils.PERU);
         panelCardsPlayer4.setBounds(1453, 396, 143, 316);
         layeredThurnplan.add(panelCardsPlayer4);
         panelCardsPlayer4.setLayout(new GridLayout(0, 1, 2, 2));
-        
+
         for (int i = 0; i < 6; i++) {
             final JButton label_18 = this.createButtonCardPlayer();
             panelCardsPlayer4.add(label_18);
         }
-        
+
         // -----------------
         // PANEL - OFFICIALS
         // -----------------
-        
+
         final JPanel panelOfficials = new JPanel();
         panelOfficials.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelOfficials.setBackground(ColorUtils.PERU);
@@ -400,7 +398,7 @@ public class InterfaceJeu extends JFrame {
         gl_panelOfficials.setVgap(1);
         gl_panelOfficials.setHgap(2);
         panelOfficials.setLayout(gl_panelOfficials);
-        
+
         final JButton btnDiscardRoad = new JButton("DISCARD");
         btnDiscardRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
         panelOfficials.add(btnDiscardRoad);
@@ -408,12 +406,12 @@ public class InterfaceJeu extends JFrame {
         btnDiscardRoad.setForeground(new Color(255, 215, 0));
         btnDiscardRoad.setBorder(new BevelBorder(BevelBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
         allItems.getAllButtons().setBtnDiscardRoad(btnDiscardRoad);
-        
+
         for (Official official : game.getListOfficials()) {
             final JButton btnAdministrator = this.createButtonOfficial(official);
             panelOfficials.add(btnAdministrator);
             allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
-
+            
             if (StringUtils.equals(official.getName(), EnumOfficials.POSTMASTER.getName())) {
                 final JButton btnBuildRoad = new JButton("BUILD");
                 btnBuildRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
@@ -424,7 +422,7 @@ public class InterfaceJeu extends JFrame {
                 allItems.getAllButtons().setBtnBuildRoad(btnBuildRoad);
             }
         }
-
+        
         final JButton btnDeckCard = new JButton("");
         btnDeckCard.setIcon(game.getGameParams().getBackCardImage());
         layeredThurnplan.setLayer(btnDeckCard, 1);
@@ -432,11 +430,11 @@ public class InterfaceJeu extends JFrame {
         layeredThurnplan.add(btnDeckCard);
         btnDeckCard.setToolTipText("Take one");
         allItems.getAllButtons().setBtnDeckCard(btnDeckCard);
-        
+
         // -----------------------
         // PANEL - CARDS REMAINING
         // -----------------------
-        
+
         final JPanel panelNbCardRemaining = new JPanel();
         panelNbCardRemaining.setBorder(new BevelBorder(BevelBorder.LOWERED, ColorUtils.SANDY_BROWN, ColorUtils.PERU, null, null));
         panelNbCardRemaining.setBackground(ColorUtils.PERU);
@@ -445,32 +443,32 @@ public class InterfaceJeu extends JFrame {
         GridLayout gl_panelCardRemaining = new GridLayout(3, 1);
         gl_panelCardRemaining.setVgap(1);
         panelNbCardRemaining.setLayout(gl_panelCardRemaining);
-        
+
         panelNbCardRemaining.add(new JLabel());
         final JLabel lblNbCardRemaining = new JLabel(String.valueOf(game.getListCityCards().size()));
         panelNbCardRemaining.add(lblNbCardRemaining);
         lblNbCardRemaining.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 22));
         lblNbCardRemaining.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         final JButton btnRules = new JButton();
         btnRules.setBackground(ColorUtils.PERU);
         btnRules.setIcon(new ImageIcon(ConstantesStatics.RACINE_IMG_ICONS + "rules_sifflet.jpg"));
         panelNbCardRemaining.add(btnRules);
         allItems.getAllButtons().setBtnRules(btnRules);
         allItems.getAllLabels().setLblNbCardRemaining(lblNbCardRemaining);
-        
+
         final Dimension screenSize = this.getScreenResolution();
-        
+
         if (screenSize != null) {
             this.setSize(screenSize);
             this.setVisible(true);
         } else {
             this.dispose();
         }
-        
+
         return allItems;
     }
-    
+
     private void recupererTousLesJoueurs(List<Player> listPlayers) {
         for (Player player : listPlayers) {
             if (listPlayers.indexOf(player) == EnumPlayers.INDICE_PLAYER_1.getIndice()) {
@@ -486,9 +484,9 @@ public class InterfaceJeu extends JFrame {
                 this.p4 = player;
             }
         }
-        
-    }
 
+    }
+    
     private JButton createButtonOfficial(Official official) {
         JButton btnAdministrator = new JButton("");
         btnAdministrator.setIcon(official.getImage());
@@ -496,7 +494,7 @@ public class InterfaceJeu extends JFrame {
         btnAdministrator.setToolTipText(official.getName());
         return btnAdministrator;
     }
-    
+
     private JButton createLongRoadBonus(final int x, final int y, final ImageIcon image) {
         final JButton btnBonusLongRoad5 = new JButton("");
         btnBonusLongRoad5.setIcon(image);
@@ -504,7 +502,7 @@ public class InterfaceJeu extends JFrame {
         btnBonusLongRoad5.setBounds(x, y, 40, 40);
         return btnBonusLongRoad5;
     }
-
+    
     private JButton createBonusTileCity(final int posX, final int posY, final ImageIcon image) {
         final JButton btnBonusBaden = new JButton("");
         btnBonusBaden.setIcon(image);
@@ -512,7 +510,7 @@ public class InterfaceJeu extends JFrame {
         btnBonusBaden.setBounds(posX, posY, 34, 34);
         return btnBonusBaden;
     }
-    
+
     private JButton createButtonCardPlayer() {
         final JButton label_36 = new JButton("");
         label_36.setHorizontalAlignment(SwingConstants.CENTER);
@@ -520,7 +518,7 @@ public class InterfaceJeu extends JFrame {
         label_36.setBackground(ColorUtils.PERU);
         return label_36;
     }
-    
+
     private JLabel createLabelItemPlayer() {
         final JLabel label_12 = new JLabel("");
         label_12.setHorizontalAlignment(SwingConstants.CENTER);
@@ -528,16 +526,16 @@ public class InterfaceJeu extends JFrame {
         label_12.setBackground(ColorUtils.PERU);
         return label_12;
     }
-    
+
     private Dimension getScreenResolution() {
-        
+
         final String[] resolutions = EnumResolution.getAllResolutions();
         final String screenResolution = (String) JOptionPane.showInputDialog(null, "What is your screen resolution?", "Screen Resolution",
                         JOptionPane.QUESTION_MESSAGE, null, resolutions, resolutions[0]);
         final EnumResolution enumResolution = EnumResolution.getEnumResolutionByValue(screenResolution);
         return screenResolution != null ? EnumResolution.getDimensionByResolution(enumResolution) : null;
     }
-
+    
     private static String toVertical(String s) {
         StringBuffer b = new StringBuffer("<HTML>");
         for (int i = 0; i < s.length(); ++i) {
@@ -545,5 +543,5 @@ public class InterfaceJeu extends JFrame {
         }
         return b.append("</HTML>").toString();
     }
-
+    
 }

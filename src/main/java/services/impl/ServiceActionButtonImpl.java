@@ -28,12 +28,12 @@ import data.constantes.ConstantesMsgBox;
 import data.enumerations.EnumDirection;
 
 public class ServiceActionButtonImpl implements ServiceActionButton {
-    
+
     protected static final String LEFT = "left";
     protected static final String RIGHT = "right";
     protected static final int CARD_TO_LEFT = 0;
     protected static final int CARD_TO_RIGHT = 1;
-    
+
     private ServiceCards serviceCards;
     private JButton btnDeckCard;
     private JButton btnRules;
@@ -44,36 +44,51 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsRemaining;
-
-    private Player playerEnCours;
     
+    private Player playerEnCours;
+
     private GameSound sounds;
 
+    // Actions Listener
+    private ActionListener alBtnDeckCard;
+    private ActionListener alBtnCardVisible;
+    
     public ServiceActionButtonImpl(AllItems allItems, GameSound sounds) {
         this.serviceCards = new ServiceCardsImpl();
         this.initialiserVariables(allItems);
+        this.creerActionListenerBtnDeckCard();
         this.sounds = sounds;
+    }
+
+    @Override
+    public void addActionButtonDeckCard() {
+        this.btnDeckCard.addActionListener(this.alBtnDeckCard);
     }
     
     @Override
-    public void addActionButtonDeckCard() {
-        this.btnDeckCard.addActionListener(new ActionListener() {
+    public void removeActionButtonDeckCard() {
+        this.btnDeckCard.removeActionListener(this.alBtnDeckCard);
+    }
 
+    private void creerActionListenerBtnDeckCard() {
+        this.alBtnDeckCard = new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionButtonImpl.this.listCardsRemaining)) {
                     if (CardsUtils.isListeCardsHandNotFull(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards())) {
-                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(Iterables
-                                        .getLast(ServiceActionButtonImpl.this.listCardsRemaining), CardsUtils
-                                        .getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards()));
+                        ServiceActionButtonImpl.this.serviceCards
+                                        .transferOneCityCard(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRemaining), CardsUtils
+                                                        .getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.getPlayerEnCours()
+                                                                        .getListHandCityCards()));
                         ServiceActionButtonImpl.this.listCardsRemaining.remove(Iterables
                                         .getLast(ServiceActionButtonImpl.this.listCardsRemaining));
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
-                        
+
                         // on signale que le joueur a pris une carte
                         ServiceActionButtonImpl.this.getPlayerEnCours().getActions().setTakeOneCard(true);
-                        sounds.getSoundTakeCard().play();
+                        ServiceActionButtonImpl.this.sounds.getSoundTakeCard().play();
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
@@ -93,14 +108,13 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                                         ServiceActionButtonImpl.this.listCardsRemaining, ServiceActionButtonImpl.this.lblCardRemaining);
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButtonImpl.this.lblCardRemaining,
                                         ServiceActionButtonImpl.this.getNbCardsRemaining());
-                        sounds.getSoundShuffleCards().play();
+                        ServiceActionButtonImpl.this.sounds.getSoundShuffleCards().play();
                     }
                 }
             }
-            
-        });
+        };
     }
-    
+
     /**
      * ActionListener sur <strong>buttonCardVisible</strong> permettant de sélectionner une carte à partir des cartes visibles. <br>
      * 1 - on transfère la carte visible dans les cartes en main du joueur <br>
@@ -110,18 +124,20 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
      * 5 - on met à jour le label du nombre de cartes restantes <br>
      */
     @Override
-    public void addActionButtonCardVisible() {
-        
+    public void addActionVisibleCards() {
+
         for (final CityCard cardVisible : this.listCardsVisible) {
-            cardVisible.getCityButton().addActionListener(new ActionListener() {
-                
+            this.alBtnCardVisible = new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    
                     if (CardsUtils.isListeCardsHandNotFull(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards())) {
-                        ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardVisible, CardsUtils
-                                        .getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.getPlayerEnCours().getListHandCityCards()));
-
+                        ServiceActionButtonImpl.this.serviceCards
+                        .transferOneCityCard(cardVisible, CardsUtils
+                                        .getFirstCardHandPlayerAvailable(ServiceActionButtonImpl.this.getPlayerEnCours()
+                                                        .getListHandCityCards()));
+                        
                         for (CityCard cardToClear : ServiceActionButtonImpl.this.listCardsVisible) {
                             if (cardVisible.equals(cardToClear)) {
                                 cardVisible.clear();
@@ -138,28 +154,36 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         }
                         // on signale que le joueur a pris une carte
                         ServiceActionButtonImpl.this.getPlayerEnCours().getActions().setTakeOneCard(true);
-                        sounds.getSoundTakeCard().play();
+                        ServiceActionButtonImpl.this.sounds.getSoundTakeCard().play();
                     } else {
                         JOptionPane.showMessageDialog(null, ConstantesMsgBox.INFORMATION_DONT_TAKE_CARDS, ConstantesMsgBox.INFORMATION,
                                         JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-                
-            });
-        }
-        
-    }
 
+            };
+            cardVisible.getCityButton().addActionListener(this.alBtnCardVisible);
+        }
+
+    }
+    
+    @Override
+    public void removeActionVisibleCards() {
+        for (final CityCard cardVisible : this.listCardsVisible) {
+            cardVisible.getCityButton().removeActionListener(this.alBtnCardVisible);
+        }
+    }
+    
     @Override
     public void addActionButtonPlayersCards(final List<Adjacence> listAdjacences, final List<Player> listPlayers) {
-
+        
         for (Player player : listPlayers) {
             for (final CityCard cardPlayer : player.getListHandCityCards()) {
                 cardPlayer.getCityButton().addActionListener(new ActionListener() {
-
+                    
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        
                         if (this.islistCardsRoadEmpty()) {
                             final CityCard cardRoad = ServiceActionButtonImpl.this.listCardsRoad.get(0);
                             this.addRoadCardFromPlayerCardsToTheRight(cardPlayer, cardRoad);
@@ -187,19 +211,19 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                             }
                         }
                     }
-
+                    
                     private void addRoadCardFromPlayerCardsToTheRight(final CityCard cardPlayer, CityCard cardLeft) {
                         ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
                         cardPlayer.clear();
                     }
-
+                    
                     private void addRoadCardFromPlayerCardsToTheLeft(final CityCard cardPlayer) {
                         CardsUtils.moveCardsToTheRight(ServiceActionButtonImpl.this.listCardsRoad);
                         final CityCard cardLeft = ServiceActionButtonImpl.this.listCardsRoad.get(0);
                         ServiceActionButtonImpl.this.serviceCards.transferOneCityCard(cardPlayer, cardLeft);
                         cardPlayer.clear();
                     }
-
+                    
                     private boolean islistCardsRoadEmpty() {
                         for (CityCard card : ServiceActionButtonImpl.this.listCardsRoad) {
                             if (StringUtils.isNotBlank(card.getNameCity())) {
@@ -208,7 +232,7 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                         }
                         return true;
                     }
-
+                    
                     private boolean islistCardsRoadFull() {
                         return StringUtils.isNotBlank(ServiceActionButtonImpl.this.listCardsRoad.get(0).getNameCity())
                                         && StringUtils.isNotBlank(Iterables.getLast(ServiceActionButtonImpl.this.listCardsRoad).getNameCity());
@@ -217,12 +241,12 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
             }
         }
     }
-    
+
     @Override
     public void addActionButtonDiscard() {
-
+        
         this.btnDiscard.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_CONFIRM_DISCARD, ConstantesMsgBox.QUESTION,
@@ -235,19 +259,19 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
                 }
             }
         });
-
+        
     }
-
+    
     @Override
     public void addActionButtonBuild() {
-        
-        this.btnBuild.addActionListener(new ActionListener() {
 
+        this.btnBuild.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 int option = JOptionPane.showConfirmDialog(null, ConstantesMsgBox.QUESTION_CONFIRM_BUILD, ConstantesMsgBox.QUESTION,
                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                
+
                 if (option == JOptionPane.YES_OPTION) {
                     // on défause les cartes de la route + les cartes en main qui restent
                     for (CityCard cardRoad : ServiceActionButtonImpl.this.listCardsRoad) {
@@ -262,22 +286,22 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
             }
         });
     }
-    
+
     @Override
     public void addActionButtonRules() {
         // TODO Auto-generated method stub
     }
-
+    
     @Override
     public void setPlayerEnCours(Player playerEnCours) {
         this.playerEnCours = playerEnCours;
     }
-    
+
     @Override
     public Player getPlayerEnCours() {
         return this.playerEnCours;
     }
-    
+
     private void initialiserVariables(AllItems allItems) {
         this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
         this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
@@ -289,9 +313,9 @@ public class ServiceActionButtonImpl implements ServiceActionButton {
         this.btnBuild = allItems.getAllButtons().getBtnBuildRoad();
         this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
     }
-
+    
     private int getNbCardsRemaining() {
         return this.listCardsRemaining.size();
     }
-
+    
 }
