@@ -183,17 +183,33 @@ public class InterfaceJeu extends JFrame {
         }
 
         // ----------------------------
+        // PANEL / BUTTONS - INFO GAME
+        // ----------------------------
+        final JPanel panelInfos = new JPanel();
+        panelInfos.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
+        panelInfos.setBackground(ColorUtils.PERU);
+        layeredThurnplan.setLayer(panelInfos, 1);
+        panelInfos.setBounds(1, 712, 1024, 30);
+        layeredThurnplan.add(panelInfos);
+
+        final JLabel lblInfo = new JLabel("infos du jeu");
+        lblInfo.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+        lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblInfo.setVerticalAlignment(SwingConstants.CENTER);
+        panelInfos.add(lblInfo);
+
+        // ----------------------------
         // PANEL / BUTTONS - CARDS ROAD
         // ----------------------------
         final JPanel panelCardRoad = new JPanel();
         panelCardRoad.setBorder(new BevelBorder(BevelBorder.RAISED, ColorUtils.SANDY_BROWN, ColorUtils.SANDY_BROWN, null, null));
         panelCardRoad.setBackground(ColorUtils.PERU);
         layeredThurnplan.setLayer(panelCardRoad, 1);
-        panelCardRoad.setBounds(1, 712, 1024, 150);
+        panelCardRoad.setBounds(1, 742, 1024, 120);
         layeredThurnplan.add(panelCardRoad);
         panelCardRoad.setLayout(new GridLayout(1, 10, 2, 0));
-
-        final Dimension dimCard = new Dimension(10, 150);
+        
+        final Dimension dimCard = new Dimension(10, 120);
 
         final JButton btnLeftRoad = new JButton(toVertical("LEFT"));
         btnLeftRoad.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
