@@ -18,30 +18,30 @@ import com.google.common.collect.Lists;
 import data.beans.secondaire.Official;
 
 public class ParserXML {
-
+    
     public Element recupererFichierXMLBySAXBuilder(final String nomFichier) throws FileNotFoundException {
-
+        
         final SAXBuilder sxb = new SAXBuilder();
-        
+
         Document document = null;
-        
+
         try {
             document = sxb.build(new File(nomFichier));
         } catch (JDOMException | IOException e) {
             throw new FileNotFoundException("Le fichier \"" + nomFichier + "\" n'a pas été trouvé.");
         }
-        
+
         return document.getRootElement();
     }
+    
+    public List<Official> recupererListeOfficialsXML(final Element racine) {
 
-    public List<Official> recupererListeOfficialsXML(Element racine) {
-        
         final List<Official> listeOfficials = Lists.newArrayList();
-        
+
         final Element officials = racine.getChild("officials");
         final List<Element> listOfficials = officials.getChildren("official");
         final Iterator<Element> i = listOfficials.iterator();
-
+        
         while (i.hasNext()) {
             final Element courant = i.next();
             // On ajoute l'official dans la liste
@@ -50,15 +50,15 @@ public class ParserXML {
             official.setImage(new ImageIcon(courant.getChild("symbol_image").getText()));
             listeOfficials.add(official);
         }
-        
+
         return listeOfficials;
     }
-    
-    public void afficheALLOfficial(Element racine) {
+
+    public void afficheALLOfficial(final Element racine) {
         // On crée une List contenant tous les noeuds "etudiant" de l'Element racine
         Element officials = racine.getChild("officials");
         final List<Element> listOfficials = officials.getChildren("official");
-
+        
         // On crée un Iterator sur notre liste
         final Iterator<Element> i = listOfficials.iterator();
         while (i.hasNext()) {
@@ -69,7 +69,7 @@ public class ParserXML {
             // On affiche le nom de l’élément courant
             System.out.println(courant.getChild("name").getText());
         }
-
+        
     }
-
+    
 }
