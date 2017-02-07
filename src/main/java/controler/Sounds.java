@@ -7,7 +7,7 @@ import java.net.URL;
 
 import data.constantes.ConstantesStatics;
 
-public class GameSound {
+public class Sounds {
     
     private AudioClip soundTakeCard;
     private AudioClip soundShuffleCards;
@@ -15,7 +15,7 @@ public class GameSound {
     private AudioClip soundButton;
     private AudioClip soundToggle;
 
-    public GameSound() {
+    public Sounds() {
         this.creerLesSonsDuJeu();
     }
     

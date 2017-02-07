@@ -29,7 +29,7 @@ public class Play {
         final Game game = loading.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
 
         // 2.b) on crée les sons du jeu
-        final GameSound sounds = new GameSound();
+        final Sounds sounds = new Sounds();
 
         // 3. Création des joueurs (seulement 1 dans un premier temps -> pour le développement)
         final Player pDev = new Player();

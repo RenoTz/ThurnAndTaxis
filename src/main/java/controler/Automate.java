@@ -5,9 +5,11 @@ import javax.swing.JOptionPane;
 import services.ServiceActionButton;
 import services.ServiceActionOfficials;
 import services.ServiceCards;
+import services.ServiceJoueur;
 import services.impl.ServiceActionButtonImpl;
 import services.impl.ServiceActionOfficialsImpl;
 import services.impl.ServiceCardsImpl;
+import services.impl.ServiceJoueurImpl;
 import utils.PlayerUtils;
 import data.beans.principal.AllItems;
 import data.beans.principal.Game;
@@ -18,12 +20,14 @@ public class Automate {
 
     private AllItems allItems;
     
+    private ServiceJoueur serviceJoueur;
     private ServiceCards serviceCards;
     private ServiceActionButton serviceActionButton;
     private ServiceActionOfficials serviceActionOfficials;
 
-    public Automate(final AllItems allItems, final GameSound sounds) {
+    public Automate(final AllItems allItems, final Sounds sounds) {
         this.allItems = allItems;
+        this.serviceJoueur = new ServiceJoueurImpl();
         this.serviceCards = new ServiceCardsImpl();
         this.serviceActionButton = new ServiceActionButtonImpl(allItems, sounds);
         this.serviceActionOfficials = new ServiceActionOfficialsImpl(allItems, sounds);
@@ -58,8 +62,8 @@ public class Automate {
             }
             System.out.println("fin du premier tour");
             // le joueur 1 commence
-            this.serviceActionButton.setPlayerEnCours(game.getListPlayers().get(EnumPlayers.INDICE_PLAYER_1.getIndice()));
-            final Player playerEnCours = this.serviceActionButton.getPlayerEnCours();
+            this.serviceJoueur.setPlayerEnCours(game.getListPlayers().get(EnumPlayers.INDICE_PLAYER_1.getIndice()));
+            final Player playerEnCours = this.serviceJoueur.getPlayerEnCours();
             System.out.println("Le joueur " + playerEnCours.getName() + " joue en ce moment.");
         }
         final Player winner = PlayerUtils.getWinner(game.getListPlayers());
@@ -70,7 +74,7 @@ public class Automate {
         for (Player player : game.getListPlayers()) {
             System.out.println(player.getName() + " joue en ce moment.");
             // le joueur 1 commence
-            this.serviceActionButton.setPlayerEnCours(player);
+            this.serviceJoueur.setPlayerEnCours(player);
             System.out.println("Vous devez prendre une carte.");
             
             this.activerPaquetDeCartesEtCartesVisibles();
@@ -81,7 +85,7 @@ public class Automate {
             // désactivation du paquet de cartes et des cartes visibles
             this.desactiverPaquetDeCartesEtCartesVisibles();
 
-            this.serviceActionOfficials.setPlayerEnCours(player);
+            this.serviceJoueur.setPlayerEnCours(player);
             player.getActions().setTakeOneCard(false);
             System.out.println("Vous devez utiliser le Postmaster.");
             this.serviceActionOfficials.addActionPostmaster();

@@ -1,27 +1,26 @@
 package services;
 
-import data.beans.secondaire.Player;
 
 public interface ServiceActionOfficials {
-
-    void addActionAdministrator();
     
-    void removeActionAdministrator();
+    // ----------------- ACTIVATION ---------------------
+    
+    void addActionAdministrator();
 
     void addActionCartwright();
-    
-    void removeActionCartwright();
 
     void addActionPostalCarrier();
+
+    void addActionPostmaster();
+    
+    // ---------------- DESACTIVATION -------------------
+
+    void removeActionAdministrator();
+    
+    void removeActionCartwright();
     
     void removeActionPostalCarrier();
     
-    void addActionPostmaster();
-
     void removeActionPostmaster();
-
-    Player getPlayerEnCours();
-
-    void setPlayerEnCours(Player playerEnCours);
 
 }
