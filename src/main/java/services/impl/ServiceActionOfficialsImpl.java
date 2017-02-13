@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import services.ServiceJoueur;
 import services.ServiceActionOfficials;
 import services.ServiceCards;
 import utils.AfficheUtils;
+import utils.PlayerUtils;
 import controler.Sounds;
 import data.beans.principal.AllItems;
 import data.beans.secondaire.CityCard;
@@ -22,27 +22,29 @@ import data.constantes.ConstantesMsgBox;
 import data.enumerations.EnumOfficials;
 
 public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
-    
-    private ServiceCards serviceCards;
-    private ServiceJoueur serviceActionJoueur;
 
+    // services
+    private ServiceCards serviceCards;
+    // cards lists
     private List<CityCard> listCardsVisible;
     private List<CityCard> listCardsDiscarded;
     private List<CityCard> listCardsRemaining;
-    private JLabel lblCardRemaining;
-
+    // action listener
     private ActionListener forbidden;
     private ActionListener alAdministrator;
     private ActionListener alPostalCarrier;
     private ActionListener alPostMaster;
     private ActionListener alCartwright;
+    // buttons
     private JButton administrator;
     private JButton postalCarrier;
     private JButton postMaster;
     private JButton cartwright;
-
-    private Sounds sounds;
+    // labels
+    private JLabel lblCardRemaining;
     
+    private Sounds sounds;
+
     public ServiceActionOfficialsImpl(final AllItems allItems, final Sounds sounds) {
         this.initialiserLesVariables(allItems, sounds);
         // recuperation des boutons
@@ -50,7 +52,11 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
         // creation des Action Listener
         this.creerLesActionsListener();
     }
-
+    
+    // ------------------------------
+    // METODES PUBLIQUES : ACTIVATION
+    // ------------------------------
+    
     @Override
     public void addActionAdministrator() {
         this.administrator.removeActionListener(this.forbidden);
@@ -58,33 +64,15 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
     }
 
     @Override
-    public void removeActionAdministrator() {
-        this.administrator.removeActionListener(this.alAdministrator);
-        this.administrator.addActionListener(this.forbidden);
-    }
-    
-    @Override
     public void addActionCartwright() {
         this.cartwright.removeActionListener(this.forbidden);
         this.cartwright.addActionListener(this.alCartwright);
     }
 
     @Override
-    public void removeActionCartwright() {
-        this.cartwright.removeActionListener(this.alCartwright);
-        this.cartwright.addActionListener(this.forbidden);
-    }
-    
-    @Override
     public void addActionPostalCarrier() {
         this.postalCarrier.removeActionListener(this.forbidden);
         this.postalCarrier.addActionListener(this.alPostalCarrier);
-    }
-
-    @Override
-    public void removeActionPostalCarrier() {
-        this.postalCarrier.removeActionListener(this.alPostalCarrier);
-        this.postalCarrier.addActionListener(this.forbidden);
     }
 
     @Override
@@ -93,22 +81,47 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
         this.postMaster.addActionListener(this.alPostMaster);
     }
     
+    // ---------------------------------
+    // METODES PUBLIQUES : DESACTIVATION
+    // ---------------------------------
+    
+    @Override
+    public void removeActionAdministrator() {
+        this.administrator.removeActionListener(this.alAdministrator);
+        this.administrator.addActionListener(this.forbidden);
+    }
+    
+    @Override
+    public void removeActionCartwright() {
+        this.cartwright.removeActionListener(this.alCartwright);
+        this.cartwright.addActionListener(this.forbidden);
+    }
+    
+    @Override
+    public void removeActionPostalCarrier() {
+        this.postalCarrier.removeActionListener(this.alPostalCarrier);
+        this.postalCarrier.addActionListener(this.forbidden);
+    }
+    
     @Override
     public void removeActionPostmaster() {
         this.postMaster.removeActionListener(this.alPostMaster);
         this.postMaster.addActionListener(this.forbidden);
     }
     
+    // ------------------------------
+    // METHODES SPECIFIQUES : PRIVEES
+    // ------------------------------
+
     private void initialiserLesVariables(final AllItems allItems, final Sounds sounds) {
         this.sounds = sounds;
         this.serviceCards = new ServiceCardsImpl();
-        this.serviceActionJoueur = new ServiceJoueurImpl();
         this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
         this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
         this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
         this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
     }
-    
+
     private void creerLesActionsListener() {
         this.clicForbidden();
         this.creerActionListenerAdministrator();
@@ -116,10 +129,10 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
         this.creerActionListenerCartwright();
         this.creerActionListenerPostalCarrier();
     }
-
+    
     private void creerActionListenerAdministrator() {
         this.alAdministrator = new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionOfficialsImpl.this.listCardsRemaining)
@@ -138,7 +151,7 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
                                     JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-
+            
             private boolean isCardsAlreadyLaid() {
                 for (CityCard card : ServiceActionOfficialsImpl.this.listCardsVisible) {
                     if (StringUtils.isNotBlank(card.getNameCity())) {
@@ -149,19 +162,9 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             }
         };
     }
-    
+
     private void creerActionListenerCartwright() {
         this.alCartwright = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AfficheUtils.aImplementer();
-            }
-        };
-    }
-
-    private void creerActionListenerPostalCarrier() {
-        this.alPostalCarrier = new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,19 +172,29 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             }
         };
     }
-
-    private void creerActionListenerPostMaster() {
-        this.alPostMaster = new ActionListener() {
+    
+    private void creerActionListenerPostalCarrier() {
+        this.alPostalCarrier = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(ServiceActionOfficialsImpl.this.postMaster, "Please, take one card.",
-                                ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
-                ServiceActionOfficialsImpl.this.serviceActionJoueur.getPlayerEnCours().getActions().setUsePostMaster(true);
+                AfficheUtils.aImplementer();
             }
         };
     }
     
+    private void creerActionListenerPostMaster() {
+        this.alPostMaster = new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(ServiceActionOfficialsImpl.this.postMaster, "Please, take one card.",
+                                ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
+                PlayerUtils.getPlayerEnCours().getActions().setUsePostMaster(true);
+            }
+        };
+    }
+
     private void recupererBoutonOfficials(List<JButton> listOfficials) {
         for (JButton btn : listOfficials) {
             if (StringUtils.equals(btn.getToolTipText(), EnumOfficials.ADMINISTRATOR.getName())) {
@@ -198,21 +211,15 @@ public class ServiceActionOfficialsImpl implements ServiceActionOfficials {
             }
         }
     }
-
+    
     private void clicForbidden() {
-
         this.forbidden = new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean endSound = false;
-                while (!endSound) {
-                    ServiceActionOfficialsImpl.this.sounds.getSoundButton().play();
-                    endSound = true;
-                }
-                // button.setBackground(ColorUtils.PERU);
+                ServiceActionOfficialsImpl.this.sounds.getSoundButton().play();
             }
         };
     }
-
+    
 }
