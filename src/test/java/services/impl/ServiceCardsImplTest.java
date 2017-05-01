@@ -19,13 +19,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import services.impl.ServiceCardsImpl;
-
 import com.google.common.collect.Lists;
 
 import com.google.common.collect.Maps;
 
 import data.beans.secondaire.CityCard;
+import services.ServiceCards;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServiceCardsImplTest {
@@ -38,7 +37,7 @@ public class ServiceCardsImplTest {
     // -------------------------------
 
     @InjectMocks
-    private ServiceCardsImpl serviceATester;
+    private ServiceCards serviceATester;
 
     // -------------------------
     // METHODES de test (@Test)

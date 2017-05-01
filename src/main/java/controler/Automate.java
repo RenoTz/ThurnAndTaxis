@@ -6,9 +6,6 @@ import javax.swing.JOptionPane;
 import services.ServiceActionButton;
 import services.ServiceActionOfficials;
 import services.ServiceCards;
-import services.impl.ServiceActionButtonImpl;
-import services.impl.ServiceActionOfficialsImpl;
-import services.impl.ServiceCardsImpl;
 import utils.PlayerUtils;
 import data.beans.principal.AllItems;
 import data.beans.principal.Game;
@@ -27,9 +24,9 @@ public class Automate {
     public Automate(final AllItems allItems, final Sounds sounds) {
         this.allItems = allItems;
         this.lblInfo = allItems.getAllLabels().getLblInfo();
-        this.serviceCards = new ServiceCardsImpl();
-        this.serviceActionButton = new ServiceActionButtonImpl(allItems, sounds);
-        this.serviceActionOfficials = new ServiceActionOfficialsImpl(allItems, sounds);
+        this.serviceCards = new ServiceCards();
+        this.serviceActionButton = new ServiceActionButton(allItems, sounds);
+        this.serviceActionOfficials = new ServiceActionOfficials(allItems, sounds);
     }
 
     public void demarrerUnePartie(final Game game) {

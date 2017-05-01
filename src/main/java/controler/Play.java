@@ -7,8 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ServiceActionButton;
-import services.ServiceLoading;
-import services.impl.ServiceActionButtonImpl;
 import services.parser.ParserJSON;
 import view.InterfaceJeu;
 import data.beans.principal.AllItems;
@@ -25,8 +23,8 @@ public class Play {
         final JSONObject jsonGameElements = parser.recupererGameElementsEnJSON(ConstantesStatics.FILENAME_PARAMS);
 
         // 2.a) on récupère et on construit les éléments du jeu à partir du json
-        final ServiceLoading loading = new ServiceLoading();
-        final Game game = loading.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
+        final Setup setup = new Setup();
+        final Game game = setup.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
 
         // 2.b) on crée les sons du jeu
         final Sounds sounds = new Sounds();
@@ -42,7 +40,7 @@ public class Play {
         final AllItems allItems = ihm.createInterface(game);
         
         // 6. on ajoute les évènements sur les boutons
-        final ServiceActionButton serviceActionButton = new ServiceActionButtonImpl(allItems, sounds);
+        final ServiceActionButton serviceActionButton = new ServiceActionButton(allItems, sounds);
         serviceActionButton.addActionButtonPlayersCards(game.getListAdjacences(), game.getListPlayers());
         serviceActionButton.addActionButtonDiscard();
         
