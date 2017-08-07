@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.omg.CORBA.portable.ApplicationException;
 
 import services.ServiceActionButton;
 import services.parser.ParserJSON;
@@ -13,18 +14,23 @@ import data.beans.principal.AllItems;
 import data.beans.principal.Game;
 import data.beans.secondaire.Player;
 import data.constantes.ConstantesStatics;
+import jdk.nashorn.internal.runtime.ParserException;
 
 public class Play {
 
-    public static void main(String[] args) throws JSONException, IOException {
+    public static void main(String[] args)  {
 
         // 1. on parse le fichier xml avec un convertisseur Json
         final ParserJSON parser = new ParserJSON();
-        final JSONObject jsonGameElements = parser.recupererGameElementsEnJSON(ConstantesStatics.FILENAME_PARAMS);
-
-        // 2.a) on récupère et on construit les éléments du jeu à partir du json
-        final Setup setup = new Setup();
-        final Game game = setup.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
+        Game game = null;
+		try {
+			final JSONObject jsonGameElements = parser.recupererGameElementsEnJSON(ConstantesStatics.FILENAME_PARAMS);
+			// 2.a) on récupère et on construit les éléments du jeu à partir du json
+	        final Setup setup = new Setup();
+			game = setup.chargerTousLesParametresDuJeuDepuisFichier(jsonGameElements);
+		} catch (final IOException | ParserException e) {
+			e.printStackTrace();
+		}
 
         // 2.b) on crée les sons du jeu
         final Sounds sounds = new Sounds();
