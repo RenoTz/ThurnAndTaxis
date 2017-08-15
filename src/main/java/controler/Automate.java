@@ -14,8 +14,10 @@ import data.enumerations.EnumPlayers;
 
 public class Automate {
     
+	private boolean tourFini;
+	
     private AllItems allItems;
-    private JLabel lblInfo;
+    private static JLabel lblInfo;
 
     private ServiceCards serviceCards;
     private ServiceActionButton serviceActionButton;
@@ -23,7 +25,7 @@ public class Automate {
     
     public Automate(final AllItems allItems, final Sounds sounds) {
         this.allItems = allItems;
-        this.lblInfo = allItems.getAllLabels().getLblInfo();
+        lblInfo = allItems.getAllLabels().getLblInfo();
         this.serviceCards = new ServiceCards();
         this.serviceActionButton = new ServiceActionButton(allItems, sounds);
         this.serviceActionOfficials = new ServiceActionOfficials(allItems, sounds);
@@ -44,7 +46,7 @@ public class Automate {
         // --------------------------
         // DEMARRAGE DES TOURS DE JEU
         // --------------------------
-        boolean premierTourfini = false;
+        boolean tourfini = false;
         
         while (PlayerUtils.aucunVainqueur(game.getListPlayers())) {
             
@@ -56,48 +58,62 @@ public class Automate {
             // tous les joueurs doivent utiliser le PostMaster
             this.afficherInfoAvecPause("Début du premier tour");
             
-            while (!premierTourfini) {
-                premierTourfini = this.premierTour(game, time);
+            while (!isTourFini()) {
+            	setTourFini(this.premierTour(game, time));
             }
             this.afficherInfoAvecPause("Fin du premier tour");
+            // reinit indicateur tourFini
+            setTourFini(false);
             // le joueur 1 commence
             PlayerUtils.setPlayerEnCours(game.getListPlayers().get(EnumPlayers.INDICE_PLAYER_1.getIndice()));
             this.afficherInfoAvecPause("C'est à " + PlayerUtils.getPlayerEnCours().getName() + " de jouer.");
+            
+            // -------------
+            // DEUXIEME TOUR
+            // -------------
+            this.afficherInfoAvecPause("Début du deuxieme tour");
+            
+            while (!isTourFini()) {
+            	setTourFini(true);// TODO
+            }
+            this.afficherInfoAvecPause("Fin du premier tour");
+            // reinit indicateur tourFini
+            setTourFini(false);
         }
         final Player winner = PlayerUtils.getWinner(game.getListPlayers());
         JOptionPane.showMessageDialog(null, winner.getName() + " has won !!!");
     }
 
     private void afficherInfoAvecPause(final String info) {
-        this.lblInfo.setText(info);
+        lblInfo.setText(info);
         double timeStopped = System.currentTimeMillis();
         double currentTime = System.currentTimeMillis();
         while (currentTime < (timeStopped + 3000)) {
             currentTime = System.currentTimeMillis();
             if (currentTime > (timeStopped + 300)) {
-                this.lblInfo.setText(this.lblInfo.getText() + ".");
+                lblInfo.setText(lblInfo.getText() + ".");
             }
         }
     }
     
     private boolean premierTour(final Game game, double time) {
         for (Player player : game.getListPlayers()) {
-            this.lblInfo.setText("C'est à " + player.getName() + " de jouer.");
+            lblInfo.setText("C'est à " + player.getName() + " de jouer.");
             // le joueur 1 commence
             PlayerUtils.setPlayerEnCours(player);
-            this.lblInfo.setText("Vous devez prendre une carte.");
+            lblInfo.setText("Prendre une carte.");
 
             this.activerPaquetDeCartesEtCartesVisibles();
             while (!player.getActions().isTakeOneCard()) {
-                time = this.uneSecondeDePause(time);
+                time = uneSecondeDePause(time);
             }
-            this.lblInfo.setText("Vous avez pris une carte.");
+            lblInfo.setText("Vous avez pris une carte.");
             // désactivation du paquet de cartes et des cartes visibles
             this.desactiverPaquetDeCartesEtCartesVisibles();
             
             PlayerUtils.setPlayerEnCours(player);
             player.getActions().setTakeOneCard(false);
-            this.lblInfo.setText("Vous devez utiliser le Postmaster.");
+            lblInfo.setText("Utiliser le Postmaster.");
             this.serviceActionOfficials.addActionPostmaster();
             boolean changementFait = false;
             while (!(player.getActions().isUsePostMaster() && player.getActions().isTakeOneCard())) {
@@ -107,13 +123,13 @@ public class Automate {
                     this.activerPaquetDeCartesEtCartesVisibles();
                     changementFait = true;
                 }
-                time = this.uneSecondeDePause(time);
+                time = uneSecondeDePause(time);
             }
             player.getActions().setUsePostMaster(false);
             player.getActions().setTakeOneCard(false);
             // désactivation du paquet de cartes et des cartes visibles
             this.desactiverPaquetDeCartesEtCartesVisibles();
-            this.lblInfo.setText("Vous avez utilisé le Postmaster.");
+            lblInfo.setText("Vous avez utilisé le Postmaster.");
         }
         return true;
     }
@@ -128,11 +144,19 @@ public class Automate {
         this.serviceActionButton.addActionVisibleCards();
     }
     
-    private double uneSecondeDePause(double time) {
+    private static double uneSecondeDePause(double time) {
         if (System.currentTimeMillis() > (time + 300)) {
             time = System.currentTimeMillis();
-            this.lblInfo.setText(this.lblInfo.getText() + ".");
+            lblInfo.setText(lblInfo.getText() + ".");
         }
         return time;
     }
+
+	public boolean isTourFini() {
+		return tourFini;
+	}
+
+	public void setTourFini(boolean tourFini) {
+		this.tourFini = tourFini;
+	}
 }
