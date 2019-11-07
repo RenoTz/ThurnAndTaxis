@@ -21,7 +21,7 @@ public class Setup {
         this.coordGameParams = new CoordinationGameParams();
     }
     
-    public Game chargerTousLesParametresDuJeuDepuisFichier(final JSONObject jsonGameElements) throws JSONException, IOException {
+    public Game loadParamsFromFile(final JSONObject jsonGameElements) throws JSONException, IOException {
         
         final Game game = new Game();
         game.setGameParams(this.coordGameParams.recupererGameParamsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.GAME)));
