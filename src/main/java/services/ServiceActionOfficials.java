@@ -1,23 +1,21 @@
 package services;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import controler.Sounds;
+import model.beans.principal.AllItems;
+import model.beans.secondaire.CityCard;
+import model.constantes.ConstantesMsgBox;
+import model.enumerations.EnumOfficials;
+import utils.AfficheUtils;
+import utils.PlayerUtils;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import utils.AfficheUtils;
-import utils.PlayerUtils;
-import controler.Sounds;
-import data.beans.principal.AllItems;
-import data.beans.secondaire.CityCard;
-import data.constantes.ConstantesMsgBox;
-import data.enumerations.EnumOfficials;
+import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ServiceActionOfficials{
 
@@ -114,9 +112,9 @@ public class ServiceActionOfficials{
     private void initialiserLesVariables(final AllItems allItems, final Sounds sounds) {
         this.sounds = sounds;
         this.serviceCards = new ServiceCards();
-        this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
-        this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
-        this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
+        this.listCardsVisible = allItems.getAllListsCards().getCardsVisible();
+        this.listCardsDiscarded = allItems.getAllListsCards().getCardsDiscarded();
+        this.listCardsRemaining = allItems.getAllListsCards().getCardsRemaining();
         this.lblCardRemaining = allItems.getAllLabels().getLblNbCardRemaining();
     }
 

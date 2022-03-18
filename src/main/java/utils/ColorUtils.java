@@ -1,8 +1,8 @@
 package utils;
 
-import java.awt.Color;
+import model.enumerations.EnumColor;
 
-import data.enumerations.EnumColor;
+import java.awt.*;
 
 public class ColorUtils {
     

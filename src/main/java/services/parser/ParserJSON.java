@@ -1,13 +1,13 @@
 package services.parser;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class ParserJSON {
     
@@ -15,7 +15,8 @@ public class ParserJSON {
     
     public JSONObject recupererGameElementsEnJSON(final String nomFichier) throws IOException {
         
-        final String xml = FileUtils.readFileToString(new File(nomFichier), StandardCharsets.UTF_8);
+        final String pathFileParams = this.getClass().getClassLoader().getResource(nomFichier).getPath();
+        final String xml = FileUtils.readFileToString(new File(pathFileParams), StandardCharsets.UTF_8);
         final JSONObject xmlToJSON = XML.toJSONObject(xml);
         
         return xmlToJSON.getJSONObject("game_elements");

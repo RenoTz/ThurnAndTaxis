@@ -1,16 +1,16 @@
 package utils;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
+import model.beans.secondaire.Adjacence;
+import model.beans.secondaire.CityCard;
+import model.enumerations.EnumDirection;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-import data.beans.secondaire.Adjacence;
-import data.beans.secondaire.CityCard;
-import data.enumerations.EnumDirection;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Collections;
+import java.util.List;
 
 public class CardsUtils {
     

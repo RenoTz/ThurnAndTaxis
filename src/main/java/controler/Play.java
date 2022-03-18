@@ -1,19 +1,19 @@
 package controler;
 
-import java.awt.Color;
-import java.io.IOException;
+import model.beans.principal.AllItems;
+import model.beans.principal.Game;
+import model.beans.secondaire.Player;
+import model.constantes.ConstantesStatics;
+import services.ServiceActionButton;
+import services.parser.ParserJSON;
+import view.InterfaceJeu;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import data.beans.principal.AllItems;
-import data.beans.principal.Game;
-import data.beans.secondaire.Player;
-import data.constantes.ConstantesStatics;
-import services.ServiceActionButton;
-import services.parser.ParserJSON;
-import view.InterfaceJeu;
+import java.awt.*;
+import java.io.IOException;
 
 public class Play {
 
@@ -35,7 +35,7 @@ public class Play {
 			final Player pDev = new Player();
 			pDev.setColor(Color.BLUE);
 			pDev.setName("Gaston");
-			game.getListPlayers().add(pDev);
+            game.getPlayers().add(pDev);
 
 			// 4.) on construit l'interface de jeu à partir des éléments du jeu
 			final InterfaceJeu ihm = new InterfaceJeu();
@@ -43,7 +43,7 @@ public class Play {
 
 			// 6. on ajoute les évènements sur les boutons
 			final ServiceActionButton serviceActionButton = new ServiceActionButton(allItems, sounds);
-			serviceActionButton.addActionButtonPlayersCards(game.getListAdjacences(), game.getListPlayers());
+            serviceActionButton.addActionButtonPlayersCards(game.getAdjacences(), game.getPlayers());
 			serviceActionButton.addActionButtonDiscard();
 
 			// CYCLE DE JEU

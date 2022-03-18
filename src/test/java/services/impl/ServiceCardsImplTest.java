@@ -1,16 +1,10 @@
 package services.impl;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import model.beans.secondaire.CityCard;
+import services.ServiceCards;
 
-import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Before;
@@ -19,12 +13,15 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.collect.Lists;
+import javax.swing.*;
 
-import com.google.common.collect.Maps;
+import java.awt.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-import data.beans.secondaire.CityCard;
-import services.ServiceCards;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServiceCardsImplTest {

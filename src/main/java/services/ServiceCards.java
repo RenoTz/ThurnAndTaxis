@@ -1,17 +1,16 @@
 package services;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.swing.JLabel;
-
-import org.apache.commons.collections.CollectionUtils;
-
+import model.beans.secondaire.CityCard;
 import utils.UpdateUtils;
 
 import com.google.common.collect.Iterables;
 
-import data.beans.secondaire.CityCard;
+import org.apache.commons.collections.CollectionUtils;
+
+import javax.swing.*;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ServiceCards{
 

@@ -1,30 +1,27 @@
 package services;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-
+import controler.Sounds;
+import model.beans.principal.AllItems;
+import model.beans.secondaire.Adjacence;
+import model.beans.secondaire.CityCard;
+import model.beans.secondaire.Player;
+import model.constantes.ConstantesMsgBox;
+import model.enumerations.EnumDirection;
 import utils.CardsUtils;
 import utils.PlayerUtils;
 import utils.UpdateUtils;
 
 import com.google.common.collect.Iterables;
 
-import controler.Sounds;
-import data.beans.principal.AllItems;
-import data.beans.secondaire.Adjacence;
-import data.beans.secondaire.CityCard;
-import data.beans.secondaire.Player;
-import data.constantes.ConstantesMsgBox;
-import data.enumerations.EnumDirection;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.List;
 
 public class ServiceActionButton  {
     
@@ -83,9 +80,9 @@ public class ServiceActionButton  {
             	@Override
                 public void actionPerformed(ActionEvent e) {
 
-                    if (CardsUtils.isListeCardsHandNotFull(PlayerUtils.getPlayerEnCours().getListHandCityCards())) {
+                    if (CardsUtils.isListeCardsHandNotFull(PlayerUtils.getPlayerEnCours().getHandCityCards())) {
                         ServiceActionButton.this.serviceCards.transferOneCityCard(cardVisible,
-                                        CardsUtils.getFirstCardHandPlayerAvailable(PlayerUtils.getPlayerEnCours().getListHandCityCards()));
+                            CardsUtils.getFirstCardHandPlayerAvailable(PlayerUtils.getPlayerEnCours().getHandCityCards()));
 
                         for (CityCard cardToClear : ServiceActionButton.this.listCardsVisible) {
                             if (cardVisible.equals(cardToClear)) {
@@ -120,7 +117,7 @@ public class ServiceActionButton  {
     public void addActionButtonPlayersCards(final List<Adjacence> listAdjacences, final List<Player> listPlayers) {
 
         for (Player player : listPlayers) {
-            for (final CityCard cardPlayer : player.getListHandCityCards()) {
+            for (final CityCard cardPlayer : player.getHandCityCards()) {
                 cardPlayer.getCityButton().addActionListener(new ActionListener() {
 
                 	@Override
@@ -208,7 +205,7 @@ public class ServiceActionButton  {
                         ServiceActionButton.this.serviceCards.addCardsToDiscard(ServiceActionButton.this.listCardsDiscarded, cardRoad);
                         cardRoad.clear();
                     }
-                    for (CityCard cardPlayer : PlayerUtils.getPlayerEnCours().getListHandCityCards()) {
+                    for (CityCard cardPlayer : PlayerUtils.getPlayerEnCours().getHandCityCards()) {
                         ServiceActionButton.this.serviceCards.addCardsToDiscard(ServiceActionButton.this.listCardsDiscarded, cardPlayer);
                         cardPlayer.clear();
                     }
@@ -251,10 +248,10 @@ public class ServiceActionButton  {
         // services
         this.serviceCards = new ServiceCards();
         // listes
-        this.listCardsRoad = allItems.getAllListsCards().getListCardsRoad();
-        this.listCardsDiscarded = allItems.getAllListsCards().getListCardsDiscarded();
-        this.listCardsVisible = allItems.getAllListsCards().getListCardsVisibles();
-        this.listCardsRemaining = allItems.getAllListsCards().getListeCardsRemaining();
+        this.listCardsRoad = allItems.getAllListsCards().getCardsRoad();
+        this.listCardsDiscarded = allItems.getAllListsCards().getCardsDiscarded();
+        this.listCardsVisible = allItems.getAllListsCards().getCardsVisible();
+        this.listCardsRemaining = allItems.getAllListsCards().getCardsRemaining();
         // boutons / labels
         this.btnDeckCard = allItems.getAllButtons().getBtnDeckCard();
         this.btnRules = allItems.getAllButtons().getBtnRules();
@@ -269,10 +266,10 @@ public class ServiceActionButton  {
         	@Override
             public void actionPerformed(ActionEvent e) {
                 if (CollectionUtils.isNotEmpty(ServiceActionButton.this.listCardsRemaining)) {
-                    if (CardsUtils.isListeCardsHandNotFull(PlayerUtils.getPlayerEnCours().getListHandCityCards())) {
+                    if (CardsUtils.isListeCardsHandNotFull(PlayerUtils.getPlayerEnCours().getHandCityCards())) {
                         ServiceActionButton.this.serviceCards.transferOneCityCard(
                                         Iterables.getLast(ServiceActionButton.this.listCardsRemaining),
-                                        CardsUtils.getFirstCardHandPlayerAvailable(PlayerUtils.getPlayerEnCours().getListHandCityCards()));
+                            CardsUtils.getFirstCardHandPlayerAvailable(PlayerUtils.getPlayerEnCours().getHandCityCards()));
                         ServiceActionButton.this.listCardsRemaining.remove(Iterables
                                         .getLast(ServiceActionButton.this.listCardsRemaining));
                         UpdateUtils.updateLabelCardRemaining(ServiceActionButton.this.lblCardRemaining,

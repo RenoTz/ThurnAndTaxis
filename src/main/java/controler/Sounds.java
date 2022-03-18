@@ -1,11 +1,11 @@
 package controler;
 
+import model.constantes.ConstantesStatics;
+
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import data.constantes.ConstantesStatics;
 
 public class Sounds {
 
@@ -21,12 +21,14 @@ public class Sounds {
 
 	private void creerLesSonsDuJeu() {
 
+        final String pathSounds = this.getClass().getClassLoader().getResource(ConstantesStatics.RACINE_STATICS_SOUND).getPath();
+
 		try {
-			final URL urlTakeCard = new URL("file", ConstantesStatics.RACINE_STATICS_SOUND,  "takeCard.wav");
-			final URL urlShuffleCards = new URL("file", ConstantesStatics.RACINE_STATICS_SOUND,  "shuffleCards.wav");
-			final URL urlLayCards = new URL("file", ConstantesStatics.RACINE_STATICS_SOUND,  "layCards.wav");
-			final URL urlButton = new URL("file", ConstantesStatics.RACINE_STATICS_SOUND, "button.wav");
-			final URL urlToggle = new URL("file", ConstantesStatics.RACINE_STATICS_SOUND,  "toggle.wav");
+            final URL urlTakeCard = new URL("file", null, pathSounds + "takeCard.wav");
+            final URL urlShuffleCards = new URL("file", null, pathSounds + "shuffleCards.wav");
+            final URL urlLayCards = new URL("file", null, pathSounds + "layCards.wav");
+            final URL urlButton = new URL("file", null, pathSounds + "button.wav");
+            final URL urlToggle = new URL("file", null, pathSounds + "toggle.wav");
 			this.setSoundTakeCard(Applet.newAudioClip(urlTakeCard));
 			this.setSoundShuffleCards(Applet.newAudioClip(urlShuffleCards));
 			this.setSoundLayCards(Applet.newAudioClip(urlLayCards));

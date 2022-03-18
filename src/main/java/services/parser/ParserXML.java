@@ -1,21 +1,21 @@
 package services.parser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+import model.beans.secondaire.Official;
 
-import javax.swing.ImageIcon;
+import com.google.common.collect.Lists;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import com.google.common.collect.Lists;
+import javax.swing.*;
 
-import data.beans.secondaire.Official;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 public class ParserXML {
     

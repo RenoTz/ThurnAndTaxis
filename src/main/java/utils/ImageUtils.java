@@ -1,17 +1,17 @@
 package utils;
 
-import javax.swing.ImageIcon;
+import model.constantes.ConstantesGameParams;
+import model.constantes.ConstantesStatics;
+import model.enumerations.EnumColor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
-import data.constantes.ConstantesGameParams;
-import data.constantes.ConstantesStatics;
-import data.enumerations.EnumColor;
+import javax.swing.*;
 
 public class ImageUtils {
     
-    public static ImageIcon selectImageTileCityByName(final JSONObject tileJSON, final String name) {
+    public static ImageIcon selectImageTileCityByName(final JSONObject tileJSON, final String name, final String pathResourcesImg) {
         
         String racineTileCity = StringUtils.EMPTY;
 
@@ -36,10 +36,10 @@ public class ImageUtils {
                 break;
         }
         
-        return new ImageIcon(racineTileCity + tileJSON.getString(ConstantesGameParams.IMAGE));
+        return new ImageIcon(pathResourcesImg + racineTileCity + tileJSON.getString(ConstantesGameParams.IMAGE));
     }
     
-    public static ImageIcon selectImageCityCardByColor(final JSONObject iterCityJSON, final EnumColor enumColor) {
+    public static ImageIcon selectImageCityCardByColor(final JSONObject iterCityJSON, final EnumColor enumColor, final String pathResourcesImg) {
 
         String racineCityCards = StringUtils.EMPTY;
 
@@ -75,10 +75,10 @@ public class ImageUtils {
             default:
                 break;
         }
-        return new ImageIcon(racineCityCards + iterCityJSON.getString(ConstantesGameParams.IMAGE));
+        return new ImageIcon(pathResourcesImg + racineCityCards + iterCityJSON.getString(ConstantesGameParams.IMAGE));
     }
     
-    public static ImageIcon selectImageLongRoadByLength(final JSONObject tileJSON, final Long routeLength) {
+    public static ImageIcon selectImageLongRoadByLength(final JSONObject tileJSON, final Long routeLength, final String pathResourcesImg) {
 
         String racineLongRouteBonus = StringUtils.EMPTY;
 
@@ -95,7 +95,7 @@ public class ImageUtils {
             default:
                 break;
         }
-        return new ImageIcon(racineLongRouteBonus + tileJSON.getString(ConstantesGameParams.IMAGE));
+        return new ImageIcon(pathResourcesImg + racineLongRouteBonus + tileJSON.getString(ConstantesGameParams.IMAGE));
     }
     
 }

@@ -1,8 +1,8 @@
 package utils;
 
-import java.util.List;
+import model.beans.secondaire.Player;
 
-import data.beans.secondaire.Player;
+import java.util.List;
 
 public class PlayerUtils {
 

@@ -1,22 +1,22 @@
 package utils;
 
-import java.util.List;
-
-import javax.swing.JOptionPane;
+import model.beans.bonus.Bonus;
+import model.beans.bonus.ProvinceBonus;
+import model.beans.secondaire.Adjacence;
+import model.beans.secondaire.Carriage;
+import model.beans.secondaire.CityCard;
+import model.beans.secondaire.GameParams;
+import model.beans.secondaire.House;
+import model.beans.secondaire.Official;
+import model.beans.secondaire.Province;
+import model.beans.secondaire.Tile;
+import model.constantes.ConstantesMsgBox;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import data.beans.bonus.Bonus;
-import data.beans.bonus.ProvinceBonus;
-import data.beans.secondaire.Adjacence;
-import data.beans.secondaire.Carriage;
-import data.beans.secondaire.CityCard;
-import data.beans.secondaire.GameParams;
-import data.beans.secondaire.House;
-import data.beans.secondaire.Official;
-import data.beans.secondaire.Province;
-import data.beans.secondaire.Tile;
-import data.constantes.ConstantesMsgBox;
+import javax.swing.*;
+
+import java.util.List;
 
 public class AfficheUtils {
 
@@ -24,7 +24,7 @@ public class AfficheUtils {
         JOptionPane.showMessageDialog(null, ConstantesMsgBox.A_IMPLEMENTER, ConstantesMsgBox.INFORMATION, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void afficherGameParams(final GameParams gameParams) {
+    public static void showGameParams(final GameParams gameParams) {
         System.out.println("-------------- GAME ----------------");
         System.out.println("name : " + gameParams.getName());
         System.out.println("back_card_image : " + gameParams.getBackCardImage().getDescription());
@@ -32,13 +32,13 @@ public class AfficheUtils {
         System.out.println("initial_nb_houses : " + gameParams.getNbInitialHouses());
         System.out.println("nb_city_cards_Cartwright_advantage : " + gameParams.getNbCityCardsCartwrightAdvantage());
         System.out.println("nb_copies_city_cards : " + gameParams.getNbCopiesCityCards());
-        System.out.println("nb_min_city_cards_close_route : " + gameParams.getNbMinCityCardsCloseRoute());
-        System.out.println("nb_max_city_cards_route_closed : " + gameParams.getNbMaxCityCardsRouteClosed());
+        System.out.println("nb_min_city_cards_close_route : " + gameParams.getNbMinCityCardsRoadClosed());
+        System.out.println("nb_max_city_cards_route_closed : " + gameParams.getNbMaxCityCardsRoadClosed());
     }
 
-    public static void afficherCityCards(final List<CityCard> listeCityCards) {
+    public static void printCityCards(final List<CityCard> cityCards) {
         System.out.println("-------------- CITY CARDS ----------------");
-        for (CityCard city : listeCityCards) {
+        for (CityCard city : cityCards) {
             System.out.println(city.getNameCity());
             System.out.println(city.getNameProvince());
             System.out.println(city.getColorProvince().toString());
@@ -46,40 +46,40 @@ public class AfficheUtils {
         }
     }
     
-    public static void afficherOfficials(final List<Official> listeOfficials) {
+    public static void printOfficials(final List<Official> officials) {
         System.out.println("-------------- OFFICIALS ----------------");
-        for (Official official : listeOfficials) {
+        for (Official official : officials) {
             System.out.println(official.getName());
             System.out.println(official.getImage());
         }
     }
 
-    public static void afficherCarriages(final List<Carriage> listeCarriages) {
+    public static void printCarriages(final List<Carriage> carriages) {
         System.out.println("-------------- CARRIAGES ----------------");
-        for (Carriage carriage : listeCarriages) {
+        for (Carriage carriage : carriages) {
             System.out.println("nb_victory_points : " + carriage.getNbVictoryPoints());
             System.out.println("route_length : " + carriage.getRouteLength());
         }
     }
 
-    public static void afficherHouses(final List<House> listehouses) {
+    public static void printHouses(final List<House> houses) {
         System.out.println("-------------- HOUSES ----------------");
-        for (House house : listehouses) {
+        for (House house : houses) {
             System.out.println(house.getName());
             System.out.println(house.getImage().getDescription());
         }
     }
 
-    public static void afficherProvinces(final List<Province> listeProvinces) {
+    public static void printProvinces(final List<Province> provinces) {
         System.out.println("-------------- PROVINCES ----------------");
-        for (Province province : listeProvinces) {
+        for (Province province : provinces) {
             System.out.println("-------------- PROVINCE ----------------");
             System.out.println("name : " + province.getName());
             System.out.println("color : " + province.getColor().toString());
             System.out.println("nbCities : " + province.getNbCities().toString());
-            if (CollectionUtils.isNotEmpty(province.getListeCity())) {
+            if (CollectionUtils.isNotEmpty(province.getCities())) {
                 System.out.println("-------------- CITIES ----------------");
-                for (CityCard city : province.getListeCity()) {
+                for (CityCard city : province.getCities()) {
                     System.out.println("name : " + city.getNameCity());
                     System.out.println("image : " + city.getImage().getDescription());
                 }
@@ -87,34 +87,34 @@ public class AfficheUtils {
         }
     }
 
-    public static void afficherAdjacences(final List<Adjacence> listeAdjacences) {
+    public static void printAdjacences(final List<Adjacence> adjacences) {
         System.out.println("-------------- ADJACENCES ----------------");
-        for (Adjacence adjacence : listeAdjacences) {
+        for (Adjacence adjacence : adjacences) {
             System.out.println("from : " + adjacence.getFromAdjacence());
             System.out.println("to : " + adjacence.getToAdjacence());
             System.out.println("--------------------------------------");
         }
     }
 
-    public static void afficherAllProvincesBonus(ProvinceBonus allProvinceBonus) {
+    public static void printProvinceBonus(ProvinceBonus provinceBonus) {
         System.out.println("-------------- ALL PROVINCES BONUS ----------------");
         System.out.println("-------------------- NAMES -------------------");
-        for (String name : allProvinceBonus.getListNames()) {
+        for (String name : provinceBonus.getNames()) {
             System.out.println("name : " + name);
         }
         System.out.println("-------------------- TILES ------------------------");
-        for (Tile tile : allProvinceBonus.getTiles()) {
+        for (Tile tile : provinceBonus.getTiles()) {
             System.out.println("nb_victory_points : " + tile.getNbVictoryPoints().toString());
             System.out.println("image : " + tile.getImage().getDescription());
             System.out.println("-------------------------------------------------");
         }
     }
     
-    public static void afficherProvincesBonus(List<ProvinceBonus> listeProvincesBonus) {
+    public static void printProvinceBonuses(List<ProvinceBonus> provinceBonuses) {
         System.out.println("-------------- PROVINCES BONUS ----------------");
-        for (ProvinceBonus provinceBonus : listeProvincesBonus) {
+        for (ProvinceBonus provinceBonus : provinceBonuses) {
             System.out.println("------------------ NAMES ---------------------");
-            for (String name : provinceBonus.getListNames()) {
+            for (String name : provinceBonus.getNames()) {
                 System.out.println("name : " + name);
             }
             System.out.println("------------------ TILES ----------------");
@@ -126,20 +126,20 @@ public class AfficheUtils {
         }
     }
     
-    public static void afficherLongRouteBonus(List<Tile> longRouteBonus) {
-        System.out.println("-------------- LONG ROUTE BONUS ----------------");
+    public static void showLongRoadBonuses(List<Tile> longRouteBonus) {
+        System.out.println("-------------- LONG ROAD BONUSES --------------");
         for (Tile tile : longRouteBonus) {
             System.out.println("------------------ TILES ----------------");
-            System.out.println("route_lentgh : " + tile.getRouteLength().toString());
+            System.out.println("route_lentgh : " + tile.getRoadLength().toString());
             System.out.println("nb_victory_points : " + tile.getNbVictoryPoints().toString());
             System.out.println("image : " + tile.getImage().getDescription());
             System.out.println("-------------------------------------------");
         }
     }
     
-    public static void afficherEndGameBonus(List<Tile> endGameBonus) {
-        System.out.println("-------------- END GAME BONUS ----------------");
-        for (Tile tile : endGameBonus) {
+    public static void showEndGameBonuses(List<Tile> endGameBonuses) {
+        System.out.println("-------------- END GAME BONUSES --------------");
+        for (Tile tile : endGameBonuses) {
             System.out.println("------------------ TILES ----------------");
             System.out.println("nb_victory_points : " + tile.getNbVictoryPoints().toString());
             System.out.println("image : " + tile.getImage().getDescription());
@@ -147,14 +147,14 @@ public class AfficheUtils {
         }
     }
 
-    public static void afficherLesBonus(Bonus bonus) {
+    public static void showBonus(Bonus bonus) {
         System.out.println("-------------------------------------");
         System.out.println("-------------- BONUS ----------------");
         System.out.println("-------------------------------------");
-        AfficheUtils.afficherProvincesBonus(bonus.getListProvincesBonus());
-        AfficheUtils.afficherAllProvincesBonus(bonus.getAllProvincesBonus());
+        AfficheUtils.printProvinceBonuses(bonus.getProvinceBonuses());
+        AfficheUtils.printProvinceBonus(bonus.getProvinceBonus());
         // AfficheUtils.afficherLongRouteBonus(bonus.getLongRouteBonus());
-        AfficheUtils.afficherEndGameBonus(bonus.getListEndGameBonus());
+        AfficheUtils.showEndGameBonuses(bonus.getEndGameBonuses());
     }
 
 }

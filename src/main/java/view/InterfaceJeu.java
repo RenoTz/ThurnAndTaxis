@@ -1,39 +1,28 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-
-import org.apache.commons.lang3.StringUtils;
+import model.beans.bonus.LongRoadBonus;
+import model.beans.bonus.ProvinceBonus;
+import model.beans.principal.AllItems;
+import model.beans.principal.Game;
+import model.beans.secondaire.CityCard;
+import model.beans.secondaire.Official;
+import model.beans.secondaire.Player;
+import model.beans.secondaire.Tile;
+import model.constantes.ConstantesStatics;
+import model.enumerations.EnumOfficials;
+import model.enumerations.EnumPlayers;
+import model.enumerations.EnumResolution;
+import utils.ColorUtils;
 
 import com.google.common.collect.Iterables;
 
-import data.beans.bonus.LongRoadBonus;
-import data.beans.bonus.ProvinceBonus;
-import data.beans.principal.AllItems;
-import data.beans.principal.Game;
-import data.beans.secondaire.CityCard;
-import data.beans.secondaire.Official;
-import data.beans.secondaire.Player;
-import data.beans.secondaire.Tile;
-import data.constantes.ConstantesStatics;
-import data.enumerations.EnumOfficials;
-import data.enumerations.EnumPlayers;
-import data.enumerations.EnumResolution;
-import utils.ColorUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+
+import java.awt.*;
+import java.util.List;
 
 public class InterfaceJeu extends JFrame
 {
@@ -63,7 +52,7 @@ public class InterfaceJeu extends JFrame
         // creation du bean qui contiendra tous les items (JButton, JLabel, ...)
         final AllItems allItems = new AllItems();
 
-        this.recupererTousLesJoueurs(game.getListPlayers());
+        this.recupererTousLesJoueurs(game.getPlayers());
         // --------------------------------
         // PANEL / BUTTONS - CARDS VISIBLES
         // --------------------------------
@@ -79,43 +68,43 @@ public class InterfaceJeu extends JFrame
             final JButton cardVisible = new JButton("");
             cardVisible.setBackground(ColorUtils.SANDY_BROWN);
             panelCardVisible.add(cardVisible);
-            allItems.getAllListsCards().getListCardsVisibles().add(new CityCard(cardVisible));
+            allItems.getAllListsCards().getCardsVisible().add(new CityCard(cardVisible));
         }
 
         // ------------------------
         // BUTTONS - PROVINCE BONUS
         // ------------------------
-        for (final ProvinceBonus provinceBonus : game.getBonus().getListProvincesBonus()) {
+        for (final ProvinceBonus provinceBonus : game.getBonus().getProvinceBonuses()) {
             // BADEN BONUS
-            if (StringUtils.equalsIgnoreCase(provinceBonus.getListNames().get(0), "Baden")) {
+            if (StringUtils.equalsIgnoreCase(provinceBonus.getNames().get(0), "Baden")) {
                 final Tile tile = Iterables.getLast(provinceBonus.getTiles());
                 final JButton btnBonusBaden = this.createBonusTileCity(429, 123, tile.getImage());
                 btnBonusBaden.setToolTipText("Bonus Baden");
                 layeredThurnplan.add(btnBonusBaden, Integer.valueOf(1));
             }
             // BOHMEN BONUS
-            if (StringUtils.equalsIgnoreCase(provinceBonus.getListNames().get(0), "Bohmen")) {
+            if (StringUtils.equalsIgnoreCase(provinceBonus.getNames().get(0), "Bohmen")) {
                 final Tile tile = Iterables.getLast(provinceBonus.getTiles());
                 final JButton btnBonusBohmen = this.createBonusTileCity(906, 381, tile.getImage());
                 btnBonusBohmen.setToolTipText("Bonus Bohmen");
                 layeredThurnplan.add(btnBonusBohmen, Integer.valueOf(1));
             }
             // BOHMEN BONUS
-            if (StringUtils.equalsIgnoreCase(provinceBonus.getListNames().get(0), "Baiern")) {
+            if (StringUtils.equalsIgnoreCase(provinceBonus.getNames().get(0), "Baiern")) {
                 final Tile tile = Iterables.getLast(provinceBonus.getTiles());
                 final JButton btnBonusBaiern = this.createBonusTileCity(737, 388, tile.getImage());
                 btnBonusBaiern.setToolTipText("Bonus Baiern");
                 layeredThurnplan.add(btnBonusBaiern, Integer.valueOf(1));
             }
             // SCHWEIZ BONUS
-            if (StringUtils.equalsIgnoreCase(provinceBonus.getListNames().get(0), "Schweiz")) {
+            if (StringUtils.equalsIgnoreCase(provinceBonus.getNames().get(0), "Schweiz")) {
                 final Tile tile = Iterables.getLast(provinceBonus.getTiles());
                 final JButton btnBonusSchweiz = this.createBonusTileCity(394, 659, tile.getImage());
                 btnBonusSchweiz.setToolTipText("Bonus Schweiz");
                 layeredThurnplan.add(btnBonusSchweiz, Integer.valueOf(1));
             }
             // WRUTTEMBERG BONUS
-            if (StringUtils.equalsIgnoreCase(provinceBonus.getListNames().get(0), "Wurttemberg")) {
+            if (StringUtils.equalsIgnoreCase(provinceBonus.getNames().get(0), "Wurttemberg")) {
                 final Tile tile = Iterables.getLast(provinceBonus.getTiles());
                 final JButton btnBonusWruttemberg = this.createBonusTileCity(378, 366, tile.getImage());
                 btnBonusWruttemberg.setToolTipText("Bonus Wurttemberg");
@@ -126,22 +115,22 @@ public class InterfaceJeu extends JFrame
         // -------------------------
         // BUTTONS - LONG ROAD BONUS
         // -------------------------
-        for (final LongRoadBonus longRoadBonus : game.getBonus().getListLongRouteBonus()) {
-            final Tile tile = Iterables.getLast(longRoadBonus.getListLongRoadTile());
+        for (final LongRoadBonus longRoadBonus : game.getBonus().getLongRoadBonuses()) {
+            final Tile tile = Iterables.getLast(longRoadBonus.getLongRoadTiles());
             // ROAD LENGTH 5
-            if (tile.getRouteLength() == 5) {
+            if (tile.getRoadLength() == 5) {
                 final JButton btnBonusLongRoad5 = this.createLongRoadBonus(32, 635, tile.getImage());
                 btnBonusLongRoad5.setToolTipText("Bonus Long Road 5");
                 layeredThurnplan.add(btnBonusLongRoad5, Integer.valueOf(1));
             }
             // ROAD LENGTH 6
-            if (tile.getRouteLength() == 6) {
+            if (tile.getRoadLength() == 6) {
                 final JButton btnBonusLongRoad6 = this.createLongRoadBonus(85, 635, tile.getImage());
                 btnBonusLongRoad6.setToolTipText("Bonus Long Road 6");
                 layeredThurnplan.add(btnBonusLongRoad6, Integer.valueOf(1));
             }
             // ROAD LENGTH 7
-            if (tile.getRouteLength() == 7) {
+            if (tile.getRoadLength() == 7) {
                 final JButton btnBonusLongRoad7 = this.createLongRoadBonus(140, 635, tile.getImage());
                 btnBonusLongRoad7.setToolTipText("Bonus Long Road 7");
                 layeredThurnplan.add(btnBonusLongRoad7, Integer.valueOf(1));
@@ -152,7 +141,7 @@ public class InterfaceJeu extends JFrame
         // BUTTONS - ALL PROVINCES BONUS
         // -----------------------------
         final JButton btnBonusAll = new JButton("");
-        btnBonusAll.setIcon(Iterables.getLast(game.getBonus().getAllProvincesBonus().getTiles()).getImage());
+        btnBonusAll.setIcon(Iterables.getLast(game.getBonus().getProvinceBonus().getTiles()).getImage());
         btnBonusAll.setToolTipText("Bonus all");
         btnBonusAll.setBackground(ColorUtils.SANDY_BROWN);
         btnBonusAll.setBounds(326, 65, 35, 35);
@@ -162,7 +151,7 @@ public class InterfaceJeu extends JFrame
         // BUTTONS - END GAME BONUS
         // ------------------------
         final JButton btnBonusEnd = new JButton("");
-        btnBonusEnd.setIcon(Iterables.getLast(game.getBonus().getListEndGameBonus()).getImage());
+        btnBonusEnd.setIcon(Iterables.getLast(game.getBonus().getEndGameBonuses()).getImage());
         btnBonusEnd.setToolTipText("Bonus end");
         btnBonusEnd.setBackground(ColorUtils.SANDY_BROWN);
         btnBonusEnd.setBounds(326, 25, 35, 35);
@@ -231,7 +220,7 @@ public class InterfaceJeu extends JFrame
             btnRoad.setPreferredSize(dimCard);
             btnRoad.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.GRAY, Color.DARK_GRAY));
             panelCardRoad.add(btnRoad);
-            allItems.getAllListsCards().getListCardsRoad().add(new CityCard(btnRoad));
+            allItems.getAllListsCards().getCardsRoad().add(new CityCard(btnRoad));
         }
 
         final JButton btnRightRoad = new JButton(toVertical("RIGHT"));
@@ -325,7 +314,7 @@ public class InterfaceJeu extends JFrame
         for (int i = 0; i < 6; i++) {
             final JButton label_36 = this.createButtonCardPlayer();
             panelCardsPlayer1.add(label_36);
-            this.p1.getListHandCityCards().add(new CityCard(label_36));
+            this.p1.getHandCityCards().add(new CityCard(label_36));
         }
 
         // ----------------
@@ -442,7 +431,7 @@ public class InterfaceJeu extends JFrame
         btnDiscardRoad.setBorder(new BevelBorder(BevelBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
         allItems.getAllButtons().setBtnDiscardRoad(btnDiscardRoad);
 
-        for (final Official official : game.getListOfficials()) {
+        for (final Official official : game.getOfficials()) {
             final JButton btnAdministrator = this.createButtonOfficial(official);
             panelOfficials.add(btnAdministrator);
             allItems.getAllButtons().getListOfficialsButtons().add(btnAdministrator);
@@ -481,7 +470,7 @@ public class InterfaceJeu extends JFrame
         panelNbCardRemaining.setLayout(gl_panelCardRemaining);
 
         panelNbCardRemaining.add(new JLabel());
-        final JLabel lblNbCardRemaining = new JLabel(String.valueOf(game.getListCityCards().size()));
+        final JLabel lblNbCardRemaining = new JLabel(String.valueOf(game.getCityCards().size()));
         panelNbCardRemaining.add(lblNbCardRemaining);
         lblNbCardRemaining.setFont(new Font(FONT_STYLE, Font.BOLD | Font.ITALIC, 22));
         lblNbCardRemaining.setHorizontalAlignment(SwingConstants.CENTER);

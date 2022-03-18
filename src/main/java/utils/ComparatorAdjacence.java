@@ -1,8 +1,8 @@
 package utils;
 
-import java.util.Comparator;
+import model.beans.secondaire.Adjacence;
 
-import data.beans.secondaire.Adjacence;
+import java.util.Comparator;
 
 public class ComparatorAdjacence implements Comparator<Adjacence> {
 

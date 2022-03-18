@@ -1,35 +1,35 @@
 package controler;
 
-import java.io.IOException;
-import java.util.List;
+import mapper.GameParamsMapper;
+import model.beans.principal.Game;
+import model.beans.secondaire.CityCard;
+import model.constantes.ConstantesGameParams;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import coordinations.CoordinationGameParams;
-import data.beans.principal.Game;
-import data.beans.secondaire.CityCard;
-import data.constantes.ConstantesGameParams;
+import java.io.IOException;
+import java.util.List;
 
 public class Setup {
     
     private static final int NB_OCCURENCES_CITY_CARDS = 3;
-    final CoordinationGameParams coordGameParams;
+    private final GameParamsMapper coordGameParams;
 
     public Setup() {
-        this.coordGameParams = new CoordinationGameParams();
+        this.coordGameParams = new GameParamsMapper();
     }
     
     public Game loadParamsFromFile(final JSONObject jsonGameElements) throws JSONException, IOException {
         
         final Game game = new Game();
         game.setGameParams(this.coordGameParams.recupererGameParamsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.GAME)));
-        game.setListOfficials(this.coordGameParams.recupererListeOfficialsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.OFFICIALS)));
-        game.setListHouses(this.coordGameParams.recupererListeHousesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.HOUSES)));
-        game.setListCarriages(this.coordGameParams.recupererListeCarriagesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.CARRIAGES)));
-        game.setListProvinces(this.coordGameParams.recupererListeProvincesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES)));
-        game.setListAdjacences(this.coordGameParams.recupererListeAdjacencesJSON(jsonGameElements
+        game.setOfficials(this.coordGameParams.getOfficialsJSON(jsonGameElements.getJSONObject(ConstantesGameParams.OFFICIALS)));
+        game.setHouses(this.coordGameParams.recupererListeHousesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.HOUSES)));
+        game.setCarriages(this.coordGameParams.getCarriagesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.CARRIAGES)));
+        game.setProvinces(this.coordGameParams.recupererListeProvincesJSON(jsonGameElements.getJSONObject(ConstantesGameParams.PROVINCES)));
+        game.setAdjacences(this.coordGameParams.recupererListeAdjacencesJSON(jsonGameElements
                         .getJSONObject(ConstantesGameParams.DIRECT_ADJACENCES)));
         game.setBonus(this.coordGameParams.recupererTousLesBonus(jsonGameElements.getJSONObject(ConstantesGameParams.BONUS)));
         
@@ -41,7 +41,7 @@ public class Setup {
 
     private void chargerLesElementsDuJeuSupplementaires(final Game game) {
 
-        final List<CityCard> listeCityCards = this.coordGameParams.recupererListeCityCards(game.getListProvinces());
+        final List<CityCard> listeCityCards = this.coordGameParams.getCityCards(game.getProvinces());
 
         if (CollectionUtils.isNotEmpty(listeCityCards)) {
             for (CityCard card : listeCityCards) {
@@ -51,7 +51,7 @@ public class Setup {
                     cityCard.setImage(card.getImage());
                     cityCard.setNameCity(card.getNameCity());
                     cityCard.setNameProvince(card.getNameProvince());
-                    game.getListCityCards().add(cityCard);
+                    game.getCityCards().add(cityCard);
                 }
             }
         }
